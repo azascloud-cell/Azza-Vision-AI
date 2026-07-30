@@ -1,0 +1,78 @@
+================================================================
+  RENCANA IMPROVE DASHBOARD — AZZAVISION AI
+  ndserverku.lynzzofficial.com:2389
+  Dibuat: 30 Juli 2026
+================================================================
+
+BASIS KERJA
+-----------
+Mulai dari kode LIVE di server (bukan versi dev port 22357).
+Semua fitur yang sudah ada tetap dipertahankan, lalu ditambah
+dan dipercantik di atasnya.
+
+
+FITUR YANG WAJIB DIPERTAHANKAN
+-------------------------------
+[v] Signal Stream + confidence bar
+[v] Server Resources (Pterodactyl live data)
+[v] Signal Checklist (H4 Trend, H1 Trend, TP1, Stop Loss)
+[v] Daily Music Player  <-- wajib diperbaiki tampilannya
+[v] Stat Cards (Total Signals, Win Rate, Total Pips, Last Signal)
+[v] Karakter Azza + Lydia
+
+
+YANG AKAN DILAKUKAN
+-------------------
+
+1. SIDEBAR NAVIGASI PENUH
+   - Ganti top tab bar (3 menu) -> sidebar kiri penuh (8 menu)
+   - Menu: Dashboard, Journal, Studio, Signals, Backtest,
+           Performance, Reports, Settings
+   - Daily Music Player dipindah ke bawah sidebar
+     (tetap visible di semua halaman)
+
+2. HALAMAN BARU (5 halaman, diport dari versi dev)
+   - Signals    : feed sinyal lengkap, filter pair/direction/status
+   - Backtest   : equity curve + tabel hasil backtest
+   - Performance: chart 7d/30d/3m, pair distribution, win/loss
+   - Reports    : daily & weekly report cards
+   - Settings   : profil, notifikasi, pair prefs, cek API status
+
+3. UI VISUAL UPGRADE
+   - Animasi fade-in saat kartu load (bukan muncul seketika)
+   - Hover effects: signal cards glow emas saat di-hover
+   - Sidebar gold gradient: active menu highlight lebih tajam
+   - Topbar: tambah live clock + quote Azza
+   - Progress bar: confidence bar animasi smooth
+   - Layout lebih rapi di layar kecil/medium
+
+4. DAILY MUSIC PLAYER (Improve)
+   - Posisi : pojok kiri bawah sidebar, selalu visible
+   - Tambah : nama lagu + artis, tombol prev/next, progress bar mini
+   - Gaya   : dark card dengan glow ungu/emas
+
+
+URUTAN PENGERJAAN (Sesi Berikutnya)
+------------------------------------
+1. Pull kode live dari server -> buka di Replit
+2. Pasang sidebar + routing baru
+3. Port 5 halaman baru dari versi dev
+4. UI polish + animasi
+5. Improve Daily Music Player
+6. Push ke GitHub -> deploy ke server
+
+
+INFO TEKNIS
+-----------
+GitHub Repo   : azascloud-cell/Azza-Vision-AI (branch: main)
+Pterodactyl   : serverku.lynzzofficial.com
+Server UUID   : 11b9ea11-cc5e-4af6-b901-0086cca1c590
+API Base      : /api (relative, proxied via Vite -> port 8080)
+Poll Interval : 30 detik (server resources: 10 detik)
+
+File Referensi Versi Dev:
+  repo/artifacts/azzavision-promo/src/pages/       <- 8 halaman
+  repo/artifacts/azzavision-promo/src/components/  <- komponen shared
+  repo/artifacts/azzavision-promo/src/hooks/       <- semua hooks
+
+================================================================

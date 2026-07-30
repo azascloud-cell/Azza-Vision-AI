@@ -6,3 +6,9 @@ id = "-i1C3UeK4GALRn1psczJE"
 uri = "file://AZZAVISION_AI_HANDOFF_PROMPT.zip"
 type = "unspecified"
 title = "AZZAVISION AI — Handoff Prompt (ZIP)"
+
+[[outputs]]
+id = "EAee0uySMKEJ8FcYC02gt"
+uri = "file://repo/rencana-improve-dashboard.txt"
+type = "text"
+title = "Rencana Improve Dashboard — AZZAVISION AI"
