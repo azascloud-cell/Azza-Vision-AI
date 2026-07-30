@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "-i1C3UeK4GALRn1psczJE"
+uri = "file://AZZAVISION_AI_HANDOFF_PROMPT.zip"
+type = "unspecified"
+title = "AZZAVISION AI — Handoff Prompt (ZIP)"
