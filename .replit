@@ -9,5 +9,9 @@ SERVER_ID = "11b9ea11-cc5e-4af6-b901-0086cca1c590"
 PANEL_URL = "https://serverku.lynzzofficial.com"
 
 [[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
 localPort = 22357
 externalPort = 80

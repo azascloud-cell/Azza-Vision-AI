@@ -1,0 +1,653 @@
+================================================================
+  AZZAVISION AI — MASTER HANDOFF PROMPT
+  Gunakan dokumen ini sebagai brief lengkap untuk Agent / AI
+  berikutnya. Tidak ada kode yang perlu diubah di sisi backend.
+  Frontend membaca API dari server Pterodactyl yang sudah berjalan.
+================================================================
+
+
+================================================================
+  1. IDENTITAS PROJECT
+================================================================
+
+Nama Produk  : AZZAVISION AI
+Tagline      : Professional Trading Monitor
+Sub-tagline  : Discipline Over Emotion. Consistent Today. Freedom Tomorrow.
+Tipe         : Web Dashboard + Telegram Bot Integration
+Status Backend : Sudah berjalan di server Pterodactyl (self-hosted)
+URL Server   : http://ndserverku.lynzzofficial.com:2389 (contoh)
+
+
+================================================================
+  2. ARSITEKTUR SISTEM
+================================================================
+
++---------------------------------------------------+
+|              SERVER PTERODACTYL                   |
+|                                                   |
+|  +---------------------------------------------+  |
+|  |  AZZAVISION AI Backend (Node.js / Python)   |  |
+|  |  - Telegram Bot Engine                      |  |
+|  |  - Signal Generator (AI / rule-based)       |  |
+|  |  - REST API Server                          |  |
+|  |  - Database (SQLite / MongoDB / JSON)       |  |
+|  +---------------------------------------------+  |
+|                   PORT: 2389                      |
++---------------------------------------------------+
+            |  HTTP REST API (JSON)
+            v
++----------------------------------+
+|    FRONTEND (Web / Flutter)      |
+|  - Web Dashboard (React/Next)    |
+|  - Flutter App (masa depan)      |
+|  - Hanya READ dari API           |
+|  - Tidak ada backend sendiri     |
++----------------------------------+
+
+PRINSIP UTAMA:
+- Backend 100% tetap di Pterodactyl — tidak boleh dipindahkan
+- Frontend adalah pure consumer — hanya GET request ke API Pterodactyl
+- Tidak ada server baru, tidak ada database baru di sisi frontend
+- Semua data (sinyal, statistik, journal, performance) berasal dari Pterodactyl
+
+
+================================================================
+  3. BRANDING & IDENTITAS VISUAL
+================================================================
+
+WARNA:
+  Background utama  : #0B0B0B   → Latar seluruh halaman
+  Card / Panel      : #0D0D0D – #111111 → Background card dan sidebar
+  Primary Gold      : #D4AF37   → Aksen utama, border, ikon aktif
+  Secondary Gold    : #F5C542   → Hover, glow, progress bar end
+  Text Primary      : #FFFFFF   → Judul, nilai data
+  Text Secondary    : #9CA3AF   → Label, sub-teks
+  BUY               : #22c55e   → Sinyal beli (green)
+  SELL              : #ef4444   → Sinyal jual (red)
+  Accent Emerald    : #22c55e   → Status LIVE, RUNNING, success
+
+TYPOGRAPHY:
+  - Font        : Inter (Google Fonts) — weight 300–900
+  - Angka besar : font-black (weight 900), tracking ketat
+  - Label kecil : uppercase, tracking-widest, ukuran 8–10px
+  - Brand title : shimmer gold animation (gradient bergerak kanan-kiri)
+
+ELEMEN VISUAL KHAS:
+  - Border emas tipis   : 1px solid rgba(212,175,55,0.20–0.40)
+  - Gold glow halus     : box-shadow: 0 0 20px rgba(212,175,55,0.05)
+  - Glassmorphism tipis : backdrop-filter: blur(12px) pada overlay
+  - Inset top line      : garis emas 1px di atas card saat hover
+  - Radial glow bg      : gradient emas di pojok hero section
+  - Progress bar        : gradient #D4AF37 → #F5C542 dengan glow
+
+LOGO:
+  Segitiga outline emas dengan lingkaran dan titik emas di tengah
+  (eye-in-triangle / AZZAVISION symbol)
+  SVG: polygon "20,2 38,34 2,34" + circle outline + circle fill gold
+
+
+================================================================
+  4. KARAKTER BRANDING
+================================================================
+
+--- AZZA (Karakter Utama) ---
+Peran   : Founder & Trader, karakter utama brand
+Visual  : Anime cowok remaja, rambut hitam spiky dengan ujung emas,
+          mata amber/gold, hoodie hitam dengan logo ▲ AZZA di dada,
+          duduk di gaming chair dengan laptop menampilkan chart trading gold
+Placement:
+  - Hero section utama (float animation, berdampingan Lydia)
+  - Footer bar (signature tangan)
+  - Panel "Welcome Back Azza 👑"
+Signature : Tulisan tangan "Azza" (font serif/cursive, warna gold)
+Aura     : Gold glow di sekitar karakter, sparkle ✦
+Asset    : azza-char.png (transparent PNG, full body)
+
+--- LYDIA (Mascot AI Assistant) ---
+Peran   : AI Assistant, selalu hadir, karakter pendamping
+Visual  : Chibi perempuan berhijab hitam dengan trim emas,
+          baju AZZAVISION hitam-gold dengan logo ▲ di dada,
+          mata coklat besar kawaii, ekspresi ramah/tersenyum,
+          sering melambaikan tangan, sparkle emas di sekitarnya
+Placement:
+  - Sidebar : avatar lingkaran kecil + dot hijau "Always here!"
+  - Hero    : berdampingan dengan Azza (float animation)
+  - Signal Checklist panel : avatar di header
+  - Lydia assistant panel  : pose kecil + teks analisis market
+  - Best Performing panel  : dekorasi kecil "Analysed by Lydia AI"
+  - Footer  : pose kecil di sebelah signature Azza
+Label   : LYDIA ✦ | AI Assistant | ● Always here!
+Asset   : lydia-char.png (transparent PNG, full body chibi)
+
+
+================================================================
+  5. LAYOUT DASHBOARD
+================================================================
+
+STRUKTUR UTAMA:
++------------------+--------------------------------------------+
+|    SIDEBAR       |              TOP BAR (sticky)              |
+|    (215px)       +--------------------------------------------+
+|                  |                                            |
+|  Logo            |           CONTENT AREA (scrollable)        |
+|  Lydia chip      |                                            |
+|  Nav items (8)   |                                            |
+|                  |                                            |
+|  Market Time     |                                            |
+|  Community       |                                            |
+|  Copyright       |                                            |
++------------------+--------------------------------------------+
+
+SIDEBAR (kiri, 215px, fixed height):
+  - Logo AZZAVISION AI (segitiga gold + teks)
+  - Chip Lydia: avatar bulat + "Lydia ✦" + "AI Assistant" + dot hijau
+  - Navigasi 8 item (icon + label):
+      Dashboard, Journal, Studio, Signals,
+      Backtest, Performance, Reports, Settings
+  - Item aktif: background gradient gold, border gold tipis, teks gold
+  - Item hover: teks lebih terang, background putih 4% opacity
+  - Market Time: jam lokal WIB real-time (update tiap detik) + tanggal
+  - Join Community: tombol TG (biru), YT (merah), IG (pink), TK (cyan)
+                    + URL t.me/azzavisionai
+  - Copyright: © 2026 AZZAVISION AI | All Rights Reserved.
+
+TOP BAR (sticky, border-bottom gold tipis):
+  - Kiri    : AZZAVISION AI (shimmer gold animation) +
+              "PROFESSIONAL TRADING MONITOR"
+  - Tengah  : Quote box — "Trade with Discipline, Not Emotion." — Azza
+  - Kanan   : Welcome Back Azza 👑 (Focus · Plan · Execute) +
+              tombol [● LIVE] (pulse hijau) + [↺ REFRESH]
+
+
+================================================================
+  6. HALAMAN-HALAMAN DASHBOARD
+================================================================
+
+------------------------------------------------------------
+  6.1 DASHBOARD (Home — halaman default)
+------------------------------------------------------------
+Hero Section:
+  - Background  : candle chart dekoratif (opacity rendah) + radial gold glow
+  - Karakter    : Azza kiri (float animation delay berbeda) +
+                  Lydia kanan (float animation)
+  - Quote box   : "Trade with Discipline, Not Emotion." — Azza
+  - Status line : ● System running · All signals live
+  - Welcome card: Welcome Back, Azza 👑 | Focus · Plan · Execute
+
+Stat Cards (4 kartu sejajar):
+  +----------------+----------+----------------------------+
+  | TOTAL SIGNALS  |  192     | white    | "1 open"        |
+  | WIN RATE       |  42.4%   | red      | "81W / 81L"     |
+  | TOTAL PIPS     |  +4,380  | green    | "avg +23/trade" |
+  | LAST SIGNAL    |  01.10   | white    | "31 Jul 2026"   |
+  +----------------+----------+----------------------------+
+  Style: rounded-2xl, border gold tipis, hover gold glow, gold inset top line
+
+Signal Stream (kiri ~70%):
+  - Header: ⚡ SIGNAL STREAM + dropdown pair filter + filter icon
+  - Pair filter: All Pairs / XAUUSD / EURUSD / GBPUSD / dll
+  - List signal card (lihat Section 7 untuk format detail)
+
+Panel Kanan (~30%):
+  - SERVER RESOURCES:
+      CPU: % + progress bar
+      MEMORY: MB + progress bar
+      DISK: status
+      UPTIME: durasi
+      Status badge: ● RUNNING (hijau)
+  - SIGNAL CHECKLIST:
+      H4 Trend [✓] STRONG_BUY
+      H1 Trend [✓] STRONG_BUY
+      Confidence [✕] 76%
+      Header: avatar Lydia kecil bulat
+  - LYDIA ASSISTANT PANEL:
+      Avatar Lydia kecil + teks analisis singkat
+      Contoh: "Market dalam mode STRONG_BUY. Level 4100 jadi support kunci hari ini."
+
+Performance Section (3 kolom):
+  - PERFORMANCE CHART: Area chart emas 7 hari, responsive, tooltip gold
+  - TRADE DISTRIBUTION: Pie chart Win/Loss/Breakeven + legenda + total center
+  - BEST PERFORMING: Ranking 3 pair terbaik (medal emas/perak/perunggu) + pips
+
+Footer Bar (full width):
+  - Logo + "AZZAVISION AI" + "PROFESSIONAL TRADING MONITOR"
+  - Slogan: "Discipline Over Emotion. Consistent Today. Freedom Tomorrow."
+  - Signature Azza (font cursive gold) + Lydia kecil float animation
+
+------------------------------------------------------------
+  6.2 SIGNALS
+------------------------------------------------------------
+Halaman feed sinyal lengkap.
+- Filter: Pair, Direction (BUY/SELL), Status (OPEN/CLOSED/SL/TP), Date range
+- Setiap sinyal tampil sebagai card (format sama Signal Stream)
+- Fitur expand/detail: analisis lebih lengkap per sinyal
+- Pagination atau infinite scroll
+- Indikator bintang ★ untuk sinyal premium/starred
+- Sort: terbaru / confidence tertinggi / pair
+
+------------------------------------------------------------
+  6.3 JOURNAL
+------------------------------------------------------------
+Catatan trading personal / rekap harian.
+- Tabel: Date | Pair | Direction | Entry | Exit | Pips | Result | Status
+- Filter per bulan/minggu/pair
+- Summary box atas: Win Rate periode, Total Pips, Best Trade
+- Row highlight: merah (loss) / hijau (win) / abu (breakeven)
+- Export button: CSV / PDF (opsional)
+- Lydia kecil sebagai dekorasi di header
+
+------------------------------------------------------------
+  6.4 STUDIO — Quote Generator
+------------------------------------------------------------
+Fitur generate konten sosial media dari data AZZAVISION.
+
+Sub-fitur A — Quote Card Generator:
+  - Input teks quote (atau pilih dari database quote Azza)
+  - Template visual premium (hitam-emas, rounded, gold border)
+  - Karakter Lydia atau Azza sebagai dekorasi di kartu
+  - Output: gambar siap share (format Instagram/Telegram)
+  - Tombol Download PNG
+
+Sub-fitur B — Signal Summary Card:
+  - Generate kartu ringkasan sinyal harian otomatis
+  - Format: Pair + BUY/SELL + total pips hari ini + win rate
+  - Branding AZZAVISION di footer kartu
+  - Tombol Download PNG
+
+Sub-fitur C — Performance Report Card:
+  - Weekly/monthly summary dalam format visual
+  - Chart mini + angka kunci
+  - Branding AZZAVISION
+
+UI Studio:
+  - Layout 2 panel: Editor (kiri) + Live Preview (kanan)
+  - Template selector dengan thumbnail
+  - Color scheme: selalu hitam-emas (tidak perlu customizable)
+  - Real-time preview update saat teks berubah
+
+------------------------------------------------------------
+  6.5 BACKTEST
+------------------------------------------------------------
+Hasil backtest strategi AI.
+- Filter: Date range, Pair, Strategy version
+- Tabel: Setup | Entry | SL | TP | Result | Pips | Date
+- Summary stats: Win Rate, Total trades, Max drawdown, Profit factor
+- Equity curve chart (area chart emas)
+- Perbandingan antar strategy version (jika ada)
+
+------------------------------------------------------------
+  6.6 PERFORMANCE
+------------------------------------------------------------
+Analisis performa mendalam.
+- Toggle chart: Daily / Weekly / Monthly
+- Area chart pips dengan gradient emas
+- Breakdown per pair (bar chart atau tabel)
+- Stats grid: Best day, Worst day, Avg pips/day, Max drawdown
+- Pie chart distribusi Win/Loss/Breakeven
+- Tabel "Best Performing Pairs" (rank + pips + win rate)
+- Comparison card: bulan ini vs bulan lalu
+
+------------------------------------------------------------
+  6.7 REPORTS
+------------------------------------------------------------
+Laporan ringkasan otomatis.
+- Pilih periode: Daily / Weekly / Monthly
+- Report card: tanggal, total sinyal, win rate, total pips, best pair
+- Tabel detail per hari/minggu
+- Tombol share (copy link atau download PDF)
+- Lydia kecil dekorasi di setiap report card
+
+------------------------------------------------------------
+  6.8 SETTINGS
+------------------------------------------------------------
+Pengaturan dashboard.
+- Profil     : Nama, timezone
+- Notifikasi : toggle alert sinyal baru / SL hit / TP hit
+- Pair pref  : centang pair yang ingin ditampilkan
+- Theme      : dark mode only (tidak ada light mode)
+- API Status : tampilkan status koneksi ke backend Pterodactyl
+              (green ● Connected / red ● Disconnected)
+
+
+================================================================
+  7. SIGNAL CARD — FORMAT STANDAR
+================================================================
+
++----------------------------------------------------------+
+| ★  XAUUSD   [BUY]  [STOP LOSS]     31 Jul 2026, 01.10 › |
+|                                                          |
+| ENTRY      SL          TP1         TP2                   |
+| 4104.74    4100.74     4110.74     4125.74               |
+|                                                          |
+| H4 TREND              CONFIDENCE                         |
+| STRONG_BUY            76%                                |
+|                                                          |
+| ████████████████████████░░░░░░░░  76%                    |
++----------------------------------------------------------+
+
+FIELD WAJIB PER SINYAL:
+  pair        : simbol (XAUUSD, EURUSD, dll)
+  direction   : BUY (green bg) / SELL (red bg)
+  status      : OPEN (emerald) / STOP LOSS (red) / TP1 (gold) / TP2 (gold)
+  entry       : harga masuk — warna biru
+  sl          : stop loss   — warna merah
+  tp1         : take profit 1 — warna hijau
+  tp2         : take profit 2 — warna hijau muda
+  h4trend     : STRONG_BUY / BUY / NEUTRAL / SELL / STRONG_SELL — warna gold
+  confidence  : 0–100 (white) + progress bar gradient gold dengan glow
+  time        : timestamp sinyal
+  starred     : boolean, sinyal bintang/premium (★ icon)
+
+STYLE CARD:
+  - bg          : #0F0F0F
+  - border      : 1px solid rgba(212,175,55,0.12) default
+                  → rgba(212,175,55,0.40) on hover
+  - hover effect: radial glow di pojok kiri atas + inset top gold line
+  - progress bar: height 5px, #D4AF37 → #F5C542, box-shadow gold glow
+
+
+================================================================
+  8. ENDPOINT API (dari Backend Pterodactyl)
+================================================================
+
+BASE URL: http://<SERVER_HOST>:<PORT>/api
+
+ENDPOINT WAJIB:
+  GET /api/healthz
+    Response: { status: "ok", uptime: "6m" }
+
+  GET /api/signals
+    Response: Array<Signal>
+    Query params: ?pair=XAUUSD &status=OPEN &limit=20
+
+  GET /api/signals/latest
+    Response: Signal (sinyal paling baru)
+
+  GET /api/stats
+    Response: {
+      totalSignals: number,
+      winRate: number,
+      wins: number,
+      losses: number,
+      totalPips: number,
+      avgPips: number,
+      lastSignal: string,
+      closed: number,
+      open: number
+    }
+
+  GET /api/performance
+    Response: Array<{ date: string, pips: number }>  // 7–30 hari
+    Query params: ?range=7d &range=30d &range=3m
+
+  GET /api/performance/best
+    Response: Array<{ pair: string, pips: number }>
+
+  GET /api/server/resources
+    Response: { cpu: string, memory: string, disk: string, uptime: string, status: "running"|"stopped" }
+
+  GET /api/journal
+    Response: Array<JournalEntry>
+
+ENDPOINT OPSIONAL (halaman lanjutan):
+  GET /api/backtest              → Array<BacktestResult>
+  GET /api/checklist/latest      → { h4trend, h1trend, confidence, status }
+  GET /api/reports/daily         → DailyReport
+  GET /api/reports/weekly        → WeeklyReport
+
+RESPONSE SHAPE — Signal (JSON):
+  {
+    "id": 1,
+    "pair": "XAUUSD",
+    "direction": "BUY",
+    "status": "OPEN",
+    "entry": 4104.74,
+    "sl": 4100.74,
+    "tp1": 4110.74,
+    "tp2": 4125.74,
+    "h4trend": "STRONG_BUY",
+    "confidence": 76,
+    "time": "31 Jul 2026, 01.10",
+    "starred": true
+  }
+
+
+================================================================
+  9. STRUKTUR FOLDER FRONTEND (Rekomendasi)
+================================================================
+
+azzavision-dashboard/
+├── public/
+│   ├── azza-char.png        ← karakter Azza (transparent PNG)
+│   ├── lydia-char.png       ← karakter Lydia (transparent PNG)
+│   └── favicon.svg          ← logo segitiga gold
+│
+├── src/
+│   ├── config/
+│   │   └── api.ts           ← BASE_URL server Pterodactyl
+│   │
+│   ├── hooks/
+│   │   ├── useSignals.ts    ← fetch sinyal (polling 30s)
+│   │   ├── useStats.ts      ← fetch statistik
+│   │   ├── useServer.ts     ← fetch server resources
+│   │   └── usePerformance.ts
+│   │
+│   ├── pages/
+│   │   ├── Dashboard.tsx
+│   │   ├── Signals.tsx
+│   │   ├── Journal.tsx
+│   │   ├── Studio.tsx
+│   │   ├── Backtest.tsx
+│   │   ├── Performance.tsx
+│   │   ├── Reports.tsx
+│   │   └── Settings.tsx
+│   │
+│   ├── components/
+│   │   ├── layout/
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── TopBar.tsx
+│   │   ├── cards/
+│   │   │   ├── SignalCard.tsx
+│   │   │   ├── StatCard.tsx
+│   │   │   └── ServerPanel.tsx
+│   │   ├── charts/
+│   │   │   ├── PerfAreaChart.tsx
+│   │   │   └── DistPieChart.tsx
+│   │   ├── branding/
+│   │   │   ├── AzzaChar.tsx
+│   │   │   ├── LydiaChar.tsx
+│   │   │   └── Logo.tsx
+│   │   └── studio/
+│   │       ├── QuoteCardMaker.tsx
+│   │       └── SignalSummaryCard.tsx
+│   │
+│   ├── types/
+│   │   └── index.ts         ← Signal, Stats, Journal, dll
+│   │
+│   └── styles/
+│       └── theme.ts         ← konstanta warna gold, animasi
+│
+└── package.json
+
+
+================================================================
+  10. STACK TEKNOLOGI FRONTEND
+================================================================
+
+PILIHAN UTAMA (Web):
+  - React 18+ / Next.js 14   ← framework utama
+  - TypeScript                ← wajib untuk type safety
+  - Tailwind CSS v3/v4        ← styling utility-first
+  - Recharts                  ← chart (area, pie)
+  - TanStack Query v5         ← data fetching + caching + polling 30s
+  - Framer Motion             ← animasi karakter (float, fade)
+  - Lucide React              ← ikon premium
+
+KONFIGURASI PENTING:
+  // src/config/api.ts
+  export const API_BASE = process.env.NEXT_PUBLIC_API_URL
+    || 'http://ndserverku.lynzzofficial.com:2389';
+
+  export const POLL_INTERVAL = 30_000; // 30 detik auto-refresh
+
+CORS:
+  Backend Pterodactyl harus mengizinkan request dari domain frontend.
+  Tambahkan header: Access-Control-Allow-Origin: *
+  (atau domain spesifik frontend jika sudah deploy)
+
+
+================================================================
+  11. FLUTTER CLIENT (Masa Depan)
+================================================================
+
+Rencana pengembangan mobile app menggunakan Flutter.
+
+PRINSIP SAMA BERLAKU:
+  - Flutter hanya consume API dari Pterodactyl
+  - Tidak ada backend Flutter
+  - HTTP calls pakai package: http atau dio
+
+SETUP:
+  - State management : Riverpod atau BLoC
+  - Theme            : ThemeData dengan scaffoldBackgroundColor: Color(0xFF0B0B0B)
+                       primaryColor: Color(0xFFD4AF37)
+  - Font             : Inter (via google_fonts package)
+
+HALAMAN (sama dengan web):
+  Dashboard, Signals, Journal, Studio, Performance, Reports, Settings
+
+ASET:
+  - azza-char.png dan lydia-char.png di folder assets/images/
+  - Deklarasikan di pubspec.yaml:
+      assets:
+        - assets/images/azza-char.png
+        - assets/images/lydia-char.png
+
+PUSH NOTIFICATION (opsional masa depan):
+  - Backend Pterodactyl kirim FCM saat sinyal baru masuk
+  - Flutter terima via firebase_messaging package
+
+
+================================================================
+  12. ATURAN WAJIB UNTUK AGENT BERIKUTNYA
+================================================================
+
+1. JANGAN membuat backend baru — backend sudah ada di Pterodactyl
+2. JANGAN memindahkan logika bisnis ke frontend — frontend hanya display
+3. JANGAN mengubah endpoint API yang sudah ada — tambah saja jika kurang
+4. SELALU gunakan polling (bukan WebSocket kecuali backend sudah support)
+   → refetchInterval: 30000 (TanStack Query)
+5. SELALU dark mode — tidak ada light mode, background #0B0B0B
+6. SELALU gold accent — #D4AF37 / #F5C542, tidak boleh diganti warna lain
+7. Karakter Azza dan Lydia WAJIB ada di hero section — ini identitas brand
+8. Error state: tampilkan elegan "Reconnecting to server..." dengan animasi,
+   bukan native browser error
+9. Loading state: skeleton card shimmer gold — bukan spinner biasa
+10. Semua angka data penting: font-black (900), ukuran besar, langsung terbaca
+
+
+================================================================
+  13. ASET YANG TERSEDIA
+================================================================
+
+azza-char.png
+  Karakter Azza — anime trader, transparent PNG
+  Display: object-fit contain, object-position bottom
+  Ukuran rekomendasi hero: 120px–160px lebar
+
+lydia-char.png
+  Karakter Lydia — chibi hijab waving, transparent PNG
+  Display: object-fit contain, object-position bottom
+  Ukuran rekomendasi hero: 148px–180px lebar
+  Ukuran sidebar avatar: 38px x 38px (circle crop, object-position top)
+  Ukuran panel kecil: 28px–50px
+
+favicon.svg
+  Logo segitiga gold AZZAVISION
+  SVG polygon + circle outline + circle fill gold
+
+
+================================================================
+  14. CONTOH SNIPPET KONFIGURASI API (TypeScript)
+================================================================
+
+// src/config/api.ts
+export const API_BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  'http://ndserverku.lynzzofficial.com:2389';
+
+// src/hooks/useSignals.ts
+import { useQuery } from '@tanstack/react-query';
+import { API_BASE } from '../config/api';
+
+export function useSignals(pair?: string) {
+  return useQuery({
+    queryKey: ['signals', pair],
+    queryFn: async () => {
+      const url = pair
+        ? `${API_BASE}/api/signals?pair=${pair}`
+        : `${API_BASE}/api/signals`;
+      const res = await fetch(url);
+      if (!res.ok) throw new Error('Failed to fetch signals');
+      return res.json();
+    },
+    refetchInterval: 30_000,
+    staleTime: 10_000,
+  });
+}
+
+// src/hooks/useStats.ts
+export function useStats() {
+  return useQuery({
+    queryKey: ['stats'],
+    queryFn: async () => {
+      const res = await fetch(`${API_BASE}/api/stats`);
+      if (!res.ok) throw new Error('Failed to fetch stats');
+      return res.json();
+    },
+    refetchInterval: 30_000,
+  });
+}
+
+
+================================================================
+  15. THEME CONSTANTS (TypeScript)
+================================================================
+
+// src/styles/theme.ts
+export const COLORS = {
+  bg: '#0B0B0B',
+  card: '#0D0D0D',
+  cardAlt: '#111111',
+  goldPrimary: '#D4AF37',
+  goldSecondary: '#F5C542',
+  textPrimary: '#FFFFFF',
+  textSecondary: '#9CA3AF',
+  buy: '#22c55e',
+  sell: '#ef4444',
+  breakeven: '#eab308',
+} as const;
+
+export const BORDER_GOLD = 'rgba(212,175,55,0.22)';
+export const GLOW_GOLD   = '0 0 20px rgba(212,175,55,0.05)';
+export const GLOW_STRONG = '0 0 30px rgba(212,175,55,0.20)';
+
+export const ANIMATION = {
+  floatY: 'floatY 4s ease-in-out infinite',
+  floatY2: 'floatY2 5s 0.8s ease-in-out infinite',
+  shimmerGold: 'goldShimmer 3s linear infinite',
+  livePulse: 'livePulse 2.2s infinite',
+} as const;
+
+
+================================================================
+
+Dokumen ini dibuat berdasarkan:
+- Referensi screenshot dashboard aktual AZZAVISION AI
+- Spesifikasi branding yang diberikan oleh Founder (Azza)
+- Referensi UI gambar yang dilampirkan
+
+Versi   : 31 Jul 2026
+Project : AZZAVISION AI — Professional Trading Monitor
+
+================================================================
