@@ -1,0 +1,309 @@
+/**
+ * db_extended.js — Extended DB statistics v1.1
+ *
+ * Menyediakan statistik lanjutan untuk report_scheduler:
+ * - getExtendedDailyStats(date)   → stats harian lengkap
+ * - getExtendedWeeklyStats(days)  → stats mingguan lengkap
+ *
+ * Perbaikan v1.1 (Bug fix):
+ * - Gunakan toWIBDate() untuk filter tanggal (bukan created_at.slice(0,10) UTC)
+ *   → Sinyal setelah jam 17:00 UTC (00:00 WIB) tidak lagi masuk ke hari yang salah.
+ */
+
+'use strict';
+
+const fs   = require('fs').promises;
+const path = require('path');
+
+const dbPath = path.resolve(process.env.DB_PATH || './data/signals.json');
+
+// ─── WIB DATE HELPER ─────────────────────────────────────────────────────────
+// Konversi UTC ISO → tanggal WIB (YYYY-MM-DD). WIB = UTC+7.
+// PENTING: Jangan gunakan .slice(0,10) langsung dari ISO string — itu UTC date,
+// bukan WIB date. Sinyal setelah 17:00 UTC (= 00:00 WIB) akan masuk ke hari UTC
+// berikutnya padahal secara WIB masih hari yang sama.
+function toWIBDate(utcIso) {
+  try {
+    return new Date(new Date(utcIso).getTime() + 7 * 60 * 60 * 1000)
+      .toISOString().slice(0, 10);
+  } catch {
+    return utcIso ? String(utcIso).slice(0, 10) : '';
+  }
+}
+
+// ─── SAFE READ ────────────────────────────────────────────────────────────────
+async function readData() {
+  try {
+    const content = await fs.readFile(dbPath, 'utf8');
+    const parsed  = JSON.parse(content);
+    if (!parsed || typeof parsed !== 'object') return { signals: [] };
+    if (!Array.isArray(parsed.signals)) parsed.signals = [];
+    return parsed;
+  } catch {
+    return { signals: [] };
+  }
+}
+
+// ─── STREAK HELPER ───────────────────────────────────────────────────────────
+function calcStreaks(signals) {
+  let longestWin = 0, longestLoss = 0;
+  let curWin = 0, curLoss = 0;
+
+  for (const s of signals) {
+    if (s.status === 'WIN') {
+      curWin++;
+      curLoss = 0;
+      if (curWin > longestWin) longestWin = curWin;
+    } else if (s.status === 'LOSS') {
+      curLoss++;
+      curWin = 0;
+      if (curLoss > longestLoss) longestLoss = curLoss;
+    } else {
+      curWin = 0;
+      curLoss = 0;
+    }
+  }
+
+  return { longestWinStreak: longestWin, longestLossStreak: longestLoss };
+}
+
+// ─── STRATEGY BREAKDOWN ───────────────────────────────────────────────────────
+function calcStrategies(signals) {
+  const map = {};
+  for (const s of signals) {
+    const name = s.strategy || 'Unknown';
+    if (!map[name]) map[name] = { name, wins: 0, losses: 0, pips: 0 };
+    if (s.status === 'WIN')  { map[name].wins++;   map[name].pips += s.pips || 0; }
+    if (s.status === 'LOSS') { map[name].losses++;  map[name].pips += s.pips || 0; }
+  }
+  return Object.values(map);
+}
+
+// ─── GET EXTENDED DAILY STATS ─────────────────────────────────────────────────
+async function getExtendedDailyStats(date) {
+  const empty = {
+    date, total: 0, wins: 0, losses: 0, breakevens: 0,
+    winRate: '0.0', netPips: '0.0', profitFactor: '0.00',
+    buyCount: 0, sellCount: 0, avgConf: '0.0',
+    avgDurationMin: null,
+    longestWinStreak: 0, longestLossStreak: 0,
+    bestStrategy: null, bestTrade: null, worstTrade: null,
+    highestConf: null, lowestConf: null,
+  };
+
+  try {
+    const data    = await readData();
+
+    // ← Fix v1.1: filter berdasarkan WIB date, bukan UTC date
+    const signals = data.signals.filter(
+      (s) => toWIBDate(s.created_at) === date && s.status !== 'OPEN'
+    );
+
+    if (signals.length === 0) return empty;
+
+    const wins       = signals.filter((s) => s.status === 'WIN');
+    const losses     = signals.filter((s) => s.status === 'LOSS');
+    const breakevens = signals.filter((s) => s.status === 'BREAKEVEN' || s.status === 'TP1_BREAKEVEN');
+
+    const netPips    = signals.reduce((acc, s) => acc + (s.pips || 0), 0);
+    const winPips    = wins.reduce((acc, s) => acc + (s.pips || 0), 0);
+    const lossPips   = Math.abs(losses.reduce((acc, s) => acc + (s.pips || 0), 0));
+
+    const decided    = wins.length + losses.length;
+    const winRate    = decided > 0 ? ((wins.length / decided) * 100).toFixed(1) : '0.0';
+    const profitFactor = lossPips > 0 ? (winPips / lossPips).toFixed(2) : wins.length > 0 ? '∞' : '0.00';
+
+    const buyCount  = signals.filter((s) => s.direction === 'BUY').length;
+    const sellCount = signals.filter((s) => s.direction === 'SELL').length;
+    const avgConf   = signals.length > 0
+      ? (signals.reduce((acc, s) => acc + (s.confidence || 0), 0) / signals.length).toFixed(1)
+      : '0.0';
+
+    // Average duration (minutes) — hanya sinyal yang sudah closed
+    const withDuration = signals.filter((s) => s.closed_at && s.created_at);
+    const avgDurationMin = withDuration.length > 0
+      ? Math.round(
+          withDuration.reduce((acc, s) =>
+            acc + (new Date(s.closed_at) - new Date(s.created_at)) / 60000, 0
+          ) / withDuration.length
+        )
+      : null;
+
+    // Streaks
+    const { longestWinStreak, longestLossStreak } = calcStreaks(signals);
+
+    // Strategy breakdown
+    const strategies = calcStrategies(signals);
+    const sortedByPips = [...strategies].sort((a, b) => b.pips - a.pips);
+    const bestStrategy  = sortedByPips[0] || null;
+
+    // Best / worst trade
+    const closedWithPips = signals.filter((s) => typeof s.pips === 'number');
+    const bestTrade  = closedWithPips.length > 0
+      ? closedWithPips.reduce((a, b) => b.pips > a.pips ? b : a)
+      : null;
+    const worstTrade = closedWithPips.length > 0
+      ? closedWithPips.reduce((a, b) => b.pips < a.pips ? b : a)
+      : null;
+
+    // Highest / lowest confidence
+    const withConf    = signals.filter((s) => typeof s.confidence === 'number');
+    const highestConf = withConf.length > 0
+      ? withConf.reduce((a, b) => b.confidence > a.confidence ? b : a)
+      : null;
+    const lowestConf  = withConf.length > 0
+      ? withConf.reduce((a, b) => b.confidence < a.confidence ? b : a)
+      : null;
+
+    return {
+      date,
+      total: signals.length,
+      wins: wins.length,
+      losses: losses.length,
+      breakevens: breakevens.length,
+      winRate,
+      netPips: Number(netPips).toFixed(1),
+      profitFactor,
+      buyCount,
+      sellCount,
+      avgConf,
+      avgDurationMin,
+      longestWinStreak,
+      longestLossStreak,
+      bestStrategy,
+      bestTrade,
+      worstTrade,
+      highestConf,
+      lowestConf,
+    };
+  } catch (err) {
+    console.error('[DB_EXT] getExtendedDailyStats error:', err.message);
+    return empty;
+  }
+}
+
+// ─── GET EXTENDED WEEKLY STATS ────────────────────────────────────────────────
+async function getExtendedWeeklyStats(days = 7) {
+  const empty = {
+    total: 0, wins: 0, losses: 0, breakevens: 0,
+    winRate: '0.0', netPips: '0.0', profitFactor: '0.00',
+    buyCount: 0, sellCount: 0, avgConf: '0.0',
+    avgDurationMin: null,
+    longestWinStreak: 0, longestLossStreak: 0,
+    strategies: [], bestStrategy: null, worstStrategy: null,
+    bestTrade: null, highestConf: null, fastestTp2: null,
+    dayRows: [],
+  };
+
+  try {
+    const data         = await readData();
+    const cutoffMs     = Date.now() - days * 24 * 60 * 60 * 1000;
+
+    // ← Fix v1.1: WIB date dipakai untuk grouping per-hari (filter tetap pakai timestamp untuk range)
+    const signals = data.signals.filter(
+      (s) => s.status !== 'OPEN' && new Date(s.created_at).getTime() >= cutoffMs
+    );
+
+    if (signals.length === 0) return empty;
+
+    const wins       = signals.filter((s) => s.status === 'WIN');
+    const losses     = signals.filter((s) => s.status === 'LOSS');
+    const breakevens = signals.filter((s) => s.status === 'BREAKEVEN' || s.status === 'TP1_BREAKEVEN');
+
+    const netPips    = signals.reduce((acc, s) => acc + (s.pips || 0), 0);
+    const winPips    = wins.reduce((acc, s) => acc + (s.pips || 0), 0);
+    const lossPips   = Math.abs(losses.reduce((acc, s) => acc + (s.pips || 0), 0));
+
+    const decided    = wins.length + losses.length;
+    const winRate    = decided > 0 ? ((wins.length / decided) * 100).toFixed(1) : '0.0';
+    const profitFactor = lossPips > 0 ? (winPips / lossPips).toFixed(2) : wins.length > 0 ? '∞' : '0.00';
+
+    const buyCount  = signals.filter((s) => s.direction === 'BUY').length;
+    const sellCount = signals.filter((s) => s.direction === 'SELL').length;
+    const avgConf   = signals.length > 0
+      ? (signals.reduce((acc, s) => acc + (s.confidence || 0), 0) / signals.length).toFixed(1)
+      : '0.0';
+
+    const withDuration = signals.filter((s) => s.closed_at && s.created_at);
+    const avgDurationMin = withDuration.length > 0
+      ? Math.round(
+          withDuration.reduce((acc, s) =>
+            acc + (new Date(s.closed_at) - new Date(s.created_at)) / 60000, 0
+          ) / withDuration.length
+        )
+      : null;
+
+    const { longestWinStreak, longestLossStreak } = calcStreaks(signals);
+
+    // Strategy breakdown
+    const strategies = calcStrategies(signals).sort((a, b) => b.pips - a.pips);
+    const bestStrategy  = strategies[0] || null;
+    const worstStrategy = strategies[strategies.length - 1] || null;
+
+    // Best trade & highest conf
+    const closedWithPips = signals.filter((s) => typeof s.pips === 'number');
+    const bestTrade = closedWithPips.length > 0
+      ? closedWithPips.reduce((a, b) => b.pips > a.pips ? b : a)
+      : null;
+    const withConf = signals.filter((s) => typeof s.confidence === 'number');
+    const highestConf = withConf.length > 0
+      ? withConf.reduce((a, b) => b.confidence > a.confidence ? b : a)
+      : null;
+
+    // Fastest TP2
+    const tp2s = signals.filter(
+      (s) => (s.status === 'WIN' || s.status === 'TP2_HIT') && s.closed_at && s.created_at
+    );
+    const fastestTp2 = tp2s.length > 0
+      ? tp2s.reduce((a, b) =>
+          (new Date(b.closed_at) - new Date(b.created_at)) <
+          (new Date(a.closed_at) - new Date(a.created_at)) ? b : a
+        )
+      : null;
+
+    // Per-day rows — gunakan WIB date untuk grouping
+    const daysMap = {};
+    signals.forEach((s) => {
+      const day = toWIBDate(s.created_at); // ← Fix v1.1
+      if (!daysMap[day]) {
+        daysMap[day] = { day, wins: 0, losses: 0, breakevens: 0, net_pips: 0 };
+      }
+      if (s.status === 'WIN')                                         daysMap[day].wins++;
+      if (s.status === 'LOSS')                                        daysMap[day].losses++;
+      if (s.status === 'BREAKEVEN' || s.status === 'TP1_BREAKEVEN')   daysMap[day].breakevens++;
+      daysMap[day].net_pips += s.pips || 0;
+    });
+    const dayRows = Object.values(daysMap).sort((a, b) => b.day.localeCompare(a.day));
+
+    return {
+      total: signals.length,
+      wins: wins.length,
+      losses: losses.length,
+      breakevens: breakevens.length,
+      winRate,
+      netPips: Number(netPips).toFixed(1),
+      profitFactor,
+      buyCount,
+      sellCount,
+      avgConf,
+      avgDurationMin,
+      longestWinStreak,
+      longestLossStreak,
+      strategies,
+      bestStrategy,
+      worstStrategy,
+      bestTrade,
+      highestConf,
+      fastestTp2,
+      dayRows,
+    };
+  } catch (err) {
+    console.error('[DB_EXT] getExtendedWeeklyStats error:', err.message);
+    return empty;
+  }
+}
+
+module.exports = {
+  getExtendedDailyStats,
+  getExtendedWeeklyStats,
+};

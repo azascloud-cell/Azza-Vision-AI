@@ -1,6 +1,6 @@
 # AZZAVISION AI — Trading Signal Bot
 
-**Versi aktif: v5.1**  
+**Versi aktif: v5.5**  
 **Platform:** Telegram Bot + Web Dashboard  
 **Runtime:** Node.js 22 (Docker: `ghcr.io/parkervcp/yolks:nodejs_22`)  
 **Hosted:** Pterodactyl Panel — `serverku.lynzzofficial.com`  
@@ -188,10 +188,28 @@ File-file di bawah adalah backup aktif yang sudah di-patch. Ini yang dipakai seb
 | `_src_bot_commands_doctor.js.active` | `/src/bot/commands/doctor.js` |
 | `_src_bot_commands_news.js.active` | `/src/bot/commands/news.js` |
 | `_src_database_db.js.active` | `/src/database/db.js` |
+| `_src_database_db_extended.js.active` | `/src/database/db_extended.js` |
+| `_src_scheduler_report_scheduler.js.active` | `/src/scheduler/report_scheduler.js` |
 
 ---
 
 ## Changelog
+
+### v5.5 — 2026-07-30
+
+**Daily Report Bug Fix — WIB Date + AI Insight Message**
+
+**`src/database/db_extended.js`** *(file baru — sebelumnya tidak ada backup lokal)*
+- **Bug**: `created_at.slice(0,10)` membaca UTC date, bukan WIB date → sinyal yang dibuat setelah jam 17:00 UTC (= 00:00 WIB) dihitung masuk ke hari UTC berikutnya, padahal secara WIB masih hari yang sama
+- **Fix**: Ganti semua filter & grouping tanggal menjadi `toWIBDate(created_at)` (UTC+7 offset) untuk `getExtendedDailyStats` dan per-day rows di `getExtendedWeeklyStats`
+- File ini juga dibuat ulang sepenuhnya sebagai backup lokal di `remote_work/`
+
+**`src/scheduler/report_scheduler.js`**
+- **Bug**: `formatDailyReportV4` menampilkan `<i>AI Insight unavailable.</i>` bahkan ketika tidak ada data sama sekali (bukan error AI) — pesan menyesatkan
+- **Fix**: Cek `s.total === 0` sebelum menampilkan pesan AI → jika tidak ada sinyal CLOSED, tampilkan `<i>Tidak ada sinyal CLOSED hari ini.</i>`; jika ada trade tapi AI gagal, tampilkan `<i>AI Insight tidak tersedia.</i>`
+- Hal sama diterapkan pada `formatWeeklyReportV4` untuk Weekly Review
+
+---
 
 ### v5.4 — 2026-07-30
 

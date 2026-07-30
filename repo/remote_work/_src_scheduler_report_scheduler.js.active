@@ -105,10 +105,12 @@ function formatDailyReportV4(s, date, aiInsight) {
   lines.push(`🤖 <b>AI DAILY INSIGHT</b>`);
   lines.push(``);
 
-  if (aiInsight) {
+  if (s.total === 0) {
+    lines.push(`<i>Tidak ada sinyal CLOSED hari ini.</i>`);
+  } else if (aiInsight) {
     lines.push(aiInsight);
   } else {
-    lines.push(`<i>AI Insight unavailable.</i>`);
+    lines.push(`<i>AI Insight tidak tersedia.</i>`);
   }
 
   lines.push(``);
@@ -257,10 +259,12 @@ function formatWeeklyReportV4(s, aiReview) {
   lines.push(`🤖 <b>AI WEEKLY REVIEW</b>`);
   lines.push(``);
 
-  if (aiReview) {
+  if (s.total === 0) {
+    lines.push(`<i>Tidak ada trade minggu ini.</i>`);
+  } else if (aiReview) {
     lines.push(aiReview);
   } else {
-    lines.push(`<i>AI Weekly Review unavailable.</i>`);
+    lines.push(`<i>AI Weekly Review tidak tersedia.</i>`);
   }
 
   lines.push(``);
