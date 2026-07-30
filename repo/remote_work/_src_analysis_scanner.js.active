@@ -2,7 +2,7 @@ const { getAllTimeframes, fetchSpotPrice } = require('../market/data');
 const { isMarketOpen, getMarketStatus, getSessionLabel } = require('../utils/market_hours');
 const { validateSignal, validatePrice, isSignalMonitorable } = require('../utils/signal_validator');
 const { updatePriceCache, updateTrendCache, updateActiveSignals, getCachedPrice } = require('../market/cache');
-const { runStrategy } = require('./strategy');
+const { runStrategy, calculateSignal } = require('./strategy');
 const {
   insertSignal, closeSignal, markBreakevenTriggered, markTp1Hit,
   getOpenSignals, saveMarketSnapshot,
@@ -989,7 +989,22 @@ async function doScan(silent = false) {
         return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
       }
 
-      const { levels, direction } = result;
+      const { direction } = result;
+
+      // Recalculate levels jika m5Relaxed / ensemble override menyebabkan canEnterFinal = true
+      // tapi runStrategy mengembalikan levels = null (karena m5Entry.valid = false di conservative mode)
+      let levels = result.levels;
+      if (!levels && canEnterFinal) {
+        try {
+          const cp = tfData.m5?.[tfData.m5.length - 1]?.close || 0;
+          if (cp > 0 && isFinite(cp)) {
+            levels = calculateSignal(cp, direction);
+            if (!silent) console.log(`[SCANNER] Levels recalculated (m5Relaxed) @ ${cp}`);
+          }
+        } catch (lvlErr) {
+          console.warn('[SCANNER] Gagal recalculate levels:', lvlErr.message);
+        }
+      }
 
       if (!levels) {
         console.warn('[SCANNER] levels null — skip signal');
