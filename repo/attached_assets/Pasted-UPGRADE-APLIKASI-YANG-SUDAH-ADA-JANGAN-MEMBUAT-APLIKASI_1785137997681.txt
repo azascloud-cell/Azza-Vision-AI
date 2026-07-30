@@ -1,0 +1,222 @@
+UPGRADE APLIKASI YANG SUDAH ADA — JANGAN MEMBUAT APLIKASI BARU
+
+Saya sudah memiliki aplikasi AZZAVISION AI yang berjalan di Pterodactyl Panel.
+
+Tugas Anda adalah melakukan UPGRADE pada source code frontend yang sudah ada di Pterodactyl.
+
+ATURAN PALING PENTING:
+1. Jangan membuat project/artifact/aplikasi baru.
+2. Jangan membuat dashboard baru dari nol.
+3. Jangan mengganti atau memindahkan backend.
+4. Jangan memindahkan Telegram Bot, signal engine, scanner, parser, database, atau file JSON dari Pterodactyl.
+5. Jangan menggunakan mock data jika data asli tersedia.
+6. Sebelum mengubah apa pun, wajib cek isi file dan struktur project yang sudah ada di Pterodactyl melalui Pterodactyl Files API / Container File API.
+7. Cari source frontend yang sedang dipakai, file routing, state management, API service, serta asset maskot yang sudah ada.
+8. Gunakan asset yang sudah ada di Panel. Jangan generate ulang maskot Azza Chibi.
+9. Jika source frontend yang sudah ada tidak dapat diakses, jangan scaffold aplikasi baru. Berhenti dan laporkan file/path yang tidak bisa dibaca.
+
+KONEKSI:
+- Backend tetap 100% berjalan di Pterodactyl.
+- Frontend tetap membaca dan menulis data ke Pterodactyl.
+- Gunakan Pterodactyl Files API dan Container/File API.
+- Jangan mengekspos API token ke browser.
+- Jangan menampilkan token atau credential di output.
+- File data yang digunakan:
+  - signals.json
+  - journal.json
+  - performance.json
+  - report.json
+  - config.json
+- Semua perubahan journal harus disimpan kembali ke journal.json di Pterodactyl.
+
+KONDISI UI SAAT INI:
+UI saat ini sudah memiliki:
+- Total Signals
+- Win Rate
+- Total Pips
+- Last Signal
+- Signal Stream
+- Recent parsed signals
+- Pair, direction, entry, pips, confidence, time, TP1, TP2, SL
+- Tema dark black/gold
+- Card signal dengan status seperti BREAKEVEN
+
+Pertahankan fungsi dan tampilan yang sudah ada, lalu upgrade secara modular. Jangan menghilangkan fitur yang sudah bekerja.
+
+FITUR UPGRADE:
+
+A. SIGNAL CARD
+- Setiap signal card harus bisa ditekan.
+- Saat ditekan, buka halaman detail penuh seperti aplikasi trading profesional.
+- Jangan gunakan popup sederhana.
+- Pertahankan data asli dari signals.json.
+- Tampilkan:
+  - Pair
+  - BUY / SELL
+  - Entry
+  - SL
+  - TP1
+  - TP2
+  - Confidence
+  - Time
+  - H4 Trend
+  - M15 Trend
+  - M5 Confirmation
+  - News Filter
+  - Risk Reward
+  - Status
+
+Status yang harus didukung:
+- Open
+- TP1
+- Breakeven
+- TP2
+- Stop Loss
+- Closed
+
+B. HALAMAN DETAIL SIGNAL
+Buat atau upgrade halaman detail pada source frontend yang sudah ada.
+
+Halaman harus berisi:
+1. Ringkasan signal
+2. Entry, stop loss, target, confidence, risk reward
+3. Kondisi market:
+   - H4 Trend
+   - M15 Trend
+   - M5 Confirmation
+   - News Filter
+4. Status trade saat ini
+5. Timeline vertikal dengan icon emas:
+   - Signal dibuat
+   - Market Scan
+   - Entry
+   - TP1
+   - Breakeven
+   - TP2
+   - Closed
+   - atau Stop Loss
+6. AI Assistant di kanan bawah menggunakan maskot Azza Chibi yang SUDAH ADA di folder project Panel.
+7. Expression maskot mengikuti kondisi:
+   - Scanning
+   - Thinking
+   - BUY
+   - SELL
+   - Happy
+   - TP Hit
+   - Almost TP
+   - Stop Loss
+   - Reading
+   - Writing Journal
+   - Sleeping
+   - Celebration
+
+C. TRADING JOURNAL
+Di bawah detail signal tampilkan journal yang dibaca dari journal.json.
+
+Field journal:
+- Tanggal
+- Jam Entry
+- Jam Exit
+- Durasi Trade
+- Reason Entry
+- Liquidity Sweep
+- Order Block
+- BOS
+- CHOCH
+- FVG
+- Support Resistance
+- News Filter
+- Risk Reward
+- AI Confidence
+- Kesimpulan AI
+- Catatan Trader
+- Screenshot Chart jika tersedia
+
+Perilaku:
+- Saat membuka detail signal, cari journal berdasarkan signal ID.
+- Jika journal untuk signal belum ada, buat entry journal baru dengan struktur yang sesuai.
+- Simpan journal baru ke journal.json di Pterodactyl.
+- Saat user mengubah catatan atau field journal, langsung simpan kembali ke Panel.
+- Jangan menimpa journal trade lain saat menyimpan satu entry.
+- Setelah menyimpan, tampilkan indikator berhasil/gagal.
+
+D. HALAMAN KHUSUS JOURNAL
+Tambahkan atau upgrade halaman Journal pada routing frontend yang sudah ada.
+
+Isi:
+- Riwayat semua trade
+- Filter:
+  - Hari
+  - Minggu
+  - Bulan
+  - Win
+  - Loss
+  - Breakeven
+- Cari Pair
+- Cari tanggal
+- Detail trade bisa dibuka kembali
+- Export PDF
+- Export Excel
+
+E. TEMA VISUAL
+Pertahankan dan tingkatkan identitas yang sudah ada:
+- AZZAVISION AI
+- Black
+- Gold
+- Dark premium
+- Glassmorphism
+- Neumorphism tipis
+- Font Poppins atau font yang sudah dipakai project
+- Animasi halus
+- Responsive untuk mobile karena aplikasi saat ini digunakan dari browser mobile
+- Jangan membuat layout generik putih/abu-abu
+- Jangan menggunakan emoji
+- Jangan menghilangkan branding AZZAVISION AI
+
+F. ARSITEKTUR KODE
+- Gunakan struktur source yang sudah ada.
+- Jangan rewrite seluruh project jika tidak diperlukan.
+- Gunakan Provider atau Riverpod sesuai state management yang sudah dipakai project.
+- Jika project sudah menggunakan Provider, lanjutkan Provider.
+- Jika project sudah menggunakan Riverpod, lanjutkan Riverpod.
+- Pisahkan:
+  - Models
+  - API/Pterodactyl service
+  - State/provider
+  - Screens
+  - Reusable widgets
+  - Theme
+  - Asset references
+- Jangan mengubah kontrak backend bot.
+- Jangan mengganti format JSON tanpa alasan.
+- Jika format JSON existing berbeda, buat adapter/normalizer di frontend atau service layer.
+
+URUTAN KERJA WAJIB:
+1. Baca screenshot referensi.
+2. Hubungkan ke Pterodactyl menggunakan konfigurasi yang sudah tersedia.
+3. Inspect root directory dan source frontend yang sudah ada di Panel.
+4. Temukan file frontend utama, routing, provider/riverpod, API service, JSON parser, dan asset Azza Chibi.
+5. Baca format asli signals.json, journal.json, performance.json, report.json, dan config.json.
+6. Pahami struktur existing sebelum menulis kode.
+7. Upgrade source existing secara incremental.
+8. Jalankan typecheck/build sesuai toolchain project.
+9. Pastikan halaman dashboard lama tetap bekerja.
+10. Pastikan signal card lama bisa membuka detail.
+11. Pastikan journal benar-benar read/write ke Pterodactyl.
+12. Jangan berhenti pada UI statis atau mockup.
+
+HASIL YANG SAYA INGINKAN:
+Aplikasi lama AZZAVISION AI tetap berjalan seperti sebelumnya, tetapi sekarang terasa seperti gabungan:
+- TradingView
+- MetaTrader
+- Notion Journal
+- AI Assistant
+
+Backend bot tetap di Pterodactyl. Yang diubah hanya frontend dan integrasi frontend ke API/file yang sudah ada.
+
+Jika ada file atau endpoint yang belum diketahui:
+- Cari dan baca source existing terlebih dahulu.
+- Jangan menebak.
+- Jangan membuat project baru.
+- Jangan mengganti backend.
+- Jangan menggunakan data palsu.

@@ -1,0 +1,255 @@
+// AZZAVISION AI — Bot Doctor v1.0
+// AI-powered auto-audit, auto-fix, dan auto-improve bot via Telegram
+// Commands: /audit [area], /fix <desc>, /improve <desc>, /botinfo
+// Powered by Omniroute (auto/best-coding & auto/best-reasoning)
+
+'use strict';
+
+const fs   = require('fs');
+const path = require('path');
+
+const ROOT         = path.join(__dirname, '../../..');
+const OMNI_BASE    = (process.env.OMNIROUTE_BASE_URL || 'http://38.49.212.104:2053');
+const OMNI_URL     = OMNI_BASE + '/v1';
+const OMNI_KEY     = process.env.OMNIROUTE_API_KEY;
+const MODEL_CODE   = 'auto/best-coding';
+const MODEL_REASON = 'auto/best-reasoning';
+
+function isOwner(ctx) {
+  return String(ctx.from?.id) === String(process.env.OWNER_ID);
+}
+
+function safeRead(relPath, maxChars) {
+  maxChars = maxChars || 7000;
+  try {
+    const content = fs.readFileSync(path.join(ROOT, relPath), 'utf8');
+    if (content.length > maxChars)
+      return content.slice(0, maxChars) + '\n...[+' + (content.length - maxChars) + ' chars truncated]';
+    return content;
+  } catch (e) { return '[Tidak bisa baca ' + relPath + ': ' + e.message + ']'; }
+}
+
+function listFiles(dir, depth) {
+  dir = dir || ROOT; depth = depth || 0;
+  if (depth > 2) return [];
+  try {
+    return fs.readdirSync(dir).flatMap(function(name) {
+      if (['node_modules', '.npm', '.git'].includes(name) || name.startsWith('.')) return [];
+      var full = path.join(dir, name);
+      try {
+        var stat = fs.statSync(full);
+        if (stat.isDirectory()) return listFiles(full, depth + 1);
+        if (/\.(js|ts|json)$/.test(name)) return [path.relative(ROOT, full)];
+      } catch(e2) {}
+      return [];
+    });
+  } catch(e) { return []; }
+}
+
+function readLogs(maxChars) {
+  maxChars = maxChars || 3000;
+  try {
+    var logDir = path.join(ROOT, 'logs');
+    var files  = fs.readdirSync(logDir).filter(function(f){ return /\.(log|txt)$/.test(f); }).sort().slice(-2);
+    var out = '';
+    files.forEach(function(f) {
+      out += '\n=== ' + f + ' ===\n' + fs.readFileSync(path.join(logDir, f), 'utf8').slice(-1500);
+    });
+    if (out) return out.slice(-maxChars);
+  } catch(e) {}
+  try { return fs.readFileSync(path.join(ROOT, 'diag.log'), 'utf8').slice(-maxChars); } catch(e) {}
+  return 'Tidak ada log tersedia.';
+}
+
+function buildCtx(extras) {
+  extras = extras || [];
+  var core = ['pterodactyl-dashboard-server.js','src/bot/index.js','src/index.js','src/bot/callbacks.js'];
+  return core.concat(extras).map(function(f){ return '\n\n=== FILE: ' + f + ' ===\n' + safeRead(f); }).join('');
+}
+
+async function callOmni(model, messages, maxTokens) {
+  maxTokens = maxTokens || 8192;
+  if (!OMNI_KEY) throw new Error('OMNIROUTE_API_KEY tidak diset di .env');
+  var res = await fetch(OMNI_URL + '/chat/completions', {
+    method : 'POST',
+    headers: { 'Authorization': 'Bearer ' + OMNI_KEY, 'Content-Type': 'application/json' },
+    body   : JSON.stringify({ model: model, messages: messages, max_tokens: maxTokens, stream: false }),
+  });
+  if (!res.ok) throw new Error('Omniroute ' + res.status + ': ' + (await res.text()).slice(0, 200));
+  var j = await res.json();
+  return (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) || '';
+}
+
+function parsePatches(text) {
+  var m = text.match(/```json\s*([\s\S]*?)\s*```/);
+  if (!m) return null;
+  try { return JSON.parse(m[1]); } catch(e) { return null; }
+}
+
+function applyPatches(patches) {
+  var applied = [];
+  if (!patches || !patches.files || !patches.files.length) return applied;
+  patches.files.forEach(function(item) {
+    if (!item.path || typeof item.content !== 'string') return;
+    var safe = path.normalize(item.path).replace(/^(\.\.[/\\])+/, '');
+    var full = path.join(ROOT, safe);
+    if (full.indexOf(ROOT) !== 0) { console.warn('[DOCTOR] Blocked unsafe path:', item.path); return; }
+    fs.mkdirSync(path.dirname(full), { recursive: true });
+    fs.writeFileSync(full, item.content, 'utf8');
+    applied.push(safe);
+  });
+  return applied;
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function sendLong(ctx, text) {
+  var MAX = 3900;
+  if (text.length <= MAX) { await ctx.replyWithHTML(text); return; }
+  for (var i = 0; i < text.length; i += MAX) await ctx.replyWithHTML(text.slice(i, i + MAX));
+}
+
+function registerDoctorCommands(bot) {
+
+  bot.command('audit', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Hanya owner.');
+    var area = ctx.message.text.split(' ').slice(1).join(' ').trim() || 'semua area';
+    await ctx.replyWithHTML('🔍 <b>Bot Doctor sedang mengaudit...</b>\n\nArea: <i>' + esc(area) + '</i>\n⏳ Harap tunggu ~30-60 detik...');
+    try {
+      var codeCtx  = buildCtx(['src/bot/commands/ai.js','src/analysis/ai_provider.js','src/bot/commands/apikey.js']);
+      var logs     = readLogs();
+      var fileList = listFiles().slice(0, 80).join('\n');
+      var prompt =
+        'Kamu adalah Bot Doctor AI untuk AZZAVISION AI Trading Bot (Node.js v5.1/Telegraf).\n\n' +
+        'Lakukan audit mendalam dan berikan laporan detail. Area: ' + area + '\n\n' +
+        'Audit mencakup:\n' +
+        '1. 🐛 BUG & ERROR POTENSIAL — null checks, race conditions, unhandled promise rejections\n' +
+        '2. 🔒 KEAMANAN — API key exposure, OWNER_ID bypass, input injection\n' +
+        '3. ⚡ PERFORMANCE — memory leaks, blocking I/O, inefficient loops\n' +
+        '4. ✨ SARAN FITUR — fitur yang bisa ditambahkan berdasarkan konteks bot trading ini\n' +
+        '5. 📋 ANALISA LOG — error yang sudah terjadi dan pola masalah\n\n' +
+        'Format output: HTML Telegram (<b>, <i>, <code>). Tiap temuan: 🔴Kritis/🟡Sedang/🟢Info, nama file, penjelasan, saran fix.\n\n' +
+        '=== FILE LIST ===\n' + fileList +
+        '\n\n=== CODEBASE ===' + codeCtx +
+        '\n\n=== RECENT LOGS ===\n' + logs;
+      var result = await callOmni(MODEL_REASON, [
+        { role: 'system', content: 'Kamu adalah expert bot auditor, security analyst, dan Node.js developer. Analisis mendalam dan berikan laporan actionable dalam Bahasa Indonesia.' },
+        { role: 'user',   content: prompt },
+      ], 8192);
+      await sendLong(ctx, '🏥 <b>AUDIT REPORT — AZZAVISION AI</b>\n━━━━━━━━━━━━━━━━━━━━\n\n' + result);
+    } catch(e) {
+      await ctx.replyWithHTML('❌ <b>Audit gagal:</b> <code>' + esc(e.message) + '</code>');
+    }
+  });
+
+  bot.command('fix', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Hanya owner.');
+    var desc = ctx.message.text.split(' ').slice(1).join(' ').trim();
+    if (!desc) return ctx.replyWithHTML('❓ <b>Deskripsi masalah diperlukan.</b>\n\nContoh:\n<code>/fix Bot crash saat tidak ada quote ditemukan</code>');
+    await ctx.replyWithHTML('🔧 <b>Bot Doctor sedang menganalisis dan memperbaiki...</b>\n\n<i>' + esc(desc) + '</i>\n\n⏳ Harap tunggu ~45-90 detik...');
+    try {
+      var codeCtx = buildCtx(['src/bot/commands/ai.js','src/analysis/ai_provider.js','src/utils/format.js','src/bot/commands/channel.js']);
+      var logs    = readLogs(2000);
+      var prompt =
+        'Kamu adalah Bot Doctor AI. Bug/masalah yang dilaporkan owner:\n\n"' + desc + '"\n\n' +
+        'Analisa codebase dan buat perbaikan yang tepat dan minimal.\n\n' +
+        'INSTRUKSI OUTPUT:\n' +
+        'Bagian 1: Penjelasan singkat apa yang salah dan diperbaiki (format HTML Telegram)\n' +
+        'Bagian 2: JSON block berisi file yang perlu diubah/dibuat:\n\n' +
+        '```json\n{\n  "files": [\n    { "path": "relative/path/file.js", "content": "// FULL content..." }\n  ]\n}\n```\n\n' +
+        'ATURAN: Path RELATIF dari root. FULL content (bukan diff). Jika command baru, update src/bot/index.js juga.\n\n' +
+        '=== CODEBASE ===' + codeCtx +
+        '\n\n=== RECENT LOGS ===\n' + logs;
+      var result = await callOmni(MODEL_CODE, [
+        { role: 'system', content: 'Expert Node.js Telegram bot developer. Fix bug dengan tepat, minimal side effect. WAJIB berikan full file content dalam JSON block yang valid.' },
+        { role: 'user',   content: prompt },
+      ], 16384);
+      var patches     = parsePatches(result);
+      var explanation = result.replace(/```json[\s\S]*?```/g, '').trim();
+      if (!patches || !patches.files || !patches.files.length) {
+        await sendLong(ctx, '⚠️ <b>AI tidak menghasilkan patch yang bisa diaplikasikan.</b>\n\nAnalisis AI:\n\n' + explanation);
+        return;
+      }
+      var applied = applyPatches(patches);
+      await ctx.replyWithHTML(
+        '✅ <b>FIX BERHASIL DIAPLIKASIKAN</b>\n━━━━━━━━━━━━━━━━━━━━\n\n' +
+        '📝 <b>Yang diperbaiki:</b>\n' + esc(explanation.slice(0, 1200)) + '\n\n' +
+        '📁 <b>File yang diubah:</b>\n' + applied.map(function(f){ return '• <code>' + esc(f) + '</code>'; }).join('\n') + '\n\n' +
+        '🔄 <b>Bot akan restart dalam 3 detik...</b>'
+      );
+      setTimeout(function(){ process.exit(0); }, 3000);
+    } catch(e) {
+      await ctx.replyWithHTML('❌ <b>Fix gagal:</b> <code>' + esc(e.message) + '</code>');
+    }
+  });
+
+  bot.command('improve', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Hanya owner.');
+    var desc = ctx.message.text.split(' ').slice(1).join(' ').trim();
+    if (!desc) return ctx.replyWithHTML(
+      '❓ <b>Deskripsi improvement diperlukan.</b>\n\nContoh:\n' +
+      '<code>/improve Tambah cache quote 1 jam supaya tema sama tidak digenerate ulang</code>\n' +
+      '<code>/improve Tambah command /ping untuk cek latency bot</code>'
+    );
+    await ctx.replyWithHTML('🚀 <b>Bot Doctor sedang mengimplementasikan improvement...</b>\n\n<i>' + esc(desc) + '</i>\n\n⏳ Harap tunggu ~60-120 detik...');
+    try {
+      var codeCtx  = buildCtx(['src/bot/commands/ai.js','src/analysis/ai_provider.js','src/bot/commands/apikey.js','src/bot/commands/status.js']);
+      var fileList = listFiles().slice(0, 60).join('\n');
+      var prompt =
+        'Kamu adalah Bot Doctor AI. Owner meminta improvement:\n\n"' + desc + '"\n\n' +
+        'Implementasikan improvement ini pada AZZAVISION AI Trading Bot.\n\n' +
+        'INSTRUKSI OUTPUT:\n' +
+        'Bagian 1: Penjelasan singkat apa yang ditambahkan/diubah (format HTML Telegram, max 3 paragraf)\n' +
+        'Bagian 2: JSON block berisi file yang perlu dibuat/diubah:\n\n' +
+        '```json\n{\n  "files": [\n    { "path": "relative/path/file.js", "content": "// FULL content..." }\n  ]\n}\n```\n\n' +
+        'ATURAN: Path RELATIF. FULL content. Jika command baru, WAJIB update src/bot/index.js. Ikuti pola kode existing.\n\n' +
+        '=== FILE LIST ===\n' + fileList +
+        '\n\n=== CODEBASE ===' + codeCtx;
+      var result = await callOmni(MODEL_CODE, [
+        { role: 'system', content: 'Expert Node.js Telegram bot developer. Implementasikan fitur mengikuti pola codebase. WAJIB berikan full file content dalam JSON block yang valid.' },
+        { role: 'user',   content: prompt },
+      ], 20480);
+      var patches     = parsePatches(result);
+      var explanation = result.replace(/```json[\s\S]*?```/g, '').trim();
+      if (!patches || !patches.files || !patches.files.length) {
+        await sendLong(ctx, '⚠️ <b>AI menghasilkan rencana tapi tidak ada file yang bisa diaplikasikan.</b>\n\nRencana AI:\n\n' + explanation);
+        return;
+      }
+      var applied = applyPatches(patches);
+      await ctx.replyWithHTML(
+        '🎉 <b>IMPROVEMENT BERHASIL DIIMPLEMENTASIKAN</b>\n━━━━━━━━━━━━━━━━━━━━\n\n' +
+        '✨ <b>Yang ditambahkan:</b>\n' + esc(explanation.slice(0, 1200)) + '\n\n' +
+        '📁 <b>File yang dibuat/diubah:</b>\n' + applied.map(function(f){ return '• <code>' + esc(f) + '</code>'; }).join('\n') + '\n\n' +
+        '🔄 <b>Bot akan restart dalam 3 detik...</b>'
+      );
+      setTimeout(function(){ process.exit(0); }, 3000);
+    } catch(e) {
+      await ctx.replyWithHTML('❌ <b>Improve gagal:</b> <code>' + esc(e.message) + '</code>');
+    }
+  });
+
+  bot.command('botinfo', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Hanya owner.');
+    var fileCount = listFiles().length;
+    var logs      = readLogs(400);
+    await ctx.replyWithHTML(
+      '🤖 <b>BOT DOCTOR — AZZAVISION AI v5.2</b>\n━━━━━━━━━━━━━━━━━━━━\n\n' +
+      '📦 <b>Total file:</b> ' + fileCount + ' (JS/TS/JSON)\n' +
+      '🧠 <b>AI Engine:</b> Omniroute\n' +
+      '   Code model  : <code>' + MODEL_CODE + '</code>\n' +
+      '   Reason model: <code>' + MODEL_REASON + '</code>\n' +
+      '🔑 <b>API Key:</b> ' + (OMNI_KEY ? '✅ Aktif' : '❌ Set OMNIROUTE_API_KEY di .env') + '\n\n' +
+      '📋 <b>Commands (hanya owner):</b>\n' +
+      '• /audit [area] — Audit bug/security/perf/fitur\n' +
+      '• /fix &lt;deskripsi&gt; — Fix bug otomatis + restart\n' +
+      '• /improve &lt;deskripsi&gt; — Tambah/tingkatkan fitur + restart\n' +
+      '• /botinfo — Info ini\n\n' +
+      '📌 <b>Log snapshot:</b>\n<pre>' + esc(logs.slice(0, 300)) + '</pre>'
+    );
+  });
+
+}
+
+module.exports = { registerDoctorCommands };

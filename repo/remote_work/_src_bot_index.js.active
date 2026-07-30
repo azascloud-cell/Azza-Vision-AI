@@ -1,0 +1,625 @@
+const { Telegraf } = require('telegraf');
+const { registerStart, buildDashboardText, sendOrEditDashboard } = require('./commands/start');
+const { registerHelp }          = require('./commands/help');
+const { registerMarket }        = require('./commands/market');
+const { registerStats }         = require('./commands/stats');
+const { registerStatus, setStartTime } = require('./commands/status');
+const { registerOwnerCommands } = require('./commands/owner');
+const { registerBacktest }      = require('./commands/backtest');
+const { registerDaily }         = require('./commands/daily');
+const { registerJournal }       = require('./commands/journal');
+const { registerSignalTest }    = require('./commands/signaltest');
+const { registerScan }          = require('./commands/scan');
+const { registerLearnStats }    = require('./commands/learnstats');
+const { registerSimilarity }    = require('./commands/similarity');
+const { registerRetrain }       = require('./commands/retrain');
+const { registerApiKeys }       = require('./commands/apikeys');
+const { registerEbook }         = require('./commands/ebook');
+const { registerEbookStrats }   = require('./commands/ebookstrats');
+const { registerCallbacks, registeredActions } = require('./callbacks');
+const { registerExportCallbacks, periodPickerKeyboard } = require('./commands/export');
+const { registerWhy }           = require('./commands/why');
+const { registerWatchlist }     = require('./commands/watchlist_cmd');
+const { registerStratStats }    = require('./commands/stratstats_cmd');
+const { registerLearningMode }  = require('./commands/learning_mode');
+const { registerAi }            = require('./commands/ai');
+const { registerChannelCommands } = require('./commands/channel');
+const { registerDashboardCommands } = require('./commands/dashboard');
+const { registerNews }          = require('./commands/news');
+const { registerApiKey }        = require('./commands/apikey');
+const { registerProvider }      = require('./commands/provider');
+// ── v3.2.1 Debug System ───────────────────────────────────────────────────────
+const { registerDebugCommands } = require('./debug/debug_commands');
+// ── v3.2.1 Money Management Engine v2.0 ──────────────────────────────────────
+const { registerLotCalc, formatProfileMessage } = require('./commands/lot_calc');
+// ── v3.4 Persistent Trade Database + AI Trade Replay ──────────────────────────
+const { registerTradeJournal }  = require('./commands/tradejournal');
+const { registerTradeAsk }      = require('./commands/tradeask');
+const { registerTradeHistory }  = require('./commands/tradehistory');
+// ── v3.4 QA — AI Provider Health Check ────────────────────────────────────────
+const { registerAiTest }        = require('./commands/aitest');
+// ── v4.0 Auto Performance Report Engine ───────────────────────────────────────
+const { registerReportCommands } = require('./commands/report_cmd');
+// ── v4.0 Backup Engine + Debug Mode ───────────────────────────────────────────
+const { registerBackupCommands } = require('./commands/backup_cmd');
+const { registerDebugModeCommands } = require('./commands/debug_cmd');
+// ── Developer Documentation Generator (aditif, tidak mengganti Backup System) ─
+const { registerDocumentationCommands } = require('./commands/documentation');
+
+function isOwner(ctx) {
+  return String(ctx.from?.id) === String(process.env.OWNER_ID);
+}
+
+const registeredCommands = new Set();
+
+function createBot(token) {
+  const bot = new Telegraf(token);
+
+  bot.use(async (ctx, next) => {
+    const user = ctx.from
+      ? `${ctx.from.first_name} (@${ctx.from.username || ctx.from.id})`
+      : 'unknown';
+    const cmd = ctx.message?.text?.split(' ')[0] || '';
+    if (cmd) console.log(`[BOT] ${user} → ${cmd}`);
+    return next();
+  });
+
+  // Track command registrations for validator
+  const _origCommand = bot.command.bind(bot);
+  bot.command = function(cmd, ...args) {
+    const cmds = Array.isArray(cmd) ? cmd : [cmd];
+    cmds.forEach(c => registeredCommands.add(c));
+    return _origCommand(cmd, ...args);
+  };
+
+  // ── Register slash commands ─────────────────────────────────────────────────
+  registerStart(bot);
+  registerHelp(bot);
+  registerMarket(bot);
+  registerStats(bot);
+  registerStatus(bot);
+  registerOwnerCommands(bot);
+  registerBacktest(bot);
+  registerDaily(bot);
+  registerJournal(bot);
+  registerSignalTest(bot);
+  registerScan(bot);
+  ['scan_refresh', 'force_buy', 'force_sell', 'scan_market', 'scan_stats', 'scan_status', 'scan_short', 'scan_medium', 'scan_long', 'scan_scanner_status', 'scan_scanner_history', 'scan_manual']
+    .forEach(a => registeredActions.add(a));
+  registerLearnStats(bot);
+  registerSimilarity(bot);
+  registerRetrain(bot);
+  registerApiKeys(bot);
+  registerEbook(bot);
+  registerEbookStrats(bot);
+  registerWhy(bot);
+  registerWatchlist(bot);
+  registerStratStats(bot);
+  registerLearningMode(bot);
+  registerAi(bot);
+  registerChannelCommands(bot);
+  registerDashboardCommands(bot);
+  registerNews(bot);
+  registerApiKey(bot);
+  registerProvider(bot);
+  // ── v3.2.1 ─────────────────────────────────────────────────────────────────
+  registerLotCalc(bot);
+  registerDebugCommands(bot, registeredActions);
+  // ── v3.4 Trade History + AI Replay ─────────────────────────────────────────
+  registerTradeJournal(bot);
+  registerTradeHistory(bot);
+  registerAiTest(bot);
+  // ── v4.0 Auto Performance Report Engine + News Intelligence v4 ─────────────
+  registerReportCommands(bot);
+  // ── v4.0 Backup Engine ──────────────────────────────────────────────────────
+  registerBackupCommands(bot);
+  // ── v4.0 Debug Mode ─────────────────────────────────────────────────────────
+  registerDebugModeCommands(bot);
+  // ── Developer Documentation Generator (aditif) ─────────────────────────────
+  registerDocumentationCommands(bot);
+  // registerTradeAsk HARUS setelah registerCallbacks agar on('message') tidak bentrok
+  // (dipindah ke bawah registerCallbacks)
+
+  // ── Export callbacks HARUS sebelum registerCallbacks ────────────────────────
+  // registerCallbacks mendaftarkan fallback bot.on('callback_query') yang memotong
+  // middleware chain. Export action harus terdaftar SEBELUM fallback agar bisa
+  // dieksekusi ketika tombol exp_xls_* / exp_pdf_* / exp_csv_* ditekan.
+  ['xls', 'pdf', 'csv'].forEach(type =>
+    ['today', '7d', '30d', 'all'].forEach(period =>
+      registeredActions.add(`exp_${type}_${period}`)
+    )
+  );
+  registerExportCallbacks(bot);
+
+  // ── Inline callbacks (termasuk fallback bot.on) ──────────────────────────────
+  registerCallbacks(bot);
+  // registerTradeAsk dipanggil SETELAH callbacks karena menggunakan bot.on('message')
+  // sehingga urutannya: command → callbacks → tradeask message handler
+  registerTradeAsk(bot);
+
+  // ── Reply Keyboard hears ────────────────────────────────────────────────────
+  registerReplyKeyboardHandlers(bot);
+
+  // ── Catch unknown slash commands ───────────────────────────────────────────
+  bot.on('message', async (ctx, next) => {
+    const text = ctx.message?.text || '';
+    if (!text.startsWith('/')) return next();
+    const cmd = text.split(' ')[0];
+    const known = [
+      '/start', '/help', '/market', '/stats', '/status',
+      '/forcebuy', '/forcesell', '/reload', '/scan', '/ebook',
+      '/backtest', '/daily', '/daily7', '/journal',
+      '/learnstats', '/similarity', '/retrain', '/apikeys',
+      '/why', '/watchlist', '/stratstats', '/learning', '/ai',
+      '/setchannel', '/channel', '/channelstats',
+      '/dashboard', '/setdashboard',
+      '/forcetp1', '/forcetp2', '/forcebe', '/forceloss',
+      '/news', '/apikey', '/provider',
+      '/balance', '/risk', '/broker', '/lot', '/profile',
+      '/callbackcheck', '/callbacklog', '/buttonhealth',
+      // ── v3.4 Trade Database + AI Replay + QA ──────────────────────────────
+      '/tradejournal', '/tradeask', '/tradehistory', '/aitest',
+      // ── v4.0 Report Engine ───────────────────────────────────────────────────
+      '/setreportchannel', '/report', '/dailyreport', '/weeklyreport', '/reporthistory',
+      // ── v4.0 Backup Engine ─────────────────────────────────────────────────
+      '/backup', '/backupstatus', '/backuphistory', '/restorelist', '/selftest',
+      // ── v4.0 Debug Mode ────────────────────────────────────────────────────
+      '/debug',
+      // ── v5.0 Trade Scanner ──────────────────────────────────────────────────
+      '/scan',
+      // ── Developer Documentation Generator ────────────────────────────────
+      '/documentation',
+    ];
+    if (!known.includes(cmd)) {
+      await ctx.replyWithHTML(
+        `❓ Perintah <code>${cmd}</code> tidak dikenal.\n\nGunakan keyboard menu di bawah atau ketik /help`
+      );
+    }
+    return next();
+  });
+
+  bot.catch((err, ctx) => {
+    console.error('[BOT] Error:', err.message, '| Context:', ctx?.updateType);
+  });
+
+  return bot;
+}
+
+// ─── REPLY KEYBOARD HANDLERS ──────────────────────────────────────────────────
+function registerReplyKeyboardHandlers(bot) {
+
+  bot.hears('📊 Market', async (ctx) => {
+    try {
+      const { getAllTimeframes }   = require('../market/data');
+      const { runStrategy }        = require('../analysis/strategy');
+      const { getOverallBias }     = require('../analysis/scanner');
+      const { formatMarketStatus } = require('../utils/format');
+      await ctx.replyWithHTML('⏳ <i>Menganalisis market...</i>');
+      const tfData  = await getAllTimeframes();
+      const result  = runStrategy(tfData);
+      const overall = getOverallBias(result.analysis);
+      await ctx.replyWithHTML(formatMarketStatus(result.analysis, overall, result.confidence));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil data market.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📈 Statistik', async (ctx) => {
+    try {
+      const { getStats }    = require('../database/db');
+      const { formatStats } = require('../utils/format');
+      const stats = await getStats();
+      await ctx.replyWithHTML(formatStats(stats));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil statistik.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📅 Daily', async (ctx) => {
+    try {
+      const { getDailyStats }     = require('../database/db');
+      const { formatDailyReport } = require('./commands/daily');
+      const { todayWIB }          = require('../utils/wib_time');
+      const today = todayWIB();
+      const stats = await getDailyStats(today);
+      await ctx.replyWithHTML(formatDailyReport(stats, today));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil data harian.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📅 Weekly', async (ctx) => {
+    try {
+      const { getWeeklyStats }     = require('../database/db');
+      const { formatWeeklyReport } = require('./commands/daily');
+      const rows = await getWeeklyStats();
+      await ctx.replyWithHTML(formatWeeklyReport(rows));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil data mingguan.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📖 Journal', async (ctx) => {
+    try {
+      const { getAllSignals }                      = require('../database/db');
+      const { formatJournalPage, computeSummary } = require('./commands/journal');
+      const allSignals = await getAllSignals();
+      if (allSignals.length === 0) {
+        return ctx.replyWithHTML(`📓 <b>SIGNAL JOURNAL</b>\n\n⏳ <i>Belum ada sinyal tercatat.</i>`);
+      }
+      const sorted    = [...allSignals].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      const PAGE_SIZE = 10;
+      const total     = Math.ceil(sorted.length / PAGE_SIZE);
+      const summary   = computeSummary(allSignals);
+      await ctx.replyWithHTML(formatJournalPage(sorted.slice(0, PAGE_SIZE), 1, total, summary));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal memuat journal.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('🤖 Bot Status', async (ctx) => {
+    try {
+      const { getOpenSignals, getLastSignalTime } = require('../database/db');
+      const { toWIB } = require('../utils/wib_time');
+      const openSignals = await getOpenSignals();
+      const lastSignal  = await getLastSignalTime();
+      const interval    = parseInt(process.env.SCAN_INTERVAL || '60000') / 1000;
+      const wib         = toWIB();
+      const openLines = openSignals.length > 0
+        ? openSignals.slice(0, 3).map((s) => `  • ${s.direction} @ ${s.entry} (${s.confidence}%)`).join('\n')
+        : '  Tidak ada sinyal terbuka.';
+      let lastSignalWib = 'Belum ada sinyal';
+      if (lastSignal) {
+        const lsw = toWIB(new Date(lastSignal));
+        lastSignalWib = `${lsw.dateNum} ${lsw.month} ${lsw.year} ${lsw.hours}:${lsw.minutes} WIB`;
+      }
+      await ctx.replyWithHTML([
+        `🔍 <b>AZZAVISION AI — BOT STATUS</b>`, ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `🟢 Status    : ONLINE & AKTIF`,
+        `📡 Interval  : <code>${interval}s</code>`,
+        `🎯 Min Conf  : <code>${process.env.MIN_CONFIDENCE || '65'}%</code>`, ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `📌 <b>OPEN SIGNALS (${openSignals.length})</b>`,
+        openLines, ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `🕐 Sinyal Terakhir: ${lastSignalWib}`, ``,
+        wib.line, ``,
+        `🪙 Pair: XAUUSD  |  💾 DB: JSON Storage`,
+        `⚡ <i>AZZAVISION AI v3.2.1 — Auto Gold Signals</i>`,
+      ].join('\n'));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil status.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('🧠 Learning', async (ctx) => {
+    try {
+      const { getLearnStats } = require('../analysis/learning');
+      const { getBackupInfo } = require('../utils/backup');
+      const s = await getLearnStats();
+      const FULL = 100;
+      const decided = s.wins + s.losses;
+      const wr = decided > 0 ? ((s.wins / decided) * 100).toFixed(1) : '0.0';
+      let statusEmoji, statusLabel;
+      if (s.learningStatus === 'Not enough data') { statusEmoji = '🔴'; statusLabel = 'Not enough data'; }
+      else if (s.learningStatus === 'PARTIAL')    { statusEmoji = '🟡'; statusLabel = `ACTIVE (${s.closed}/${FULL} menuju Full Adaptive)`; }
+      else                                         { statusEmoji = '🟢'; statusLabel = 'ACTIVE'; }
+      let backupLine = '';
+      try { const bk = await getBackupInfo(); backupLine = `\n💾 Backups : <code>${bk.count}</code> file`; } catch { /* skip */ }
+      const filled = Math.min(Math.round((s.closed / FULL) * 10), 10);
+      const bar    = '█'.repeat(filled) + '░'.repeat(10 - filled);
+      const pct    = Math.min(Math.round((s.closed / FULL) * 100), 100);
+      const needed = s.learningStatus === 'Not enough data'
+        ? `\n⏳ Butuh : <code>${s.needed}</code> trade lagi`
+        : s.learningStatus === 'PARTIAL'
+          ? `\n⏳ Butuh : <code>${s.neededFull}</code> trade lagi`
+          : `\n🏆 Full Adaptive aktif!`;
+      const avgSim = s.avgSimilarity != null ? `\n📊 Avg Sim : <code>${s.avgSimilarity}%</code>` : '';
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `🧠 <b>AZZAVISION AI — LEARNING STATUS</b>`,
+        `━━━━━━━━━━━━━━━━━━━━`, ``,
+        `📚 Dataset : <code>${s.closed}</code> trades`, ``,
+        `✅ WIN      : <code>${s.wins}</code>`,
+        `❌ LOSS     : <code>${s.losses}</code>`,
+        `🔒 BREAKEVEN: <code>${s.breakevens}</code>`, ``,
+        `🎯 Win Rate : <code>${wr}%</code>`, ``,
+        `━━━━━━━━━━━━━━━━━━━━`, ``,
+        `${statusEmoji} Learning : ${statusLabel}${needed}${avgSim}`, ``,
+        `━━━━━━━━━━━━━━━━━━━━`, ``,
+        `📈 <code>[${bar}]</code> <code>${pct}%</code>${backupLine}`, ``,
+        `━━━━━━━━━━━━━━━━━━━━`, ``,
+        `⚡ <i>AZZAVISION AI v3.2.1 | Self-Learning Engine</i>`,
+      ].join('\n'));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil data learning.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('🔄 Retrain', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    let loadingMsg;
+    try { loadingMsg = await ctx.replyWithHTML(`⏳ <b>Menjalankan manual retrain...</b>`); } catch { /* ignore */ }
+    try {
+      const { retrain, getLearnStats } = require('../analysis/learning');
+      const { getAllSignals }           = require('../database/db');
+      const before = await getLearnStats();
+      const result = await retrain(getAllSignals);
+      const after  = await getLearnStats();
+      if (loadingMsg) await ctx.telegram.deleteMessage(ctx.chat.id, loadingMsg.message_id).catch(() => {});
+      const db = before.wins + before.losses, da = after.wins + after.losses;
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `🔄 <b>MANUAL RETRAIN SELESAI</b>`,
+        `━━━━━━━━━━━━━━━━━━━━`, ``,
+        `📚 Total Entries : <code>${result.total}</code>`,
+        `✅ Updated       : <code>${result.updated}</code>`, ``,
+        result.updated > 0 ? `🟢 Dataset berhasil disinkronisasi` : `🟡 Tidak ada perubahan`, ``,
+        `📊 SEBELUM → SESUDAH`, ``,
+        `📚 Dataset  : <code>${before.closed}</code> → <code>${after.closed}</code>`,
+        `✅ WIN      : <code>${before.wins}</code> → <code>${after.wins}</code>`,
+        `❌ LOSS     : <code>${before.losses}</code> → <code>${after.losses}</code>`,
+        `🔒 BE       : <code>${before.breakevens}</code> → <code>${after.breakevens}</code>`,
+        `🎯 Win Rate : <code>${db > 0 ? ((before.wins/db)*100).toFixed(1) : 0}%</code> → <code>${da > 0 ? ((after.wins/da)*100).toFixed(1) : 0}%</code>`,
+        ``, `━━━━━━━━━━━━━━━━━━━━`,
+      ].join('\n'));
+    } catch (err) {
+      if (loadingMsg) await ctx.telegram.deleteMessage(ctx.chat.id, loadingMsg.message_id).catch(() => {});
+      await ctx.replyWithHTML(`❌ <b>Retrain gagal.</b>\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('👀 Watchlist', async (ctx) => {
+    await ctx.replyWithHTML('⏳ <i>Memeriksa setup...</i>');
+    try {
+      const { getAllTimeframes } = require('../market/data');
+      const { runStrategy }      = require('../analysis/strategy');
+      const { getOverallBias }   = require('../analysis/scanner');
+      const { checkBlacklist }   = require('../analysis/blacklist');
+      const { toWIB }            = require('../utils/wib_time');
+      const tfData  = await getAllTimeframes();
+      const result  = runStrategy(tfData);
+      const overall = getOverallBias(result.analysis);
+      const wib     = toWIB();
+      const h4Bull = result.analysis.h4.bias.includes('BUY');
+      const h1Bull = result.analysis.h1.bias.includes('BUY');
+      const h4Bear = result.analysis.h4.bias.includes('SELL');
+      const h1Bear = result.analysis.h1.bias.includes('SELL');
+      const aligned = (h4Bull && h1Bull) || (h4Bear && h1Bear);
+      const done = [], pending = [];
+      if (!aligned) pending.push('❌ Trend H4+H1 belum searah'); else done.push('✅ Trend searah');
+      if (result.spikeRisk) pending.push('❌ Volatilitas spike'); else done.push('✅ Volatilitas normal');
+      if (!result.m5Entry?.valid) {
+        const m = (process.env.ENTRY_MODE || 'aggressive').toLowerCase();
+        pending.push(m === 'aggressive' ? '❌ Harga belum di zona pullback EMA' : '❌ Belum ada rejection candle M5');
+      } else done.push('✅ Konfirmasi entry terpenuhi');
+      if (result.confidence < parseInt(process.env.MIN_CONFIDENCE || '65')) pending.push(`❌ Confidence ${result.confidence}%`);
+      else done.push(`✅ Confidence ${result.confidence}%`);
+      const bl = checkBlacklist(tfData);
+      if (bl.blocked) bl.reasons.forEach(r => pending.push(`❌ ${r}`)); else done.push('✅ Kondisi market bersih');
+      const readyPct = Math.round((done.length / (done.length + pending.length)) * 100);
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━`,
+        `👀 <b>WATCHLIST — ${overall.label}</b>`,
+        `━━━━━━━━━━━━━━━━━━`, ``,
+        wib.line, ``,
+        `📊 Readiness: <code>${readyPct}%</code>`, ``,
+        `<b>Terpenuhi:</b>`, ...done, ``,
+        pending.length > 0 ? `<b>Syarat yang belum:</b>` : `✅ <b>Semua syarat terpenuhi!</b>`,
+        ...pending, ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `💡 <i>Ketik /watchlist untuk detail lengkap</i>`,
+      ].join('\n'));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal cek watchlist.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('❓ Kenapa Belum Entry?', async (ctx) => {
+    await ctx.replyWithHTML('🔍 <i>Menganalisis kondisi...</i>');
+    try {
+      const { getAllTimeframes } = require('../market/data');
+      const { runStrategy }      = require('../analysis/strategy');
+      const { getOverallBias }   = require('../analysis/scanner');
+      const { checkBlacklist }   = require('../analysis/blacklist');
+      const { toWIB }            = require('../utils/wib_time');
+      const tfData  = await getAllTimeframes();
+      const result  = runStrategy(tfData);
+      const overall = getOverallBias(result.analysis);
+      const wib     = toWIB();
+      const minConf = parseInt(process.env.MIN_CONFIDENCE || '65');
+      const reasons = [];
+      const h4Bull = result.analysis.h4.bias.includes('BUY');
+      const h1Bull = result.analysis.h1.bias.includes('BUY');
+      const h4Bear = result.analysis.h4.bias.includes('SELL');
+      const h1Bear = result.analysis.h1.bias.includes('SELL');
+      if (!(h4Bull && h1Bull) && !(h4Bear && h1Bear)) reasons.push('❌ H4 dan H1 belum searah');
+      if (result.spikeRisk) reasons.push('❌ Detected spike / volatilitas ekstrem');
+      if (!result.m5Entry?.valid) {
+        const m = (process.env.ENTRY_MODE || 'aggressive').toLowerCase();
+        reasons.push(m === 'aggressive' ? '❌ Harga belum di zona pullback EMA' : '❌ Belum ada rejection candle M5');
+      }
+      if (result.confidence < minConf) reasons.push(`❌ Confidence ${result.confidence}% < min ${minConf}%`);
+      const bl = checkBlacklist(tfData);
+      if (bl.blocked) bl.reasons.forEach(r => reasons.push(`❌ ${r}`));
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━`,
+        `❓ <b>KENAPA BELUM ENTRY?</b>`,
+        `━━━━━━━━━━━━━━━━━━`, ``,
+        wib.line, ``,
+        reasons.length === 0
+          ? `✅ <b>Semua syarat terpenuhi!</b>\n<i>Sinyal mungkin sedang diproses atau cooldown aktif.</i>`
+          : [`<b>Alasan belum entry:</b>`, ``, ...reasons].join('\n'),
+        ``, `━━━━━━━━━━━━━━━━━━`,
+        `💡 <i>Ketik /why untuk analisis mendalam</i>`,
+      ].join('\n'));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal analisis.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📚 Strategi Stats', async (ctx) => {
+    try {
+      const { formatStrategyStatsMessage } = require('../database/strategy_stats');
+      const msg = await formatStrategyStatsMessage();
+      await ctx.replyWithHTML(msg);
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal ambil strategi stats.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📉 Backtest 7D', async (ctx) => {
+    await ctx.replyWithHTML('⏳ <i>Menjalankan backtest 7 hari...</i>');
+    try {
+      const { runBacktest }          = require('../analysis/backtest');
+      const { formatBacktestResult } = require('./commands/backtest');
+      await ctx.replyWithHTML(formatBacktestResult(await runBacktest(7)));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Backtest gagal.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📊 Backtest 30D', async (ctx) => {
+    await ctx.replyWithHTML('⏳ <i>Menjalankan backtest 30 hari...</i>');
+    try {
+      const { runBacktest }          = require('../analysis/backtest');
+      const { formatBacktestResult } = require('./commands/backtest');
+      await ctx.replyWithHTML(formatBacktestResult(await runBacktest(30)));
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Backtest gagal.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('📄 Export Excel', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    await ctx.replyWithHTML(`📊 <b>Export Excel</b>\n\nPilih periode:`, periodPickerKeyboard('xls'));
+  });
+
+  bot.hears('📑 Export PDF', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    await ctx.replyWithHTML(`📄 <b>Export PDF</b>\n\nPilih periode:`, periodPickerKeyboard('pdf'));
+  });
+
+  bot.hears('📋 Export CSV', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    await ctx.replyWithHTML(`📋 <b>Export CSV</b>\n\nPilih periode:`, periodPickerKeyboard('csv'));
+  });
+
+  bot.command('exportcsv', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    await ctx.replyWithHTML(`📋 <b>Export CSV</b>\n\nPilih periode:`, periodPickerKeyboard('csv'));
+  });
+
+  // ── 💼 Money Management ────────────────────────────────────────────────────
+  bot.hears('💼 Money Management', async (ctx) => {
+    try {
+      const message = formatProfileMessage(String(ctx.from?.id || ''));
+      await ctx.replyWithHTML(message);
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal memuat money management.\n<code>${err.message}</code>`);
+    }
+  });
+
+  // ── 👤 Profile ─────────────────────────────────────────────────────────────
+  bot.hears('👤 Profile', async (ctx) => {
+    try {
+      const message = formatProfileMessage(String(ctx.from?.id || ''));
+      await ctx.replyWithHTML(message);
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal memuat profile.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('🔄 Refresh', async (ctx) => {
+    try {
+      const name = ctx.from?.first_name || 'Trader';
+      const text = await buildDashboardText(name);
+      await sendOrEditDashboard(ctx, text);
+    } catch (err) {
+      await ctx.replyWithHTML(`❌ Gagal refresh.\n<code>${err.message}</code>`);
+    }
+  });
+
+  bot.hears('❓ Bantuan', async (ctx) => {
+    await ctx.replyWithHTML([
+      `❓ <b>AZZAVISION AI — BANTUAN</b>`, ``,
+      `Ketik /help untuk panduan lengkap.`,
+      `Atau gunakan keyboard menu di bawah.`,
+    ].join('\n'));
+  });
+
+  bot.hears('🟢 Force BUY', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    const { handleForce } = require('./commands/owner');
+    await handleForce(ctx, bot, 'BUY');
+  });
+
+  bot.hears('🔴 Force SELL', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    const { handleForce } = require('./commands/owner');
+    await handleForce(ctx, bot, 'SELL');
+  });
+
+  bot.hears('🔭 Trade Scanner', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    const { getActiveScans } = require('../analysis/trade_scanner');
+    const { toWIB } = require('../utils/wib_time');
+    const scans = getActiveScans();
+    const wib   = toWIB();
+    const shortStatus  = scans.short  ? scans.short.status  : 'Tidak ada';
+    const mediumStatus = scans.medium ? scans.medium.status : 'Tidak ada';
+    const longStatus   = scans.long   ? scans.long.status   : 'Tidak ada';
+    await ctx.replyWithHTML([
+      '━━━━━━━━━━━━━━━━━━━━',
+      '🔭 <b>AZZAVISION AI — TRADE SCANNER</b>',
+      '━━━━━━━━━━━━━━━━━━━━',
+      '',
+      `⚡ SHORT  : <code>${shortStatus}</code>`,
+      `📅 MEDIUM : <code>${mediumStatus}</code>`,
+      `📆 LONG   : <code>${longStatus}</code>`,
+      '',
+      'Gunakan:',
+      '/scan short   — Buat scan SHORT',
+      '/scan medium  — Buat scan MEDIUM',
+      '/scan long    — Buat scan LONG',
+      '',
+      '⚡ <i>AZZAVISION AI v5.0 | Trade Scanner AI</i>',
+    ].join('\n'));
+  });
+
+  bot.hears('📡 Scan Status', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b>');
+    const { getActiveScans } = require('../analysis/trade_scanner');
+    const { toWIB } = require('../utils/wib_time');
+    const scans = getActiveScans();
+    const wib   = toWIB();
+    const types = ['short', 'medium', 'long'];
+    const lines = [
+      '━━━━━━━━━━━━━━━━━━━━',
+      '📡 <b>SCANNER STATUS AKTIF</b>',
+      '━━━━━━━━━━━━━━━━━━━━',
+      '',
+      wib.line,
+      '',
+    ];
+    const statusEmoji = { WAITING: '⏳', ACTIVE: '🟡', TP1_HIT: '🎯', TP2_HIT: '🏆', SL_HIT: '❌', EXPIRED: '⏰' };
+    for (const t of types) {
+      const sig = scans[t];
+      if (!sig) {
+        lines.push(`⚫ <b>${t.toUpperCase()}</b> : Tidak ada`);
+      } else {
+        const dir = sig.direction === 'BUY' ? '🟢 BUY' : '🔴 SELL';
+        lines.push(`${statusEmoji[sig.status] || '?'} <b>${t.toUpperCase()}</b> | ${dir} | <code>${sig.status}</code>`);
+        lines.push(`   Zone: <code>${sig.entry_low}–${sig.entry_high}</code>`);
+        lines.push(`   Conf: <code>${sig.confidence}%</code>  Risk: ${sig.risk}`);
+      }
+      lines.push('');
+    }
+    lines.push('⚡ <i>AZZAVISION AI v5.0 | Trade Scanner</i>');
+    await ctx.replyWithHTML(lines.join('\n'));
+  });
+
+}
+
+module.exports = { createBot, registeredActions, registeredCommands };

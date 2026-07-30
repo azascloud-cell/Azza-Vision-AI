@@ -1,0 +1,39 @@
+'use strict';
+
+// ─── Banner type registry ───────────────────────────────────────────────────
+// Every /command that produces a banner maps to exactly one entry here.
+// `accent` + `expression` drive the shared theme; `title`/`subtitle` are
+// static defaults that templates may override with live data.
+
+const REGISTRY = {
+  market_scanner: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'Market Scanner', subtitle: 'AI Scanning' },
+  ai_scan_entry: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'AI Scan Entry', subtitle: 'Setup Audit' },
+  signal_buy: { layout: 'signal', accent: 'green', expression: 'signal_found', title: 'AI Signal', subtitle: 'BUY' },
+  signal_sell: { layout: 'signal', accent: 'red', expression: 'signal_found', title: 'AI Signal', subtitle: 'SELL' },
+  almost_tp: { layout: 'hero', accent: 'green', expression: 'almost_tp', title: 'Almost TP', subtitle: 'Target Approaching' },
+  tp_hit: { layout: 'hero', accent: 'green', expression: 'tp_hit', title: 'TP Hit', subtitle: 'Trade Closed' },
+  stop_loss: { layout: 'hero', accent: 'red', expression: 'stop_loss', title: 'Stop Loss', subtitle: 'Trade Closed' },
+  news_intelligence: { layout: 'info', accent: 'blue', expression: 'news', title: 'News Intelligence', subtitle: 'High Impact' },
+  trading_journal: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Trading Journal', subtitle: '' },
+  dashboard: { layout: 'info', accent: 'gold', expression: 'signal_found', title: 'Dashboard', subtitle: 'Account Overview' },
+  daily_report: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Daily Report', subtitle: 'Today' },
+  weekly_report: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Weekly Report', subtitle: 'This Week' },
+  monthly_report: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Monthly Report', subtitle: 'This Month' },
+  risk_management: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'Risk Management', subtitle: 'Position Sizing' },
+  strategy_stats: { layout: 'info', accent: 'gold', expression: 'backtesting', title: 'Strategy Stats', subtitle: 'Performance' },
+  ai_analysis: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'AI Analysis', subtitle: 'Market Verdict' },
+  why_not_entry: { layout: 'whyNotEntry', accent: 'gold', expression: 'why_not_entry', title: 'Why Not Entry?', subtitle: '' },
+  retrain_ai: { layout: 'info', accent: 'gold', expression: 'backtesting', title: 'Retrain AI', subtitle: 'Learning' },
+  backup: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'Backup', subtitle: 'Cloud + Server' },
+  restore: { layout: 'info', accent: 'gold', expression: 'analyze', title: 'Restore', subtitle: 'Database Recovery' },
+  profile: { layout: 'info', accent: 'gold', expression: 'rest_mode', title: 'Profile', subtitle: 'Trader Card' },
+  settings: { layout: 'info', accent: 'gold', expression: 'rest_mode', title: 'Settings', subtitle: 'Preferences' },
+  export_pdf: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Export PDF', subtitle: 'Preview' },
+  export_excel: { layout: 'info', accent: 'gold', expression: 'journal', title: 'Export Excel', subtitle: 'Preview' },
+  notification: { layout: 'info', accent: 'blue', expression: 'news', title: 'Notification', subtitle: 'AI Alert' },
+  watchlist:    { layout: 'info', accent: 'gold', expression: 'analyze', title: 'Watchlist Alert', subtitle: 'Monitoring Setup' },
+  tp1_hit:      { layout: 'hero', accent: 'green', expression: 'tp_hit', title: 'TP1 Hit', subtitle: 'First Target Reached' },
+  breakeven:    { layout: 'hero', accent: 'green', expression: 'almost_tp', title: 'Breakeven Active', subtitle: 'Move SL to Entry' },
+};
+
+module.exports = { REGISTRY };

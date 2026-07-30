@@ -1,0 +1,1208 @@
+const { getAllTimeframes, fetchSpotPrice } = require('../market/data');
+const { isMarketOpen, getMarketStatus, getSessionLabel } = require('../utils/market_hours');
+const { validateSignal, validatePrice, isSignalMonitorable } = require('../utils/signal_validator');
+const { updatePriceCache, updateTrendCache, updateActiveSignals, getCachedPrice } = require('../market/cache');
+const { runStrategy } = require('./strategy');
+const {
+  insertSignal, closeSignal, markBreakevenTriggered, markTp1Hit,
+  getOpenSignals, saveMarketSnapshot,
+} = require('../database/db');
+const {
+  saveLearningEntry, updateLearningResult,
+  autoRetrain, runSimilarity, applyAdaptiveConfidence, getTradingSession,
+} = require('./learning');
+const { generateSignalChart } = require('../chart/generator');
+const { formatSignalMessage, formatTradeJournal } = require('../utils/format');
+const { generateAITradeJournal } = require('./ai_trade_journal');
+const { runEbookEngine, broadcastEbookSignal } = require('./ebook_engine');
+const { calculateEnsemble } = require('./ensemble');
+const { checkBlacklist } = require('./blacklist');
+const { recordStrategyWin, recordStrategyLoss, recordStrategyBreakeven } = require('../database/strategy_stats');
+const { runAllStrategies } = require('./strategy_library');
+const { toWIB } = require('../utils/wib_time');
+// ── News Intelligence Engine ───────────────────────────────────────────────────
+const { getNewsImpact } = require('./news_engine');
+const { renderBanner } = require('../banner');
+
+let scannerActive = false;
+let priceTickInterval  = null;
+let analysisTickCount  = 0;
+const ANALYSIS_EVERY_N = 5;
+
+let botInstance   = null;
+
+// Cooldown
+let lastSignalTime    = 0;
+const SIGNAL_COOLDOWN = parseInt(process.env.SIGNAL_COOLDOWN_H || '2') * 60 * 60 * 1000;
+
+// Breakeven tracking
+const breakevenSent = new Set();
+
+// TP1 hit tracking
+const tp1HitSent = new Set();
+
+// Watchlist broadcast (evitare duplicati)
+let lastWatchlistBroadcast = 0;
+const WATCHLIST_COOLDOWN = 15 * 60 * 1000; // 15 menit
+
+function setBotInstance(bot) {
+  botInstance = bot;
+}
+
+// ─── HELPER: Ambil nama strategi dari sinyal ──────────────────────────────────
+function getSignalStrategies(signal) {
+  if (signal.strategy && signal.strategy.startsWith('EBOOK:')) {
+    return [signal.strategy.replace('EBOOK:', '')];
+  }
+  const strats = [];
+  if (signal.h4_bias && signal.h4_bias !== 'NEUTRAL') strats.push('EMA Trend');
+  if (signal.m5_signal === 'Rejection Confirmed') strats.push('Rejection Candle');
+  return strats.length > 0 ? strats : ['Multi-Strategy Analysis'];
+}
+
+// ─── WATCHLIST HELPERS ────────────────────────────────────────────────────────
+
+/** Escape HTML agar Telegram tidak gagal parse. */
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+/** Progress bar visual: ████████░░ 80% */
+function progressBar(percent, width = 10) {
+  const pct    = Math.max(0, Math.min(100, Math.round(percent)));
+  const filled = Math.round(pct / 100 * width);
+  const empty  = width - filled;
+  return '█'.repeat(filled) + '░'.repeat(empty) + ` ${pct}%`;
+}
+
+/**
+ * Hitung confidence partial untuk DISPLAY.
+ * Dipakai ketika result.confidence = 0 (trend tidak aligned / spike risk).
+ */
+function calcDisplayConfidence(analysis, m5Entry) {
+  const { h4, h1, m15, m1 } = analysis;
+  let score = 0;
+
+  if (h4.bias.includes('STRONG')) score += 30;
+  else if (h4.bias !== 'NEUTRAL') score += 20;
+
+  if (h1.bias.includes('STRONG')) score += 25;
+  else if (h1.bias !== 'NEUTRAL') score += 15;
+
+  if (m15.bias !== 'NEUTRAL') score += 15;
+
+  if (m1 && m1.bias !== 'NEUTRAL') {
+    const h4Bull = h4.bias.includes('BUY');
+    const m1Bull = m1.bias.includes('BUY');
+    if (h4Bull === m1Bull) score += 5;
+    else score -= 2;
+  }
+
+  if (m5Entry && m5Entry.valid)    score += 20;
+  if (m5Entry && m5Entry.hasSweep) score += 10;
+
+  if (h4.rsi != null) {
+    const h4Bull = h4.bias.includes('BUY');
+    if (h4Bull  && h4.rsi < 70) score += 3;
+    if (!h4Bull && h4.rsi > 30) score += 3;
+  }
+
+  return Math.min(97, Math.max(10, score));
+}
+
+/**
+ * Hitung readiness score: berapa banyak syarat entry yang sudah terpenuhi.
+ */
+function calcReadiness(result, aligned, bl, minConf, displayConf) {
+  const checks = [
+    {
+      label:  'H4 punya arah (bukan sideways)',
+      passed: result.analysis.h4.bias !== 'NEUTRAL',
+    },
+    {
+      label:  'H1 searah dengan H4',
+      passed: aligned,
+    },
+    {
+      label:  'M15 konfirmasi arah',
+      passed: result.analysis.m15.bias !== 'NEUTRAL',
+    },
+    {
+      label:  process.env.ENTRY_MODE === 'conservative'
+        ? 'M5 rejection candle valid'
+        : 'Harga di zona pullback EMA (entry condition)',
+      passed: result.m5Entry?.valid === true,
+    },
+    {
+      label:  `Confidence ≥ ${minConf}%`,
+      passed: displayConf >= minConf,
+    },
+    {
+      label:  'Volatilitas aman (bukan spike)',
+      passed: !result.spikeRisk,
+    },
+    {
+      label:  'Tidak ada blacklist/berita',
+      passed: !bl.blocked,
+    },
+  ];
+
+  const passed = checks.filter(c => c.passed).length;
+  const total  = checks.length;
+  const score  = Math.round(passed / total * 100);
+
+  return { score, passed, total, checks };
+}
+
+// ─── PRICE TICK ───────────────────────────────────────────────────────────────
+async function priceTick() {
+  if (!isMarketOpen()) return;
+
+  let price;
+  try {
+    price = await fetchSpotPrice();
+  } catch (e) {
+    console.warn('[PRICE-TICK] fetchSpotPrice gagal:', e.message);
+    price = getCachedPrice();
+  }
+
+  if (!price) return;
+
+  try {
+    const open = await getOpenSignals();
+    updateActiveSignals(open);
+  } catch { /* non-fatal */ }
+
+  await checkTp1(price);
+  await checkBreakeven(price);
+  await checkAndAutoClose(price);
+}
+
+// ─── FULL ANALYSIS TICK ───────────────────────────────────────────────────────
+async function analysisTick() {
+  if (!isMarketOpen()) {
+    const mkt = getMarketStatus();
+    console.log(`[SCANNER] 🟡 Market CLOSED — ${mkt.session}. ${mkt.timeUntilOpen ? 'Buka dalam ' + mkt.timeUntilOpen : ''}`);
+    return;
+  }
+
+  try {
+    const result = await doScan(false);
+    if (result) {
+      const overall = getOverallBias(result.analysis);
+      updateTrendCache({
+        m1:      result.analysis.m1.bias,
+        m5:      result.analysis.m5.bias,
+        m15:     result.analysis.m15.bias,
+        h1:      result.analysis.h1.bias,
+        h4:      result.analysis.h4.bias,
+        overall: overall.label,
+      }, result.confidence);
+    }
+
+    // E-Book Strategy Engine
+    const ebookEnabled = (process.env.EBOOK_ENGINE_ENABLED || 'true') === 'true';
+    if (ebookEnabled && botInstance) {
+      try {
+        const { bestSignal } = await runEbookEngine(null);
+        if (bestSignal) {
+          const now             = Date.now();
+          const sinceLastSignal = now - lastSignalTime;
+          if (sinceLastSignal >= SIGNAL_COOLDOWN) {
+            // ── News Verdict Filter (news_engine.js) ──────────────────────────
+            let newsOk = true;
+            try {
+              const newsResult = await getNewsImpact();
+              if (newsResult) {
+                const { blockEntry, analysis } = newsResult;
+                // 1. Blokir jika news SKIP_TRADE (NFP/FOMC/high-impact imminent)
+                if (blockEntry) {
+                  console.log(`[EBOOK-ENGINE] ⛔ News BLOCK — skip ${bestSignal.direction} | ${newsResult.filterText}`);
+                  newsOk = false;
+                }
+                // 2. Blokir jika direction_support berlawanan dengan signal
+                if (newsOk && analysis?.direction_support && analysis.direction_support !== 'NETRAL') {
+                  if (analysis.direction_support !== bestSignal.direction) {
+                    console.log(`[EBOOK-ENGINE] ⛔ News arah bertentangan — signal ${bestSignal.direction} vs news ${analysis.direction_support}. Skip.`);
+                    newsOk = false;
+                  }
+                }
+                // 3. Blokir jika gold impact berlawanan dengan arah signal
+                if (newsOk && analysis?.impact_gold && analysis.impact_gold !== 'NETRAL') {
+                  if (bestSignal.direction === 'BUY' && analysis.impact_gold === 'BEARISH') {
+                    console.log(`[EBOOK-ENGINE] ⛔ Gold impact BEARISH vs BUY signal. Skip.`);
+                    newsOk = false;
+                  } else if (bestSignal.direction === 'SELL' && analysis.impact_gold === 'BULLISH') {
+                    console.log(`[EBOOK-ENGINE] ⛔ Gold impact BULLISH vs SELL signal. Skip.`);
+                    newsOk = false;
+                  }
+                }
+              }
+            } catch (newsCheckErr) {
+              console.warn('[EBOOK-ENGINE] News filter error (fail-safe, lanjut tanpa filter):', newsCheckErr.message);
+            }
+
+            if (newsOk) {
+              const price = getCachedPrice() || 0;
+              // Teruskan newsResult ke broadcaster agar bisa ditampilkan di pesan sinyal
+              const newsInfoForBroadcast = newsOk && newsResult ? {
+                verdict:           newsResult.analysis?.verdict || 'ENTRY',
+                impact_gold:       newsResult.analysis?.impact_gold || 'NETRAL',
+                impact_usd:        newsResult.analysis?.impact_usd  || 'NETRAL',
+                direction_support: newsResult.analysis?.direction_support || 'NETRAL',
+                confidence_impact: newsResult.analysis?.confidence_impact ?? 0,
+                reason:            newsResult.analysis?.reason || '',
+              } : null;
+              await broadcastEbookSignal(botInstance, bestSignal, price, newsInfoForBroadcast);
+              lastSignalTime = now;
+            }
+          } else {
+            const minLeft = Math.ceil((SIGNAL_COOLDOWN - sinceLastSignal) / 60000);
+            console.log(`[EBOOK-ENGINE] Cooldown ${minLeft}min | ${bestSignal.strategyName}`);
+          }
+        }
+      } catch (ebookErr) {
+        console.warn('[EBOOK-ENGINE] Tick error:', ebookErr.message);
+      }
+    }
+
+    // Watchlist broadcast: cek apakah hampir valid
+    await checkWatchlistBroadcast();
+
+  } catch (e) {
+    console.warn('[ANALYSIS-TICK] Error:', e.message);
+  }
+}
+
+// ─── WATCHLIST BROADCAST ──────────────────────────────────────────────────────
+async function checkWatchlistBroadcast() {
+  if (!botInstance) return;
+  const channelId = process.env.CHANNEL_ID;
+  if (!channelId) return;
+
+  const now = Date.now();
+  if (now - lastWatchlistBroadcast < WATCHLIST_COOLDOWN) return;
+
+  try {
+    const tfData  = await getAllTimeframes();
+    if (!tfData.m5?.length || !tfData.h1?.length) return;
+
+    const result  = runStrategy(tfData);
+    const overall = getOverallBias(result.analysis);
+    const minConf = parseInt(process.env.MIN_CONFIDENCE || '55');
+
+    const h4Bull  = result.analysis.h4.bias.includes('BUY');
+    const h1Bull  = result.analysis.h1.bias.includes('BUY');
+    const h4Bear  = result.analysis.h4.bias.includes('SELL');
+    const h1Bear  = result.analysis.h1.bias.includes('SELL');
+    const aligned = (h4Bull && h1Bull) || (h4Bear && h1Bear);
+    const h4HasDir = h4Bull || h4Bear;
+
+    const displayConf = (result.confidence > 0)
+      ? result.confidence
+      : calcDisplayConfidence(result.analysis, result.m5Entry);
+
+    const direction = (h4Bull || (!h4Bear && h1Bull)) ? 'BUY' : 'SELL';
+
+    const isPathA = aligned && !result.m5Entry?.valid && displayConf >= 45 && !result.spikeRisk;
+    const isPathB = !aligned && h4HasDir && displayConf >= 40 && !result.spikeRisk;
+
+    if (!isPathA && !isPathB) return;
+
+    const bl = checkBlacklist(tfData);
+    if (bl.blocked) return;
+
+    const readiness = calcReadiness(result, aligned, bl, minConf, displayConf);
+
+    let approachingList = [];
+    try {
+      const allSig = runAllStrategies(tfData);
+      approachingList = allSig
+        .filter(s => s && s.confidence >= 40)
+        .sort((a, b) => b.confidence - a.confidence)
+        .slice(0, 3);
+    } catch { /* skip */ }
+
+    const pendingExplained = [];
+
+    if (!aligned) {
+      if (h4Bull && !h1Bull) {
+        pendingExplained.push(`❌ H1 belum searah dengan H4\n   ↳ H4 ${escapeHtml(result.analysis.h4.bias)}, H1 ${escapeHtml(result.analysis.h1.bias)} — tunggu H1 konfirmasi bullish.`);
+      } else if (h4Bear && !h1Bear) {
+        pendingExplained.push(`❌ H1 belum searah dengan H4\n   ↳ H4 ${escapeHtml(result.analysis.h4.bias)}, H1 ${escapeHtml(result.analysis.h1.bias)} — tunggu H1 konfirmasi bearish.`);
+      } else {
+        pendingExplained.push(`❌ Multi-timeframe belum aligned\n   ↳ H4 dan H1 belum satu arah, masih dalam transisi.`);
+      }
+    }
+
+    if (result.spikeRisk) {
+      pendingExplained.push(`❌ Volatilitas terlalu tinggi (${escapeHtml(result.volatility)})\n   ↳ Risiko spike aktif — entry ditunda sampai volatilitas mereda.`);
+    }
+
+    if (!result.m5Entry?.valid && (aligned || isPathB)) {
+      const m5r = escapeHtml(result.m5Entry?.reason || 'belum terdeteksi');
+      pendingExplained.push(`❌ Belum ada rejection candle M5 (${m5r})\n   ↳ Butuh candle konfirmasi arah sebelum bot bisa entry.`);
+    }
+
+    if (displayConf < minConf) {
+      pendingExplained.push(`❌ Confidence ${displayConf}% masih di bawah minimum ${minConf}%\n   ↳ Perlu lebih banyak konfirmasi teknikal untuk mencapai ${minConf}%.`);
+    }
+
+    if (bl.reasons.length > 0) {
+      bl.reasons.forEach(r => {
+        pendingExplained.push(`⚠️ ${escapeHtml(r)}\n   ↳ Kondisi pasar kurang kondusif saat ini.`);
+      });
+    }
+
+    const fulfilledList = readiness.checks
+      .filter(c => c.passed)
+      .map(c => `✅ ${escapeHtml(c.label)}`);
+
+    const priorityOrder = [
+      { cond: !aligned,                  label: 'H1 searah dengan H4' },
+      { cond: result.spikeRisk,          label: 'Volatilitas mereda' },
+      { cond: !result.m5Entry?.valid,    label: 'Rejection candle M5' },
+      { cond: displayConf < minConf,     label: `Confidence ≥ ${minConf}%` },
+      { cond: bl.reasons.length > 0,     label: 'Kondisi blacklist bersih' },
+    ].filter(p => p.cond);
+
+    const priorityNums = ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'];
+    const priorityLines = priorityOrder.slice(0, 5).map((p, i) =>
+      `${priorityNums[i]} ${escapeHtml(p.label)}`
+    );
+
+    const pathLabel = isPathA
+      ? '⏳ Trend aligned — menunggu M5'
+      : '📡 Setup sedang berkembang';
+
+    const wib = toWIB();
+
+    lastWatchlistBroadcast = now;
+
+    const lines = [
+      `━━━━━━━━━━━━━━━━━━`,
+      `👀 <b>AZZAVISION AI v5.0 — WATCHLIST</b>`,
+      `━━━━━━━━━━━━━━━━━━`,
+      ``,
+      wib.line,
+      ``,
+      `🪙 <b>Pair</b>     : XAUUSD`,
+      `📊 <b>Bias</b>     : <code>${escapeHtml(overall.label)}</code> | ${direction}`,
+      `🔄 <b>Status</b>   : ${pathLabel}`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━`,
+      `📊 <b>Progress Setup</b>`,
+      `<code>${progressBar(readiness.score)}</code>`,
+      `${readiness.passed}/${readiness.total} syarat entry terpenuhi`,
+      ``,
+      `📡 <b>Confidence</b>: <code>${displayConf}%</code>${displayConf < minConf ? ` (butuh ${minConf}% untuk entry)` : ' ✅'}`,
+      `📐 <b>Aligned</b>   : ${aligned ? '✅ YA' : '❌ BELUM'}`,
+    ];
+
+    if (fulfilledList.length > 0) {
+      lines.push(``);
+      lines.push(`<b>✅ Sudah terpenuhi:</b>`);
+      fulfilledList.forEach(f => lines.push(f));
+    }
+
+    if (pendingExplained.length > 0) {
+      lines.push(``);
+      lines.push(`<b>🚫 Belum terpenuhi:</b>`);
+      pendingExplained.forEach(p => lines.push(p));
+    }
+
+    if (priorityLines.length > 0) {
+      lines.push(``);
+      lines.push(`━━━━━━━━━━━━━━━━━━`);
+      lines.push(`🎯 <b>Prioritas Saat Ini:</b>`);
+      priorityLines.forEach(p => lines.push(p));
+    }
+
+    if (approachingList.length > 0) {
+      lines.push(``);
+      lines.push(`━━━━━━━━━━━━━━━━━━`);
+      lines.push(`🏆 <b>Strategi Mendekati Valid:</b>`);
+      approachingList.forEach(s => {
+        lines.push(`⏳ ${escapeHtml(s.strategyName)}: <code>${s.confidence}%</code>`);
+      });
+    }
+
+    lines.push(``);
+    lines.push(`━━━━━━━━━━━━━━━━━━`);
+    lines.push(`💡 <i>Bot akan entry otomatis saat semua ${readiness.total} syarat terpenuhi.</i>`);
+    lines.push(`⚡ <i>AZZAVISION AI v5.0 | Watchlist Alert</i>`);
+
+    const msg = lines.join('\n');
+
+    // ── Banner mascot watchlist ─────────────────────────────────────────────
+    try {
+      const wlBanner = await renderBanner('watchlist', {
+        headline: `${direction} | Conf ${displayConf}%`,
+        rows: [
+          { label: 'Pair', value: 'XAUUSD' },
+          { label: 'Bias', value: overall.label },
+          { label: 'Readiness', value: `${readiness.passed}/${readiness.total} syarat` },
+        ],
+      });
+      await botInstance.telegram.sendPhoto(channelId, { source: wlBanner })
+        .catch(e => console.warn('[WATCHLIST] Banner gagal kirim:', e.message));
+    } catch (wlBanErr) {
+      console.warn('[WATCHLIST] Banner render gagal:', wlBanErr.message);
+    }
+    await botInstance.telegram
+      .sendMessage(channelId, msg, { parse_mode: 'HTML' })
+      .catch(e => console.error('[WATCHLIST] Send failed:', e.message));
+
+    console.log(`[WATCHLIST] ⏳ Alert terkirim — ${direction} | conf:${displayConf}% | readiness:${readiness.score}% (${readiness.passed}/${readiness.total})`);
+
+  } catch (e) {
+    console.warn('[WATCHLIST] Error:', e.message);
+  }
+}
+
+// ─── CHECK TP1 HIT ────────────────────────────────────────────────────────────
+async function checkTp1(price) {
+  try {
+    const open = await getOpenSignals();
+    if (!open || open.length === 0) return;
+
+    const channelId = process.env.CHANNEL_ID;
+
+    for (const sig of open) {
+      if (sig.tp1_hit) tp1HitSent.add(sig.id);
+      if (tp1HitSent.has(sig.id)) continue;
+      if (!isSignalMonitorable(sig)) continue;
+
+      const { id, direction, entry, tp1, tp2 } = sig;
+
+      let tp1Reached = false;
+      if (direction === 'BUY'  && price >= tp1) tp1Reached = true;
+      if (direction === 'SELL' && price <= tp1) tp1Reached = true;
+
+      if (!tp1Reached) continue;
+
+      tp1HitSent.add(id);
+      await markTp1Hit(id).catch(() => {});
+      console.log(`[TP1-HIT] 🎯 Signal #${id} — TP1 tercapai @ ${price.toFixed(2)}`);
+
+      if (botInstance && channelId) {
+        const wib      = toWIB();
+        const dirEmoji = direction === 'BUY' ? '🟢' : '🔴';
+        const beActive = breakevenSent.has(id);
+
+        const msg = [
+          `━━━━━━━━━━━━━━━━━━`,
+          `🎯 <b>AZZAVISION AI — TP1 HIT!</b>`,
+          `━━━━━━━━━━━━━━━━━━`,
+          ``,
+          wib.line,
+          ``,
+          `🪙 <b>Pair</b>      : <code>XAUUSD</code>`,
+          `${dirEmoji} <b>Direction</b> : ${direction}`,
+          ``,
+          `📌 <b>Entry</b>     : <code>${entry}</code>`,
+          `🎯 <b>TP1</b>       : <code>${tp1}</code>`,
+          `💹 <b>Harga Now</b> : <code>${price.toFixed(2)}</code>`,
+          ``,
+          `✅ Target pertama tercapai.`,
+          beActive
+            ? `🔒 Breakeven tetap aktif.`
+            : `⚠️ Pertimbangkan pindah SL ke Entry (Breakeven).`,
+          `⏳ Menunggu TP2 (<code>${tp2}</code>) atau Breakeven.`,
+          ``,
+          `📊 <b>Signal ID</b> : <code>#${id}</code>`,
+          `━━━━━━━━━━━━━━━━━━`,
+          `⚡ <i>AZZAVISION AI v5.0 | Trade Monitor</i>`,
+        ].join('\n');
+
+        // ── Banner mascot TP1 ────────────────────────────────────────────────
+        try {
+          const tp1Banner = await renderBanner('tp1_hit', {
+            direction,
+            headline: `TP1 ${direction}`,
+            rows: [
+              { label: 'Entry', value: entry },
+              { label: 'TP1', value: tp1 },
+              { label: 'Harga', value: price.toFixed(2) },
+            ],
+          });
+          await botInstance.telegram.sendPhoto(channelId, { source: tp1Banner })
+            .catch(e => console.warn('[TP1] Banner gagal kirim:', e.message));
+        } catch (tp1BanErr) {
+          console.warn('[TP1] Banner render gagal:', tp1BanErr.message);
+        }
+        await botInstance.telegram
+          .sendMessage(channelId, msg, { parse_mode: 'HTML' })
+          .catch((e) => console.error('[TP1-HIT] Send failed:', e.message));
+      }
+    }
+  } catch (err) {
+    console.error('[TP1-HIT] Error:', err.message);
+  }
+}
+
+// ─── BREAKEVEN CHECK ──────────────────────────────────────────────────────────
+async function checkBreakeven(price) {
+  try {
+    const open = await getOpenSignals();
+    if (!open || open.length === 0) return;
+    if (!price) return;
+
+    const channelId = process.env.CHANNEL_ID;
+
+    for (const sig of open) {
+      if (breakevenSent.has(sig.id)) continue;
+      if (sig.breakeven_triggered)   { breakevenSent.add(sig.id); continue; }
+      if (!isSignalMonitorable(sig)) continue;
+
+      const pips =
+        sig.direction === 'BUY'
+          ? (price - sig.entry) / 0.1
+          : (sig.entry - price) / 0.1;
+
+      if (pips >= 28) {
+        breakevenSent.add(sig.id);
+        await markBreakevenTriggered(sig.id).catch(() => {});
+        console.log(`[BREAKEVEN] 🔒 Signal #${sig.id} — profit +${pips.toFixed(1)} pips → Move SL to BE`);
+
+        if (botInstance && channelId) {
+          const wib = toWIB();
+          const msg = [
+            `🔒 <b>AZZAVISION AI — MOVE TO BREAKEVEN!</b>`,
+            ``,
+            wib.line,
+            ``,
+            `💹 Profit sudah <b>+${pips.toFixed(1)} pips</b>`,
+            `📌 Pindahkan SL ke Entry: <code>${sig.entry}</code>`,
+            `🎯 Signal #${sig.id} | ${sig.direction} @ ${sig.entry}`,
+            ``,
+            `⚠️ <i>Jika harga kembali ke area entry/SL = TP1+BE bukan LOSS</i>`,
+          ].join('\n');
+          // ── Banner mascot breakeven ───────────────────────────────────────
+          try {
+            const beBanner = await renderBanner('breakeven', {
+              direction: sig.direction,
+              headline: `BREAKEVEN ${sig.direction}`,
+              rows: [
+                { label: 'Profit', value: `+${pips.toFixed(1)} pips` },
+                { label: 'Entry / SL baru', value: sig.entry },
+              ],
+            });
+            await botInstance.telegram.sendPhoto(channelId, { source: beBanner })
+              .catch(e => console.warn('[BREAKEVEN] Banner gagal kirim:', e.message));
+          } catch (beBanErr) {
+            console.warn('[BREAKEVEN] Banner render gagal:', beBanErr.message);
+          }
+          await botInstance.telegram
+            .sendMessage(channelId, msg, { parse_mode: 'HTML' })
+            .catch((e) => console.error('[BREAKEVEN] Send failed:', e.message));
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[BREAKEVEN] Error:', err.message);
+  }
+}
+
+// ─── AUTO-CLOSE ───────────────────────────────────────────────────────────────
+async function checkAndAutoClose(price) {
+  try {
+    const open = await getOpenSignals();
+    if (!open || open.length === 0) return;
+    if (!price) return;
+
+    const channelId = process.env.CHANNEL_ID;
+
+    for (const sig of open) {
+      if (!isSignalMonitorable(sig)) continue;
+
+      const { id, direction, entry, tp1, tp2, sl } = sig;
+
+      if (sig.breakeven_triggered) breakevenSent.add(id);
+      if (sig.tp1_hit)             tp1HitSent.add(id);
+
+      const hasBreakeven = breakevenSent.has(id);
+      const hasTp1Hit    = tp1HitSent.has(id);
+
+      let closed   = false;
+      let status   = '';
+      let pips     = 0;
+      let hitLevel = '';
+
+      if (direction === 'BUY') {
+        if (price <= sl) {
+          closed = true;
+          if (hasBreakeven && hasTp1Hit) { status = 'TP1_BREAKEVEN'; pips = 0;    hitLevel = `TP1+BE @ Entry: ${entry}`; }
+          else if (hasBreakeven)         { status = 'BREAKEVEN';     pips = 0;    hitLevel = `BE @ Entry: ${entry}`; }
+          else                           { status = 'LOSS';          pips = -40;  hitLevel = `SL: ${sl}`; }
+        } else if (price >= tp2) {
+          closed = true; status = 'WIN'; pips = 125; hitLevel = `TP2: ${tp2}`;
+          if (!hasTp1Hit) { tp1HitSent.add(id); await markTp1Hit(id).catch(() => {}); }
+        }
+      } else {
+        if (price >= sl) {
+          closed = true;
+          if (hasBreakeven && hasTp1Hit) { status = 'TP1_BREAKEVEN'; pips = 0;    hitLevel = `TP1+BE @ Entry: ${entry}`; }
+          else if (hasBreakeven)         { status = 'BREAKEVEN';     pips = 0;    hitLevel = `BE @ Entry: ${entry}`; }
+          else                           { status = 'LOSS';          pips = -40;  hitLevel = `SL: ${sl}`; }
+        } else if (price <= tp2) {
+          closed = true; status = 'WIN'; pips = 125; hitLevel = `TP2: ${tp2}`;
+          if (!hasTp1Hit) { tp1HitSent.add(id); await markTp1Hit(id).catch(() => {}); }
+        }
+      }
+
+      if (!closed) continue;
+
+      sig.pips = pips;
+
+      try {
+        await closeSignal(id, status, pips, price);
+
+        await updateLearningResult(id, status, pips).catch((e) => {
+          console.warn('[AUTO-CLOSE] updateLearningResult gagal:', e.message);
+        });
+
+        const strategies = getSignalStrategies(sig);
+        for (const s of strategies) {
+          if (status === 'WIN')                             await recordStrategyWin(s).catch(() => {});
+          else if (status === 'LOSS')                       await recordStrategyLoss(s).catch(() => {});
+          else if (status === 'BREAKEVEN' || status === 'TP1_BREAKEVEN') await recordStrategyBreakeven(s).catch(() => {});
+        }
+
+        autoRetrain().catch((e) => {
+          console.warn('[AUTO-CLOSE] autoRetrain gagal:', e.message);
+        });
+
+        breakevenSent.delete(id);
+        tp1HitSent.delete(id);
+
+        const pipSign = pips >= 0 ? '+' : '';
+        console.log(`[AUTO-CLOSE] ✅ Signal #${id} closed: ${status} | ${hitLevel} | ${pipSign}${pips} pips`);
+      } catch (closeErr) {
+        console.error('[AUTO-CLOSE] Gagal close signal #' + id + ':', closeErr.message);
+        continue;
+      }
+
+      if (botInstance && channelId) {
+        const wib         = toWIB();
+        const pipSign     = pips >= 0 ? '+' : '';
+        const isWin       = status === 'WIN';
+        const isBE        = status === 'BREAKEVEN';
+        const isTp1BE     = status === 'TP1_BREAKEVEN';
+        const medal       = isWin && pips >= 125 ? '🏆' : isWin ? '✅' : isTp1BE || isBE ? '🔒' : '❌';
+        const outcomeLabel = isWin ? 'WIN' : isTp1BE ? 'TP1 + BREAKEVEN' : isBE ? 'BREAKEVEN' : 'LOSS';
+        const dirEmoji    = direction === 'BUY' ? '🟢' : '🔴';
+
+        let resultLine;
+        if (isWin)        resultLine = `💰 <b>Profit</b>    : <code>${pipSign}${pips} pips</code> 🎉`;
+        else if (isTp1BE) resultLine = `🔒 <b>Result</b>    : <code>TP1 + BREAKEVEN</code>\n✅ TP1 pernah tercapai — dihitung sebagai hasil POSITIF`;
+        else if (isBE)    resultLine = `🔒 <b>Result</b>    : <code>BREAKEVEN — 0 pips</code>`;
+        else              resultLine = `🛑 <b>Loss</b>      : <code>${pipSign}${pips} pips</code>`;
+
+        const closeMsg = [
+          `━━━━━━━━━━━━━━━━━━`,
+          `${medal} <b>AZZAVISION AI — SIGNAL ${outcomeLabel}</b>`,
+          `━━━━━━━━━━━━━━━━━━`,
+          ``,
+          wib.line,
+          ``,
+          `🪙 <b>Pair</b>      : <code>XAUUSD</code>`,
+          `${dirEmoji} <b>Direction</b> : ${direction}`,
+          ``,
+          `📌 <b>Entry</b>     : <code>${entry}</code>`,
+          `🎯 <b>Hit Level</b> : <code>${hitLevel}</code>`,
+          `💹 <b>Harga Now</b> : <code>${price.toFixed(2)}</code>`,
+          ``,
+          resultLine,
+          ``,
+          `📊 <b>Signal ID</b> : <code>#${id}</code>`,
+          ``,
+          `━━━━━━━━━━━━━━━━━━`,
+          `⚡ <i>AZZAVISION AI v5.0 | Auto-Close System</i>`,
+        ].join('\n');
+
+        // ── Banner mascot close outcome ───────────────────────────────────────
+        try {
+          const closeBannerType = (isWin || isTp1BE) ? 'tp_hit' : isBE ? 'breakeven' : 'stop_loss';
+          const closeBanner = await renderBanner(closeBannerType, {
+            direction,
+            headline: `${outcomeLabel} ${direction}`,
+            rows: [
+              { label: 'Entry', value: entry },
+              { label: 'Close', value: price.toFixed(2) },
+              { label: 'Pips', value: `${pips >= 0 ? '+' : ''}${pips} pips` },
+            ],
+          });
+          await botInstance.telegram.sendPhoto(channelId, { source: closeBanner })
+            .catch(e => console.warn('[AUTO-CLOSE] Banner gagal kirim:', e.message));
+        } catch (closeBanErr) {
+          console.warn('[AUTO-CLOSE] Banner render gagal:', closeBanErr.message);
+        }
+        // ── Inline buttons on close notification ──────────────────────────────
+        let closeMsgObj = null;
+        try {
+          const { Markup } = require('telegraf');
+          const replayButtons = Markup.inlineKeyboard([
+            [
+              Markup.button.callback('📖 AI Replay', `replay_${id}`),
+              Markup.button.callback('📊 Detail', `tradedetail_${id}`),
+            ],
+            [
+              Markup.button.callback('❓ Tanya AI', `tradeask_start_${id}`),
+              Markup.button.callback('📈 Strategy Stats', `stratstat_trade_${id}`),
+            ],
+          ]);
+          closeMsgObj = await botInstance.telegram.sendMessage(channelId, closeMsg, {
+            parse_mode: 'HTML',
+            ...replayButtons,
+          });
+        } catch (btnErr) {
+          // Fallback: kirim tanpa tombol
+          console.warn('[AUTO-CLOSE] Gagal kirim dengan tombol, coba plain:', btnErr.message);
+          await botInstance.telegram
+            .sendMessage(channelId, closeMsg, { parse_mode: 'HTML' })
+            .catch((e) => console.error('[AUTO-CLOSE] Gagal kirim notif:', e.message));
+        }
+
+        try {
+          const strategies    = getSignalStrategies(sig);
+          const journalMsg    = await generateAITradeJournal(sig, status, price, strategies);
+          await botInstance.telegram
+            .sendMessage(channelId, journalMsg, { parse_mode: 'HTML' });
+          console.log(`[JOURNAL] 📝 Jurnal AI terkirim untuk trade #${id}`);
+        } catch (journalErr) {
+          console.warn('[JOURNAL] Gagal kirim jurnal:', journalErr.message);
+          try {
+            const strategies = getSignalStrategies(sig);
+            const fallbackMsg = formatTradeJournal(sig, status, price, strategies);
+            await botInstance.telegram
+              .sendMessage(channelId, fallbackMsg, { parse_mode: 'HTML' });
+          } catch { /* silent */ }
+        }
+      }
+    }
+  } catch (err) {
+    console.error('[AUTO-CLOSE] Error:', err.message);
+  }
+}
+
+// ─── MAIN SCAN ────────────────────────────────────────────────────────────────
+async function doScan(silent = false) {
+  try {
+    const tfData = await getAllTimeframes();
+
+    if (!tfData.m5?.length || !tfData.h1?.length || !tfData.h4?.length) {
+      console.warn('[SCANNER] Data tidak lengkap, skip scan ini');
+      return null;
+    }
+
+    const result  = runStrategy(tfData);
+    const overall = getOverallBias(result.analysis);
+
+    // Simpan market snapshot
+    saveMarketSnapshot({
+      m1_bias: result.analysis.m1.bias, m5_bias: result.analysis.m5.bias,
+      m15_bias: result.analysis.m15.bias, h1_bias: result.analysis.h1.bias,
+      h4_bias: result.analysis.h4.bias, overall: overall.label,
+      confidence: result.confidence,
+    }).catch((e) => console.warn('[SCANNER] Gagal simpan snapshot:', e.message));
+
+    // Blacklist check
+    const bl = checkBlacklist(tfData);
+    if (bl.blocked) {
+      if (!silent) {
+        console.log(`[SCANNER] 🚫 Blacklist aktif: ${bl.reasons.join(', ')} → skip`);
+      }
+      return { ...result, confidence: result.confidence };
+    }
+
+    // Similarity engine
+    const currentCondition = {
+      direction:        result.direction,
+      h4_trend:         result.analysis.h4.bias,
+      h1_trend:         result.analysis.h1.bias,
+      m15_trend:        result.analysis.m15.bias,
+      m5_trend:         result.analysis.m5.bias,
+      m1_trend:         result.analysis.m1.bias,
+      h4_rsi:           result.analysis.h4.rsi,
+      m5_rsi:           result.analysis.m5.rsi,
+      market_structure: result.analysis.h4.marketStructure ||
+        (result.analysis.h4.factors || []).find(f => f.includes('BOS') || f.includes('CHOCH')) || 'NONE',
+      has_rejection:    result.m5Entry?.valid || false,
+      session:          getTradingSession(),
+    };
+
+    let similarityResult = null;
+    try {
+      similarityResult = await runSimilarity(currentCondition);
+    } catch (simErr) {
+      console.warn('[SCANNER] Similarity check gagal:', simErr.message);
+    }
+
+    let finalConfidence = result.confidence;
+    if (similarityResult?.active) {
+      finalConfidence = applyAdaptiveConfidence(result.confidence, similarityResult);
+    }
+
+    // Blacklist penalty
+    if (bl.penalty > 0) {
+      finalConfidence = Math.max(10, finalConfidence - bl.penalty);
+    }
+
+    // Ensemble score
+    let ensembleResult = null;
+    if (result.aligned && !result.spikeRisk) {
+      try {
+        ensembleResult = calculateEnsemble(tfData, result.direction);
+        if (!silent) {
+          console.log(`[ENSEMBLE] Score: ${ensembleResult.totalScore}/100 (${ensembleResult.passed ? 'PASS' : 'FAIL'})`);
+        }
+      } catch (ensErr) {
+        console.warn('[ENSEMBLE] Gagal hitung:', ensErr.message);
+      }
+    }
+
+    // ── NEWS INTELLIGENCE ENGINE ───────────────────────────────────────────────
+    // Fail-safe: jika news engine error, scanner tetap berjalan normal.
+    // News hanya menjadi filter tambahan — tidak mengganti logika utama.
+    let newsResult = null;
+    try {
+      newsResult = await getNewsImpact();
+      if (newsResult) {
+        // 1. Confidence adjustment
+        if (newsResult.confidenceAdjustment !== 0) {
+          const before = finalConfidence;
+          finalConfidence = Math.max(10, Math.min(97, finalConfidence + newsResult.confidenceAdjustment));
+          if (!silent) {
+            console.log(`[NEWS] Confidence adjustment: ${before}% → ${finalConfidence}% (news: ${newsResult.confidenceAdjustment > 0 ? '+' : ''}${newsResult.confidenceAdjustment}%)`);
+          }
+        }
+        // 2. Direction support check — PERMISSIVE: hanya log, tidak block
+        const nAnalysis = newsResult.analysis;
+        if (!newsResult.blockEntry && nAnalysis?.direction_support && nAnalysis.direction_support !== 'NETRAL') {
+          if (nAnalysis.direction_support !== result.direction) {
+            if (!silent) console.log(`[NEWS] ⚠️ Arah news berbeda — signal ${result.direction} vs news ${nAnalysis.direction_support}. Lanjut (permissive mode).`);
+          }
+        }
+        // 3. Gold impact check — PERMISSIVE: hanya log, tidak block
+        if (!newsResult.blockEntry && nAnalysis?.impact_gold && nAnalysis.impact_gold !== 'NETRAL') {
+          if (result.direction === 'BUY' && nAnalysis.impact_gold === 'BEARISH') {
+            if (!silent) console.log(`[NEWS] ⚠️ Gold impact BEARISH vs BUY — lanjut (permissive mode).`);
+          } else if (result.direction === 'SELL' && nAnalysis.impact_gold === 'BULLISH') {
+            if (!silent) console.log(`[NEWS] ⚠️ Gold impact BULLISH vs SELL — lanjut (permissive mode).`);
+          }
+        }
+      }
+    } catch (newsErr) {
+      console.warn('[NEWS-ENGINE] Gagal (fail-safe, lanjut tanpa news):', newsErr.message);
+      newsResult = null;
+    }
+
+    const minConf     = parseInt(process.env.MIN_CONFIDENCE || '55');
+    const ensembleOk  = !ensembleResult || ensembleResult.passed;
+
+    // News permissive: hanya block jika HIGH-IMPACT imminent (NFP/FOMC/dll), arah berbeda tidak block
+    const newsBlocked = newsResult?.blockEntry === true;
+    if (newsBlocked && !silent) {
+      console.log('[NEWS] 🚫 Entry diblokir oleh News Engine — HIGH-IMPACT news imminent');
+    }
+
+    // M5 relax: boleh entry tanpa M5 rejection candle jika confidence >= 68% dan trend aligned
+    const m5Relaxed = result.m5Entry?.valid ||
+      (result.aligned && !result.spikeRisk && finalConfidence >= 68);
+
+    const canEnterFinal = m5Relaxed &&
+      finalConfidence >= minConf &&
+      ensembleOk &&
+      !newsBlocked;
+
+    if (!silent) {
+      const reason = !result.aligned
+        ? `Trend tidak aligned (H4:${result.analysis.h4.bias} H1:${result.analysis.h1.bias})`
+        : result.spikeRisk
+          ? `Spike/extreme volatility (${result.volatility})`
+          : !result.m5Entry?.valid
+            ? `M5 tidak valid: ${result.m5Entry?.reason}`
+            : newsBlocked
+              ? `News Engine memblokir entry`
+              : finalConfidence < minConf
+                ? `Confidence rendah: ${finalConfidence}%`
+                : ensembleResult && !ensembleResult.passed
+                  ? `Ensemble score rendah: ${ensembleResult.totalScore}/100`
+                  : 'VALID';
+
+      const simStr = similarityResult?.active
+        ? ` | Sim:${similarityResult.avgSimilarity}% ${similarityResult.recommendation}`
+        : '';
+
+      const ensStr = ensembleResult
+        ? ` | Ensemble:${ensembleResult.totalScore}/100`
+        : '';
+
+      console.log(
+        `[SCANNER] bias:${overall.label} conf:${finalConfidence}%${simStr}${ensStr} → ${canEnterFinal ? '✅ SEND' : `⏭ SKIP (${reason})`}`
+      );
+    }
+
+    // Cooldown check
+    const now             = Date.now();
+    const sinceLastSignal = now - lastSignalTime;
+    if (canEnterFinal && sinceLastSignal < SIGNAL_COOLDOWN) {
+      const minLeft = Math.ceil((SIGNAL_COOLDOWN - sinceLastSignal) / 60000);
+      console.log(`[SCANNER] Cooldown aktif — ${minLeft} menit lagi`);
+      return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+    }
+
+    if (canEnterFinal && botInstance) {
+      const channelId = process.env.CHANNEL_ID;
+      if (!channelId) {
+        console.warn('[SCANNER] CHANNEL_ID tidak di-set');
+        return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+      }
+
+      const { levels, direction } = result;
+
+      if (!levels) {
+        console.warn('[SCANNER] levels null — skip signal');
+        return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+      }
+
+      const priceCheck = validatePrice(levels.entry);
+      if (!priceCheck.valid) {
+        console.warn(`[SCANNER] ⛔ Harga tidak valid — ${priceCheck.reason}`);
+        return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+      }
+
+      // Semua modul menggunakan SATU object signalData yang sama
+      // ── v3.3: Full market snapshot disimpan untuk AI Trade Replay ─────────────
+      const currentSession = getTradingSession();
+      const entryReasons = ensembleResult?.activeComponents
+        ? ensembleResult.activeComponents.map(c => `${c.name}${c.reason ? ` — ${c.reason}` : ''}`).join(', ')
+        : result.m5Entry?.valid ? 'M5 Rejection Confirmed + Multi-TF Aligned' : 'Multi-Timeframe Analysis';
+      const confluenceList = [
+        result.analysis.h4.bias !== 'NEUTRAL' ? `H4: ${result.analysis.h4.bias}` : null,
+        result.analysis.h1.bias !== 'NEUTRAL' ? `H1: ${result.analysis.h1.bias}` : null,
+        result.analysis.m15.bias !== 'NEUTRAL' ? `M15: ${result.analysis.m15.bias}` : null,
+        result.m5Entry?.valid ? 'M5 Rejection Valid' : null,
+        result.analysis.h4.marketStructure ? `Structure: ${result.analysis.h4.marketStructure}` : null,
+        ensembleResult ? `Ensemble: ${ensembleResult.totalScore}/100` : null,
+        similarityResult?.active ? `Similarity: ${similarityResult.avgSimilarity}%` : null,
+      ].filter(Boolean).join(', ');
+
+      const signalData = {
+        pair:       'XAUUSD',
+        direction,
+        entry:      levels.entry,
+        tp1:        levels.tp1,
+        tp2:        levels.tp2,
+        sl:         levels.sl,
+        confidence: finalConfidence,
+        h4_bias:    result.analysis.h4.bias,
+        h1_bias:    result.analysis.h1.bias,
+        m15_bias:   result.analysis.m15.bias,
+        m5_signal:  result.m5Entry.valid ? 'Rejection Confirmed' : result.m5Entry.reason,
+        m1_bias:    result.analysis.m1?.bias || 'N/A',
+        session:    currentSession,
+        volatility: result.volatility || 'Normal',
+        entry_reasons: entryReasons,
+        confluence:    confluenceList,
+        ensemble_score: ensembleResult?.totalScore || null,
+        strategy:   ensembleResult?.ranking?.[0]?.name || 'Multi-Strategy Analysis',
+        // Full snapshot for AI Trade Replay
+        snapshot: {
+          h4:            result.analysis.h4.bias,
+          h1:            result.analysis.h1.bias,
+          m15:           result.analysis.m15.bias,
+          m5:            result.m5Entry.valid ? 'Rejection Confirmed' : result.m5Entry.reason,
+          m1:            result.analysis.m1?.bias || 'N/A',
+          h4_rsi:        result.analysis.h4?.rsi || null,
+          h1_rsi:        result.analysis.h1?.rsi || null,
+          m5_rsi:        result.analysis.m5?.rsi || null,
+          h4_structure:  result.analysis.h4?.marketStructure || 'N/A',
+          session:       currentSession,
+          volatility:    result.volatility || 'Normal',
+          spike_risk:    result.spikeRisk || false,
+          ensemble_score: ensembleResult?.totalScore || null,
+          ensemble_ranking: ensembleResult?.ranking?.slice(0, 3)?.map(r => r.name) || [],
+          entry_reasons: entryReasons,
+          confluence:    confluenceList,
+          news_summary:  newsResult?.reason || 'Tidak ada berita berdampak tinggi',
+          news_impact:   newsResult?.impact || 'neutral',
+          similarity_wr: similarityResult?.winRate || null,
+          similarity_avg: similarityResult?.avgSimilarity || null,
+        },
+      };
+
+      // Validasi ketat sebelum mengirim signal
+      const sigCheck = validateSignal(signalData);
+      if (!sigCheck.valid) {
+        console.warn(`[SCANNER] ⛔ Signal tidak valid — ${sigCheck.reason}`);
+        return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+      }
+
+      // ── Gemini AI Validation (fail-safe) ─────────────────────────────────────
+      let geminiResult = null;
+      if (process.env.GEMINI_API_KEY) {
+        try {
+          const { validateSignalWithGemini } = require('./gemini');
+          geminiResult = await validateSignalWithGemini(signalData, result.analysis);
+
+          if (geminiResult?.verdict === 'REJECT') {
+            const why = (geminiResult.reasons || []).slice(0, 2).join(' | ');
+            console.log(`[GEMINI] ❌ Signal REJECTED — score:${geminiResult.score} | ${why}`);
+            return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+          }
+
+          if (geminiResult?.verdict === 'APPROVE') {
+            console.log(`[GEMINI] ✅ Signal APPROVED — score:${geminiResult.score}`);
+          }
+        } catch (gemErr) {
+          console.warn('[GEMINI] Validation error (fail-safe, lanjut kirim):', gemErr.message);
+          geminiResult = null;
+        }
+      }
+
+      // Attach AI review to signal data before saving
+      if (geminiResult) {
+        signalData.ai_review = {
+          verdict: geminiResult.verdict,
+          score:   geminiResult.score,
+          reasons: geminiResult.reasons || [],
+          advice:  geminiResult.advice  || [],
+        };
+        if (signalData.snapshot) {
+          signalData.snapshot.ai_review = signalData.ai_review;
+        }
+      }
+
+      let signalId;
+      try {
+        signalId       = await insertSignal(signalData);
+        lastSignalTime = now;
+        await saveLearningEntry(signalId, direction, levels, result.analysis).catch((e) => {
+          console.warn('[SCANNER] Gagal simpan learning entry:', e.message);
+        });
+        console.log(`[SCANNER] ✅ Signal #${signalId} disimpan dengan snapshot lengkap`);
+      } catch (insertErr) {
+        console.error('[SCANNER] Gagal simpan signal:', insertErr.message);
+        return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+      }
+
+      // formatSignalMessage menerima satu object signalData yang sama
+      // dengan tambahan newsResult sebagai parameter ke-6
+      const message = formatSignalMessage(
+        signalData,
+        result.analysis,
+        similarityResult,
+        ensembleResult,
+        geminiResult,
+        newsResult,
+      );
+
+      let chartBuffer = null;
+      try {
+        chartBuffer = await generateSignalChart({
+          direction, entry: levels.entry, tp1: levels.tp1, tp2: levels.tp2,
+          sl: levels.sl, confidence: finalConfidence, analysis: result.analysis,
+        });
+      } catch (chartErr) {
+        console.warn('[SCANNER] Chart generation gagal:', chartErr.message);
+      }
+
+      // ── Banner mascot sinyal ──────────────────────────────────────────────
+      try {
+        const sigBannerType = direction === 'BUY' ? 'signal_buy' : 'signal_sell';
+        const sigBanner = await renderBanner(sigBannerType, {
+          direction,
+          pair: 'XAUUSD',
+          entry: levels.entry,
+          tp1: levels.tp1,
+          tp2: levels.tp2,
+          sl: levels.sl,
+          confidence: finalConfidence,
+        });
+        await botInstance.telegram.sendPhoto(channelId, { source: sigBanner })
+          .catch(e => console.warn('[SCANNER] Signal banner gagal kirim:', e.message));
+      } catch (sigBanErr) {
+        console.warn('[SCANNER] Signal banner render gagal:', sigBanErr.message);
+      }
+      try {
+        if (chartBuffer) {
+          await botInstance.telegram.sendPhoto(channelId, { source: chartBuffer }, {
+            caption: message, parse_mode: 'HTML',
+          });
+        } else {
+          await botInstance.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
+        }
+        console.log(`[SCANNER] ✅ Signal dikirim: ${direction} @ ${levels.entry} (conf:${finalConfidence}%) ID:#${signalId}`);
+      } catch (sendErr) {
+        console.error('[SCANNER] Gagal kirim signal:', sendErr.message);
+      }
+    }
+
+    return { ...result, confidence: finalConfidence, similarityResult, ensembleResult, newsResult };
+  } catch (err) {
+    console.error('[SCANNER] Error saat scan:', err.message);
+    return null;
+  }
+}
+
+// ─── SCHEDULER ────────────────────────────────────────────────────────────────
+function startScanner(bot) {
+  if (scannerActive) return;
+  botInstance   = bot;
+  scannerActive = true;
+
+  const interval = parseInt(process.env.SCAN_INTERVAL || '6000');
+
+  priceTickInterval = setInterval(async () => {
+    await priceTick();
+
+    analysisTickCount++;
+    if (analysisTickCount >= ANALYSIS_EVERY_N) {
+      analysisTickCount = 0;
+      analysisTick();
+    }
+  }, interval);
+
+  setTimeout(async () => {
+    console.log('[SCANNER] Menjalankan init scan pertama...');
+    await analysisTick();
+    await priceTick();
+  }, 5000);
+
+  console.log(`[SCANNER] ✅ Scanner aktif (interval: ${interval / 1000}s)`);
+}
+
+// ─── GETTERS ──────────────────────────────────────────────────────────────────
+function getOverallBias(analysis) {
+  const biases = [analysis.h4, analysis.h1, analysis.m15, analysis.m5]
+    .map(a => a?.bias || 'NEUTRAL');
+
+  let bullCount = biases.filter(b => b.includes('BUY')).length;
+  let bearCount = biases.filter(b => b.includes('SELL')).length;
+
+  if (bullCount >= 3) return { label: bullCount === 4 ? 'STRONG_BUY' : 'BUY' };
+  if (bearCount >= 3) return { label: bearCount === 4 ? 'STRONG_SELL' : 'SELL' };
+  return { label: 'NEUTRAL' };
+}
+
+function getScannerStatus() {
+  return {
+    active: scannerActive,
+    lastSignalTime,
+    cooldownRemaining: Math.max(0, SIGNAL_COOLDOWN - (Date.now() - lastSignalTime)),
+  };
+}
+
+module.exports = {
+  startScanner,
+  doScan,
+  getOverallBias,
+  getScannerStatus,
+  setBotInstance,
+};

@@ -1,0 +1,670 @@
+/**
+ * trade_scanner.js — AZZAVISION AI v5.0 Trade Scanner AI Engine
+ *
+ * Berbeda dari Signal Engine (realtime entry).
+ * Trade Scanner memberikan SETUP MARKET — zona entry, bukan harga saat ini.
+ *
+ * Features:
+ * - SHORT (1-8 jam), MEDIUM (1-3 hari), LONG (1-2 minggu)
+ * - Signal Lifecycle: WAITING → ACTIVE → TP1_HIT / TP2_HIT / SL_HIT / EXPIRED
+ * - Signal Lock: tidak boleh buat sinyal baru jika ada yang WAITING/ACTIVE
+ * - Risk Management: LOW/MEDIUM/HIGH + RR + Suggested Lot
+ * - Strategy Description: AI narrative untuk setiap setup
+ * - High Confluence: jika Scanner + Signal Engine searah
+ * - Disclaimer otomatis
+ */
+
+'use strict';
+
+const fs   = require('fs');
+const path = require('path');
+const { renderBanner } = require('../banner');
+const { callAI } = require('./ai_engine');
+const { getCachedPrice } = require('../market/cache');
+const { getAllTimeframes } = require('../market/data');
+const { runStrategy } = require('./strategy');
+const { getOverallBias } = require('./scanner');
+const { toWIB } = require('../utils/wib_time');
+// ── News Intelligence Engine ───────────────────────────────────────────────────
+const { getNewsImpact } = require('./news_engine');
+
+const SCANNER_DB_PATH = path.resolve(process.cwd(), 'data/scanner_signals.json');
+const SCANNER_HISTORY_PATH = path.resolve(process.cwd(), 'data/scanner_history.json');
+
+// ─── DURATIONS ────────────────────────────────────────────────────────────────
+const DURATIONS = {
+  short:  { label: 'SHORT',  hours: 8,    expiredMs: 8  * 60 * 60 * 1000 },
+  medium: { label: 'MEDIUM', hours: 72,   expiredMs: 72 * 60 * 60 * 1000 },
+  long:   { label: 'LONG',   hours: 336,  expiredMs: 336 * 60 * 60 * 1000 },
+};
+
+// ─── DB HELPERS ───────────────────────────────────────────────────────────────
+function loadDB() {
+  try {
+    if (!fs.existsSync(SCANNER_DB_PATH)) return {};
+    return JSON.parse(fs.readFileSync(SCANNER_DB_PATH, 'utf8'));
+  } catch { return {}; }
+}
+
+function saveDB(data) {
+  try {
+    const dir = path.dirname(SCANNER_DB_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(SCANNER_DB_PATH, JSON.stringify(data, null, 2));
+  } catch (e) {
+    console.error('[TRADE-SCANNER] saveDB error:', e.message);
+  }
+}
+
+function loadHistory() {
+  try {
+    if (!fs.existsSync(SCANNER_HISTORY_PATH)) return [];
+    return JSON.parse(fs.readFileSync(SCANNER_HISTORY_PATH, 'utf8'));
+  } catch { return []; }
+}
+
+function saveHistory(arr) {
+  try {
+    const dir = path.dirname(SCANNER_HISTORY_PATH);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    // Keep last 100 entries
+    const trimmed = arr.slice(-100);
+    fs.writeFileSync(SCANNER_HISTORY_PATH, JSON.stringify(trimmed, null, 2));
+  } catch (e) {
+    console.error('[TRADE-SCANNER] saveHistory error:', e.message);
+  }
+}
+
+function archiveSignal(sig) {
+  const history = loadHistory();
+  history.push({ ...sig, archived_at: new Date().toISOString() });
+  saveHistory(history);
+}
+
+// ─── SAVE CHANNEL MSG ID ──────────────────────────────────────────────────────
+// Dipanggil dari scan.js setelah berhasil kirim signal ke channel.
+// Menyimpan message_id agar bisa di-unpin saat signal selesai.
+function saveChannelMsgId(type, msgId) {
+  try {
+    const db = loadDB();
+    if (db[type]) {
+      db[type].channel_msg_id = msgId;
+      saveDB(db);
+      console.log(`[TRADE-SCANNER] 📌 channel_msg_id ${msgId} disimpan untuk ${type.toUpperCase()}`);
+    }
+  } catch (e) {
+    console.warn('[TRADE-SCANNER] saveChannelMsgId error:', e.message);
+  }
+}
+
+// ─── SIGNAL LOCK CHECK ────────────────────────────────────────────────────────
+function isLocked(type) {
+  const db = loadDB();
+  const sig = db[type];
+  if (!sig) return false;
+  // Locked jika masih WAITING atau ACTIVE
+  return sig.status === 'WAITING' || sig.status === 'ACTIVE';
+}
+
+// ─── STATUS CHECKER ───────────────────────────────────────────────────────────
+function checkExpired(sig) {
+  if (!sig || sig.status === 'EXPIRED' || sig.status === 'TP2_HIT' || sig.status === 'SL_HIT') return sig;
+  const dur = DURATIONS[sig.type?.toLowerCase()];
+  if (!dur) return sig;
+  const created = new Date(sig.created_at).getTime();
+  if (Date.now() - created >= dur.expiredMs) {
+    sig.status = 'EXPIRED';
+  }
+  return sig;
+}
+
+// ─── RISK LABEL ───────────────────────────────────────────────────────────────
+function calcRisk(confidence) {
+  if (confidence >= 80) return 'LOW';
+  if (confidence >= 65) return 'MEDIUM';
+  return 'HIGH';
+}
+
+// ─── SUGGESTED LOT ────────────────────────────────────────────────────────────
+function suggestedLot(riskLevel, balance) {
+  const b = parseFloat(balance) || 1000;
+  const pct = riskLevel === 'LOW' ? 0.01 : riskLevel === 'MEDIUM' ? 0.015 : 0.02;
+  const risk$ = b * pct;
+  const slPts = 40;
+  const lotRaw = risk$ / (slPts * 1); // 1 USD per point per 0.01 lot (approx)
+  return Math.max(0.01, parseFloat(lotRaw.toFixed(2)));
+}
+
+// ─── AI STRATEGY DESCRIPTION ──────────────────────────────────────────────────
+async function generateStrategyDesc(direction, type, confidence, analysis) {
+  const prompt = `
+Kamu adalah AZZAVISION AI Trading Analyst.
+Buat penjelasan strategi setup market XAUUSD untuk sinyal berikut:
+
+Direction   : ${direction}
+Type        : ${type} (${type === 'SHORT' ? '1-8 jam' : type === 'MEDIUM' ? '1-3 hari' : '1-2 minggu'})
+Confidence  : ${confidence}%
+H4 Bias     : ${analysis?.h4?.bias || 'N/A'}
+H1 Bias     : ${analysis?.h1?.bias || 'N/A'}
+M15 Bias    : ${analysis?.m15?.bias || 'N/A'}
+
+Buat penjelasan 2-3 kalimat dalam Bahasa Indonesia yang:
+- Menjelaskan kondisi market saat ini
+- Menjelaskan mengapa setup ini valid
+- Memberikan konteks untuk trader menunggu entry di zona yang ditentukan
+
+Output HARUS valid JSON:
+{"description": "penjelasan di sini..."}
+`.trim();
+
+  try {
+    const result = await callAI(prompt);
+    return result?.description || 'Setup market teridentifikasi. Tunggu harga memasuki zona entry untuk konfirmasi.';
+  } catch {
+    return 'Setup market teridentifikasi. Tunggu harga memasuki zona entry untuk konfirmasi.';
+  }
+}
+
+// ─── GENERATE SCAN ────────────────────────────────────────────────────────────
+async function generateScan(type) {
+  const typeKey = type.toLowerCase();
+  const dur = DURATIONS[typeKey];
+  if (!dur) throw new Error(`Tipe scan tidak valid: ${type}`);
+
+  // Signal Lock check
+  if (isLocked(typeKey)) {
+    const db = loadDB();
+    const existing = db[typeKey];
+    return { locked: true, existing, type: typeKey };
+  }
+
+  // Get market data
+  let tfData, result, analysis, overall;
+  try {
+    tfData  = await getAllTimeframes();
+    result  = runStrategy(tfData);
+    analysis = result.analysis;
+    overall = getOverallBias(analysis);
+  } catch (e) {
+    throw new Error('Gagal ambil data market: ' + e.message);
+  }
+
+  const currentPrice = getCachedPrice() || result.currentPrice || 0;
+  const direction = overall.label.includes('BUY') ? 'BUY' : overall.label.includes('SELL') ? 'SELL' : 'BUY';
+
+  // ── News Alignment Check (PERMISSIVE MODE) ──────────────────────────────────
+  // Hanya blokir untuk HIGH-IMPACT imminent (NFP/FOMC/dll).
+  // Perbedaan arah news/gold TIDAK memblokir — hanya dicatat sebagai info.
+  let newsAligned = null; // null = skip/error, true = aligned
+  let newsInfo    = null;
+  try {
+    const newsResult = await getNewsImpact();
+    if (newsResult) {
+      const { blockEntry, analysis: na } = newsResult;
+
+      // Hanya blokir jika SKIP_TRADE (NFP/FOMC/high-impact imminent)
+      if (blockEntry) {
+        console.log(`[TRADE-SCANNER] ⛔ News BLOCK ${type.toUpperCase()} — ${newsResult.filterText}`);
+        return {
+          locked:      false,
+          newsBlocked: true,
+          newsVerdict: 'SKIP_TRADE',
+          newsReason:  newsResult.filterText || 'High-impact news imminent.',
+          direction,
+          type:        typeKey,
+        };
+      }
+
+      // Permissive: arah berbeda hanya di-log, tidak block
+      if (na?.direction_support && na.direction_support !== 'NETRAL' && na.direction_support !== direction) {
+        console.log(`[TRADE-SCANNER] ⚠️ News arah berbeda (${direction} vs ${na.direction_support}) — lanjut (permissive).`);
+      }
+      if (na?.impact_gold && na.impact_gold !== 'NETRAL') {
+        if ((direction === 'BUY' && na.impact_gold === 'BEARISH') || (direction === 'SELL' && na.impact_gold === 'BULLISH')) {
+          console.log(`[TRADE-SCANNER] ⚠️ Gold impact ${na.impact_gold} vs ${direction} — lanjut (permissive).`);
+        }
+      }
+
+      // Catat info news untuk ditampilkan di signal
+      newsAligned = true;
+      newsInfo = {
+        verdict:           na?.verdict || 'ENTRY',
+        impact_gold:       na?.impact_gold || 'NETRAL',
+        impact_usd:        na?.impact_usd  || 'NETRAL',
+        direction_support: na?.direction_support || 'NETRAL',
+        confidence_impact: na?.confidence_impact ?? 0,
+        reason:            na?.reason || '',
+      };
+      console.log(`[TRADE-SCANNER] ✅ News info dicatat untuk setup ${direction} | impact_gold=${newsInfo.impact_gold}`);
+    }
+  } catch (newsErr) {
+    console.warn('[TRADE-SCANNER] News check error (fail-safe, lanjut tanpa filter):', newsErr.message);
+  }
+  // ─────────────────────────────────────────────────────────────────────────────
+
+  // Hitung zona entry (berdasarkan ATR atau approx)
+  const h4Atr  = analysis.h4?.atr || 2;
+  const entryLow  = direction === 'BUY'
+    ? parseFloat((currentPrice - h4Atr * 0.3).toFixed(2))
+    : parseFloat((currentPrice + h4Atr * 0.3).toFixed(2));
+  const entryHigh = direction === 'BUY'
+    ? parseFloat((currentPrice - h4Atr * 0.1).toFixed(2))
+    : parseFloat((currentPrice + h4Atr * 0.1).toFixed(2));
+
+  // TP & SL berdasarkan tipe
+  const slPts  = typeKey === 'short' ? 40 : typeKey === 'medium' ? 80 : 150;
+  const tp1Pts = typeKey === 'short' ? 60 : typeKey === 'medium' ? 120 : 250;
+  const tp2Pts = typeKey === 'short' ? 125 : typeKey === 'medium' ? 250 : 500;
+  const baseEntry = (entryLow + entryHigh) / 2;
+
+  const tp1 = parseFloat((direction === 'BUY' ? baseEntry + tp1Pts * 0.1 : baseEntry - tp1Pts * 0.1).toFixed(2));
+  const tp2 = parseFloat((direction === 'BUY' ? baseEntry + tp2Pts * 0.1 : baseEntry - tp2Pts * 0.1).toFixed(2));
+  const sl  = parseFloat((direction === 'BUY' ? baseEntry - slPts * 0.1  : baseEntry + slPts * 0.1).toFixed(2));
+
+  // Confidence & Risk — boost jika news aligned
+  let confidence = Math.max(30, Math.min(95, result.confidence || 60));
+  if (newsAligned && newsInfo?.confidence_impact > 0) {
+    // Tambah setengah dari confidence_impact news (capped 95)
+    confidence = Math.min(95, confidence + Math.round(newsInfo.confidence_impact / 2));
+  }
+  const riskLevel  = calcRisk(confidence);
+  const rr         = parseFloat((tp2Pts / slPts).toFixed(2));
+  const sugLot     = suggestedLot(riskLevel, process.env.DEFAULT_BALANCE || '1000');
+
+  // AI Strategy Description (async, tidak block kalau gagal)
+  let strategyDesc = '';
+  try {
+    strategyDesc = await generateStrategyDesc(direction, dur.label, confidence, analysis);
+  } catch {
+    strategyDesc = 'Setup market teridentifikasi. Tunggu harga memasuki zona entry.';
+  }
+
+  const signal = {
+    id:           `${typeKey}_${Date.now()}`,
+    type:         typeKey,
+    typeLabel:    dur.label,
+    direction,
+    status:       'WAITING',
+    entry_low:    entryLow,
+    entry_high:   entryHigh,
+    tp1,
+    tp2,
+    sl,
+    confidence,
+    risk:         riskLevel,
+    rr,
+    suggested_lot: sugLot,
+    strategy_desc: strategyDesc,
+    overall_bias:  overall.label,
+    h4_bias:       analysis.h4?.bias || 'N/A',
+    h1_bias:       analysis.h1?.bias || 'N/A',
+    m15_bias:      analysis.m15?.bias || 'N/A',
+    expired_hours: dur.hours,
+    created_at:    new Date().toISOString(),
+    expires_at:    new Date(Date.now() + dur.expiredMs).toISOString(),
+    tp1_hit:       false,
+    tp2_hit:       false,
+    sl_hit:        false,
+    // News alignment info
+    news_aligned:  newsAligned === true,
+    news_info:     newsInfo || null,
+  };
+
+  // Simpan ke DB
+  const db = loadDB();
+  db[typeKey] = signal;
+  saveDB(db);
+
+  return { locked: false, signal, type: typeKey };
+}
+
+// ─── GET ACTIVE SCANNER SIGNALS ───────────────────────────────────────────────
+function getActiveScans() {
+  const db = loadDB();
+  const result = {};
+  for (const key of ['short', 'medium', 'long']) {
+    if (db[key]) {
+      result[key] = checkExpired(db[key]);
+    }
+  }
+  // Save back updated statuses
+  saveDB(db);
+  return result;
+}
+
+// ─── GET SCANNER HISTORY ──────────────────────────────────────────────────────
+function getScannerHistory(limit = 20) {
+  return loadHistory().slice(-limit).reverse();
+}
+
+// ─── CHECK PRICE AGAINST SCANNER SIGNALS ──────────────────────────────────────
+async function checkScannerTriggers(currentPrice, botInstance) {
+  if (!currentPrice) return;
+  const db = loadDB();
+  let changed = false;
+
+  for (const key of ['short', 'medium', 'long']) {
+    let sig = db[key];
+    if (!sig) continue;
+
+    sig = checkExpired(sig);
+
+    if (sig.status === 'EXPIRED' || sig.status === 'TP2_HIT' || sig.status === 'SL_HIT') {
+      // Archive and remove
+      if (!sig._archived) {
+        // Unpin channel message jika ada (signal sudah selesai)
+        if (sig.channel_msg_id && botInstance && process.env.CHANNEL_ID) {
+          await botInstance.telegram.unpinChatMessage(process.env.CHANNEL_ID, sig.channel_msg_id)
+            .catch(e => console.warn(`[TRADE-SCANNER] Unpin ${key} (${sig.status}) gagal:`, e.message));
+        }
+        sig._archived = true;
+        archiveSignal(sig);
+        delete db[key];
+        changed = true;
+      }
+      continue;
+    }
+
+    // Check if price entered entry zone → ACTIVE
+    if (sig.status === 'WAITING') {
+      const inZone = sig.direction === 'BUY'
+        ? currentPrice <= sig.entry_high && currentPrice >= sig.entry_low
+        : currentPrice >= sig.entry_low && currentPrice <= sig.entry_high;
+
+      if (inZone) {
+        sig.status = 'ACTIVE';
+        sig.activated_at = new Date().toISOString();
+        changed = true;
+        console.log(`[TRADE-SCANNER] 🟡 ${key.toUpperCase()} signal ACTIVE — price ${currentPrice} in zone`);
+
+        if (botInstance && process.env.CHANNEL_ID) {
+          await botInstance.telegram.sendMessage(
+            process.env.CHANNEL_ID,
+            formatScannerUpdate(sig, 'ACTIVE', currentPrice),
+            { parse_mode: 'HTML' }
+          ).catch(e => console.warn('[TRADE-SCANNER] Send ACTIVE failed:', e.message));
+        }
+      }
+    }
+
+    // Check TP1 — set status to TP1_HIT (stays active for TP2, but status reflects milestone)
+    if ((sig.status === 'ACTIVE' || sig.status === 'TP1_HIT') && !sig.tp1_hit) {
+      const tp1Hit = sig.direction === 'BUY' ? currentPrice >= sig.tp1 : currentPrice <= sig.tp1;
+      if (tp1Hit) {
+        sig.tp1_hit = true;
+        sig.tp1_hit_at = new Date().toISOString();
+        sig.status = 'TP1_HIT';   // lifecycle: ACTIVE → TP1_HIT (still running toward TP2)
+        changed = true;
+        if (botInstance && process.env.CHANNEL_ID) {
+          await botInstance.telegram.sendMessage(
+            process.env.CHANNEL_ID,
+            formatScannerUpdate(sig, 'TP1_HIT', currentPrice),
+            { parse_mode: 'HTML' }
+          ).catch(e => console.warn('[TRADE-SCANNER] Send TP1 failed:', e.message));
+
+          try {
+            const buffer = await renderBanner('almost_tp', {
+              direction: sig.direction,
+              headline: `TP1 ${sig.direction}`,
+              rows: [
+                { label: 'Entry', value: `${sig.entry_low} - ${sig.entry_high}` },
+                { label: 'TP1', value: sig.tp1 },
+                { label: 'Harga Saat Ini', value: currentPrice },
+              ],
+            });
+            await botInstance.telegram.sendPhoto(process.env.CHANNEL_ID, { source: buffer });
+          } catch (bannerErr) {
+            console.warn('[TRADE-SCANNER-BANNER] TP1 banner gagal:', bannerErr.message);
+          }
+        }
+      }
+    }
+
+    // Check TP2 — runs from both ACTIVE and TP1_HIT states
+    if ((sig.status === 'ACTIVE' || sig.status === 'TP1_HIT') && !sig.tp2_hit) {
+      const tp2Hit = sig.direction === 'BUY' ? currentPrice >= sig.tp2 : currentPrice <= sig.tp2;
+      if (tp2Hit) {
+        sig.tp2_hit = true;
+        sig.status = 'TP2_HIT';
+        changed = true;
+        if (botInstance && process.env.CHANNEL_ID) {
+          await botInstance.telegram.sendMessage(
+            process.env.CHANNEL_ID,
+            formatScannerUpdate(sig, 'TP2_HIT', currentPrice),
+            { parse_mode: 'HTML' }
+          ).catch(e => console.warn('[TRADE-SCANNER] Send TP2 failed:', e.message));
+
+          try {
+            const buffer = await renderBanner('tp_hit', {
+              direction: sig.direction,
+              headline: `TP2 ${sig.direction}`,
+              rows: [
+                { label: 'Entry', value: `${sig.entry_low} - ${sig.entry_high}` },
+                { label: 'TP2', value: sig.tp2 },
+                { label: 'Harga Saat Ini', value: currentPrice },
+              ],
+            });
+            await botInstance.telegram.sendPhoto(process.env.CHANNEL_ID, { source: buffer });
+          } catch (bannerErr) {
+            console.warn('[TRADE-SCANNER-BANNER] TP2 banner gagal:', bannerErr.message);
+          }
+          // Unpin pesan sinyal awal setelah TP2 tercapai
+          if (sig.channel_msg_id) {
+            await botInstance.telegram.unpinChatMessage(process.env.CHANNEL_ID, sig.channel_msg_id)
+              .catch(e => console.warn('[TRADE-SCANNER] Unpin TP2 gagal:', e.message));
+          }
+        }
+        archiveSignal(sig);
+        delete db[key];
+      }
+    }
+
+    // Check SL — runs from ACTIVE or TP1_HIT (still in trade)
+    if (sig.status === 'ACTIVE' || sig.status === 'TP1_HIT') {
+      const slHit = sig.direction === 'BUY' ? currentPrice <= sig.sl : currentPrice >= sig.sl;
+      if (slHit) {
+        sig.sl_hit = true;
+        sig.status = 'SL_HIT';
+        changed = true;
+        if (botInstance && process.env.CHANNEL_ID) {
+          await botInstance.telegram.sendMessage(
+            process.env.CHANNEL_ID,
+            formatScannerUpdate(sig, 'SL_HIT', currentPrice),
+            { parse_mode: 'HTML' }
+          ).catch(e => console.warn('[TRADE-SCANNER] Send SL failed:', e.message));
+
+          try {
+            const buffer = await renderBanner('stop_loss', {
+              direction: sig.direction,
+              headline: `SL ${sig.direction}`,
+              rows: [
+                { label: 'Entry', value: `${sig.entry_low} - ${sig.entry_high}` },
+                { label: 'SL', value: sig.sl },
+                { label: 'Harga Saat Ini', value: currentPrice },
+              ],
+            });
+            await botInstance.telegram.sendPhoto(process.env.CHANNEL_ID, { source: buffer });
+          } catch (bannerErr) {
+            console.warn('[TRADE-SCANNER-BANNER] SL banner gagal:', bannerErr.message);
+          }
+          // Unpin pesan sinyal awal setelah SL hit
+          if (sig.channel_msg_id) {
+            await botInstance.telegram.unpinChatMessage(process.env.CHANNEL_ID, sig.channel_msg_id)
+              .catch(e => console.warn('[TRADE-SCANNER] Unpin SL gagal:', e.message));
+          }
+        }
+        archiveSignal(sig);
+        delete db[key];
+      }
+    }
+  }
+
+  if (changed) saveDB(db);
+}
+
+// ─── FORMAT SCANNER SIGNAL MESSAGE ───────────────────────────────────────────
+function formatScannerSignal(signal) {
+  const dir = signal.direction === 'BUY' ? '🟢 BUY' : '🔴 SELL';
+  const wib = toWIB();
+  const riskEmoji = signal.risk === 'LOW' ? '🟢' : signal.risk === 'MEDIUM' ? '🟡' : '🔴';
+
+  return [
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `⚡ <b>AZZAVISION AI — TRADE SCANNER</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    wib.line,
+    ``,
+    `🪙 <b>Pair</b>     : <code>XAUUSD</code>`,
+    `⏱ <b>Type</b>     : <code>${signal.typeLabel}</code> (${signal.expired_hours < 24 ? signal.expired_hours + ' Jam' : Math.round(signal.expired_hours / 24) + ' Hari'})`,
+    ``,
+    `${dir}`,
+    ``,
+    `📍 <b>Entry Zone</b>`,
+    `   Low  : <code>${signal.entry_low}</code>`,
+    `   High : <code>${signal.entry_high}</code>`,
+    ``,
+    `🎯 <b>TP1</b>   : <code>${signal.tp1}</code>`,
+    `🎯 <b>TP2</b>   : <code>${signal.tp2}</code>`,
+    `🛑 <b>SL</b>    : <code>${signal.sl}</code>`,
+    ``,
+    `📡 <b>Confidence</b>  : <code>${signal.confidence}%</code>`,
+    `${riskEmoji} <b>Risk</b>        : <code>${signal.risk}</code>`,
+    `📊 <b>Ideal RR</b>    : <code>1:${signal.rr}</code>`,
+    `💼 <b>Suggest Lot</b> : <code>${signal.suggested_lot}</code>`,
+    ``,
+    `⏳ <b>Status</b>  : <code>${signal.status}</code>`,
+    `🕐 <b>Expired</b> : <code>${signal.expired_hours < 24 ? signal.expired_hours + ' Jam' : Math.round(signal.expired_hours/24) + ' Hari'} dari sekarang</code>`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📝 <b>AI Strategy:</b>`,
+    `<i>${escapeHtml(signal.strategy_desc)}</i>`,
+    ...(signal.news_aligned && signal.news_info ? [
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `📰 <b>News Filter</b>  : ✅ Aligned`,
+      `${signal.news_info.impact_gold === 'BULLISH' ? '🟢' : signal.news_info.impact_gold === 'BEARISH' ? '🔴' : '🟡'} <b>Impact Gold</b>  : <code>${signal.news_info.impact_gold}</code>`,
+      `${signal.news_info.direction_support !== 'NETRAL' ? '🟢' : '🟡'} <b>News Arah</b>    : <code>${signal.news_info.direction_support}</code>`,
+      ...(signal.news_info.confidence_impact > 0 ? [`📈 <b>Confidence +</b>  : <code>+${Math.round(signal.news_info.confidence_impact / 2)}% (news aligned)</code>`] : []),
+      ...(signal.news_info.reason ? [`💬 <i>${escapeHtml(signal.news_info.reason.slice(0, 120))}</i>`] : []),
+    ] : signal.news_aligned === false ? [
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `📰 <b>News Filter</b>  : ⚠️ Tidak tersedia`,
+    ] : []),
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    `⚠️ <b>Disclaimer:</b>`,
+    `<i>Signal ini adalah hasil analisis AI berdasarkan Price Action, Multi Timeframe, Trend, Volume, Market Structure, dan News Sentiment. Trading memiliki risiko. Gunakan Money Management. Tidak ada jaminan profit.</i>`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `⚡ <i>AZZAVISION AI v5.0 | Trade Scanner AI</i>`,
+  ].join('\n');
+}
+
+// ─── FORMAT STATUS UPDATE ─────────────────────────────────────────────────────
+function formatScannerUpdate(signal, event, price) {
+  const dir    = signal.direction === 'BUY' ? '🟢 BUY' : '🔴 SELL';
+  const wib    = toWIB();
+  let eventBlock = '';
+
+  if (event === 'ACTIVE') {
+    eventBlock = `🟡 <b>TRADE SCANNER — ENTRY ZONE HIT!</b>\nHarga memasuki zona entry. Setup menjadi ACTIVE.`;
+  } else if (event === 'TP1_HIT') {
+    eventBlock = `🎯 <b>TRADE SCANNER — TP1 TERCAPAI!</b>\nTP1 : <code>${signal.tp1}</code> ✅`;
+  } else if (event === 'TP2_HIT') {
+    eventBlock = `🏆 <b>TRADE SCANNER — TP2 TERCAPAI!</b>\nFull TP berhasil! RR 1:${signal.rr} 🎉`;
+  } else if (event === 'SL_HIT') {
+    eventBlock = `❌ <b>TRADE SCANNER — SL HIT</b>\nSL : <code>${signal.sl}</code>. Setup selesai.`;
+  }
+
+  return [
+    `━━━━━━━━━━━━━━━━━━━━`,
+    eventBlock,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    wib.line,
+    ``,
+    `🪙 XAUUSD | ${dir} | ${signal.typeLabel}`,
+    `💹 Harga Now : <code>${price.toFixed(2)}</code>`,
+    ``,
+    `⚡ <i>AZZAVISION AI v5.0 | Trade Scanner Update</i>`,
+  ].join('\n');
+}
+
+// ─── HIGH CONFLUENCE CHECK ────────────────────────────────────────────────────
+function checkHighConfluence(scannerDirection, signalEngineDirection) {
+  if (!scannerDirection || !signalEngineDirection) return null;
+  const sDir = scannerDirection.includes('BUY') ? 'BUY' : 'SELL';
+  const eDir = signalEngineDirection.includes('BUY') ? 'BUY' : 'SELL';
+  if (sDir !== eDir) return null;
+  return sDir;
+}
+
+function formatHighConfluence(direction, scannerConf, engineConf) {
+  const combinedConf = Math.min(99, Math.round((scannerConf + engineConf) / 2) + 10);
+  return [
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `🔥 <b>HIGH CONFLUENCE DETECTED!</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    `📡 <b>Trade Scanner AI</b> : ${direction}`,
+    `🤖 <b>Signal Engine</b>   : ${direction}`,
+    ``,
+    `📊 <b>Combined Confidence</b> : <code>${combinedConf}%</code>`,
+    ``,
+    `💡 <i>Kedua AI Engine setuju pada arah ${direction}.</i>`,
+    `<i>TP dapat diperlebar — pertimbangkan size lebih besar dengan tetap menjaga Money Management.</i>`,
+    ``,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `⚡ <i>AZZAVISION AI v5.0 | High Confluence Alert</i>`,
+  ].join('\n');
+}
+
+// ─── TRADE SCANNER SCHEDULER ─────────────────────────────────────────────────
+let _botInstance = null;
+let _schedulerStarted = false;
+
+function startTradeScannerScheduler(bot) {
+  if (_schedulerStarted) return;
+  _botInstance = bot;
+  _schedulerStarted = true;
+
+  // Monitor interval: cek price vs scanner signals setiap 30 detik
+  setInterval(async () => {
+    try {
+      const { getCachedPrice } = require('../market/cache');
+      const price = getCachedPrice();
+      if (price) await checkScannerTriggers(price, _botInstance);
+    } catch (e) {
+      console.warn('[TRADE-SCANNER] Monitor error:', e.message);
+    }
+  }, 30 * 1000);
+
+  console.log('[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval)');
+}
+
+// ─── ESCAPE HTML ──────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+module.exports = {
+  generateScan,
+  getActiveScans,
+  getScannerHistory,
+  checkScannerTriggers,
+  checkHighConfluence,
+  formatScannerSignal,
+  formatHighConfluence,
+  formatScannerUpdate,
+  startTradeScannerScheduler,
+  saveChannelMsgId,
+  isLocked,
+  DURATIONS,
+};

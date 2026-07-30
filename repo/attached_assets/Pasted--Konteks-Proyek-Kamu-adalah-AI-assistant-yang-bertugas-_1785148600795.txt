@@ -1,0 +1,81 @@
+## Konteks Proyek
+
+Kamu adalah AI assistant yang bertugas memperbaiki bug pada dashboard AZZAVISION AI — sebuah trading bot dashboard yang berjalan di server Pterodactyl. Dashboard diakses via Cloudflare tunnel (URL bisa berubah tiap restart).
+
+Kamu TIDAK perlu host atau ubah web apapun. Semua perbaikan dilakukan dengan membaca & menulis file langsung ke server via Pterodactyl Files API.
+
+---
+
+## Akses Pterodactyl Files API
+
+**Panel URL:** https://private.lynzzofficial.com  
+**Server UUID:** 32c140fb-d36a-471a-a82a-5ddfef037ed9  
+**API Key:** (isi dari secret PTERODACTYL_API_KEY)  
+**Base path file di server:** /home/container/
+
+### Cara baca file:
+GET https://private.lynzzofficial.com/api/client/servers/32c140fb-d36a-471a-a82a-5ddfef037ed9/files/contents?file=/home/container/PATH_FILE
+Header: Authorization: Bearer {API_KEY}
+
+### Cara tulis/upload file (replace isi file):
+POST https://private.lynzzofficial.com/api/client/servers/32c140fb-d36a-471a-a82a-5ddfef037ed9/files/write?file=/home/container/PATH_FILE
+Header: Authorization: Bearer {API_KEY}, Content-Type: text/plain
+Body: isi file baru (raw text)
+
+### Cara list isi folder:
+GET https://private.lynzzofficial.com/api/client/servers/32c140fb-d36a-471a-a82a-5ddfef037ed9/files/list?directory=/home/container/PATH_FOLDER
+Header: Authorization: Bearer {API_KEY}
+
+---
+
+## Arsitektur Dashboard
+
+**File utama yang perlu diketahui:**
+
+1. `/home/container/pterodactyl-dashboard-server.js`  
+   — HTTP server (CommonJS, Node.js). Menangani semua API endpoint + serve file statis dari `/home/container/dashboard/`.  
+   — PENTING: ini file `.js` biasa (CommonJS/require), BUKAN ESM (.mjs).
+
+2. `/home/container/dashboard/index.html`  
+   — Single-file HTML+JS dashboard (frontend). Diakses user via browser.  
+   — Berisi semua UI: Dashboard, Signal Detail, Journal, Studio (quote generator).  
+   — Semua fetch ke server pakai path relatif (same-origin).
+
+3. `/home/container/data/quotes.json` — storage quote yang sudah di-generate AI  
+4. `/home/container/data/signals.json` — storage sinyal trading  
+5. `/home/container/data/journal.json` — storage jurnal trading  
+
+**AI providers yang dipakai server (di-try berurutan):**  
+Groq (GROQ_API_KEY) → OpenRouter (OPENROUTER_API_KEY) → Gemini (GEMINI_API_KEY / key manager AQ. prefix)  
+Kalau semua gagal → fallback ke 3 quote hardcoded.
+
+**Endpoint penting di server:**
+- GET  /api/trading/overview — data dashboard utama
+- GET  /api/trading/signal/:id — detail signal
+- POST /api/ai/quote/generate — generate quote baru (body: {theme: string})
+- GET  /api/ai/quote/today — quote hari ini
+- GET  /api/ai/quotes — list riwayat quote
+- POST /api/ai/quote/publish — upload ke Telegram (body: {id, imageDataUrl})
+- GET/PUT /api/journal/:signalId — baca/tulis jurnal
+
+---
+
+## Alur Kerja untuk Perbaikan
+
+1. **Baca file yang relevan** via Files API (GET /files/contents)
+2. **Analisa bug** dari isi file
+3. **Tulis perbaikan** via Files API (POST /files/write) — upload isi file yang sudah diperbaiki sepenuhnya
+4. Server otomatis serve file terbaru (tidak perlu restart untuk static files)
+5. Untuk perubahan di `pterodactyl-dashboard-server.js` → perlu restart server via:
+   POST https://private.lynzzofficial.com/api/client/servers/32c140fb-d36a-471a-a82a-5ddfef037ed9/power
+   Body: {"signal": "restart"}
+
+---
+
+## Aturan Penting
+
+- Jangan pernah tulis ulang file dari nol kalau bisa patch bagian kecil saja — baca dulu, edit bagian yang perlu, upload seluruh isi file yang sudah dimodifikasi.
+- Frontend (`dashboard/index.html`) adalah single-file ~78KB. Baca dulu sebelum edit.
+- Server (`pterodactyl-dashboard-server.js`) adalah CommonJS — semua `require()`, bukan `import`.
+- Kalau ada error JSON.parse di frontend, periksa apakah endpoint dipanggil dengan method yang salah (GET vs POST).
+- Canvas image di Studio menggunakan HTML5 Canvas API — font harus di-load dulu via FontFace sebelum dipakai di ctx.font.

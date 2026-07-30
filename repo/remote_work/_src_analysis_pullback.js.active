@@ -1,0 +1,142 @@
+/**
+ * pullback.js — Pullback Zone Detector untuk XAUUSD
+ *
+ * Mendeteksi apakah harga sedang berada di zona entry yang valid:
+ *   1. EMA20_PULLBACK    — harga pullback ke area EMA20 (±3.0 ATR)
+ *   2. EMA50_PULLBACK    — harga pullback dalam ke area EMA50 (±4.0 ATR)
+ *   3. TREND_CONTINUATION — harga masih di atas EMA20 (trending), dalam
+ *                           jarak wajar (≤20 ATR / ~100 pips). Untuk
+ *                           kondisi uptrend kuat yang jarang pullback dalam.
+ *
+ * Export: detectPullback(candles, direction) → { inZone, zoneType, reason, distance }
+ */
+
+const { ema, atr } = require('./indicators');
+
+function detectPullback(candles, direction = 'BUY') {
+  const result = {
+    inZone:   false,
+    zoneType: 'NONE',
+    reason:   '',
+    distance: null,
+    ema20:    null,
+    ema50:    null,
+  };
+
+  if (!candles || candles.length < 52) {
+    result.reason = 'Insufficient data';
+    return result;
+  }
+
+  const ema20Arr = ema(candles, 20);
+  const ema50Arr = ema(candles, 50);
+  const atrArr   = atr(candles, 14);
+
+  const lastClose = candles[candles.length - 1].close;
+  const e20       = ema20Arr[ema20Arr.length - 1];
+  const e50       = ema50Arr[ema50Arr.length - 1];
+  const lastAtr   = atrArr[atrArr.length - 1];
+
+  result.ema20 = e20;
+  result.ema50 = e50;
+
+  if (!e20 || !e50 || !lastAtr) {
+    result.reason = 'Indicator not ready';
+    return result;
+  }
+
+  // ── Buffer zones ──────────────────────────────────────────────────────────
+  // buffer20: diperlebar dari 0.5 → 3.0 ATR agar zona pullback lebih realistis
+  // buffer50: diperlebar dari 1.0 → 4.0 ATR untuk deep pullback
+  // trendBuffer: ≤20 ATR dari EMA20 → izinkan trend continuation entry
+  const buffer20     = lastAtr * 3.0;
+  const buffer50     = lastAtr * 4.0;
+  const trendBuffer  = lastAtr * 20;   // ~80-120 pips untuk gold M5
+
+  const nearEma20 = Math.abs(lastClose - e20) <= buffer20;
+  const nearEma50 = Math.abs(lastClose - e50) <= buffer50;
+
+  if (direction === 'BUY') {
+    // Harga harus di atas atau dekat EMA50 (struktur uptrend)
+    const aboveEma50 = lastClose > e50 - buffer50;
+
+    if (!aboveEma50) {
+      result.reason   = `Harga di bawah EMA50 (${e50.toFixed(2)}) — bukan area buy`;
+      result.distance = ((e50 - lastClose) / 0.1).toFixed(1);
+      return result;
+    }
+
+    if (nearEma20) {
+      // Zona 1: pullback ke EMA20
+      result.inZone   = true;
+      result.zoneType = 'EMA20_PULLBACK';
+      result.reason   = `Zona EMA20 pullback aktif (${e20.toFixed(2)})`;
+      result.distance = 0;
+    } else if (nearEma50) {
+      // Zona 2: deep pullback ke EMA50
+      result.inZone   = true;
+      result.zoneType = 'EMA50_PULLBACK';
+      result.reason   = `Zona EMA50 pullback dalam aktif (${e50.toFixed(2)})`;
+      result.distance = 0;
+    } else if (lastClose > e20 && (lastClose - e20) <= trendBuffer) {
+      // Zona 3: trend continuation — harga di atas EMA20, belum pullback,
+      // tapi masih dalam jarak wajar (≤20 ATR). Izinkan entry mengikuti trend.
+      const distPips  = ((lastClose - e20) / 0.1).toFixed(1);
+      result.inZone   = true;
+      result.zoneType = 'TREND_CONTINUATION';
+      result.reason   = `Trend continuation — harga ${distPips} pips di atas EMA20`;
+      result.distance = distPips;
+    } else if (lastClose > e20) {
+      // Terlalu jauh dari EMA20 — extended, tunggu
+      const distPips  = ((lastClose - e20) / 0.1).toFixed(1);
+      result.reason   = `Harga ${distPips} pips di atas EMA20 — terlalu extended, tunggu konsolidasi`;
+      result.distance = distPips;
+    } else {
+      // Antara EMA20 dan EMA50, tidak dekat keduanya
+      const distPips  = ((e50 - lastClose) / 0.1).toFixed(1);
+      result.reason   = `Harga antara EMA20–EMA50 — idealnya dekat ${e20.toFixed(2)} atau ${e50.toFixed(2)}`;
+      result.distance = distPips;
+    }
+
+  } else {
+    // SELL: struktur downtrend
+    const belowEma50 = lastClose < e50 + buffer50;
+
+    if (!belowEma50) {
+      result.reason   = `Harga di atas EMA50 (${e50.toFixed(2)}) — bukan area sell`;
+      result.distance = ((lastClose - e50) / 0.1).toFixed(1);
+      return result;
+    }
+
+    if (nearEma20) {
+      result.inZone   = true;
+      result.zoneType = 'EMA20_PULLBACK';
+      result.reason   = `Zona EMA20 pullback aktif (${e20.toFixed(2)})`;
+      result.distance = 0;
+    } else if (nearEma50) {
+      result.inZone   = true;
+      result.zoneType = 'EMA50_PULLBACK';
+      result.reason   = `Zona EMA50 pullback dalam aktif (${e50.toFixed(2)})`;
+      result.distance = 0;
+    } else if (lastClose < e20 && (e20 - lastClose) <= trendBuffer) {
+      // Zona 3 SELL: trend continuation ke bawah
+      const distPips  = ((e20 - lastClose) / 0.1).toFixed(1);
+      result.inZone   = true;
+      result.zoneType = 'TREND_CONTINUATION';
+      result.reason   = `Trend continuation — harga ${distPips} pips di bawah EMA20`;
+      result.distance = distPips;
+    } else if (lastClose < e20) {
+      const distPips  = ((e20 - lastClose) / 0.1).toFixed(1);
+      result.reason   = `Harga ${distPips} pips di bawah EMA20 — terlalu extended, tunggu konsolidasi`;
+      result.distance = distPips;
+    } else {
+      const distPips  = ((lastClose - e50) / 0.1).toFixed(1);
+      result.reason   = `Harga antara EMA20–EMA50 — idealnya dekat ${e20.toFixed(2)} atau ${e50.toFixed(2)}`;
+      result.distance = distPips;
+    }
+  }
+
+  return result;
+}
+
+module.exports = { detectPullback };

@@ -1,0 +1,270 @@
+const {
+  ema, rsi, atr, macd,
+  detectBOS, detectCHOCH, detectLiquiditySweep,
+  isRejectionCandle, isSidewaysCandle,
+} = require('./indicators');
+const { detectPullback } = require('./pullback');
+
+const POINTS    = 0.1;
+const SL_POINTS  = 40 * POINTS;
+const TP1_POINTS = 60 * POINTS;
+const TP2_POINTS = 125 * POINTS;
+
+function analyzeTimeframe(candles) {
+  if (!candles || candles.length < 30) return { bias: 'NEUTRAL', strength: 0, detail: 'Insufficient data' };
+
+  const ema20 = ema(candles, 20);
+  const ema50 = ema(candles, 50);
+  const rsiArr = rsi(candles, 14);
+  const { histogram } = macd(candles);
+  const atrArr = atr(candles, 14);
+
+  const last       = candles[candles.length - 1];
+  const lastEma20  = ema20[ema20.length - 1];
+  const lastEma50  = ema50[ema50.length - 1];
+  const lastRsi    = rsiArr[rsiArr.length - 1];
+  const lastHist   = histogram[histogram.length - 1];
+  const lastAtr    = atrArr[atrArr.length - 1];
+
+  let score = 0;
+  const factors = [];
+
+  if (lastEma20 > lastEma50) { score += 2; factors.push('EMA20>EMA50'); }
+  else                        { score -= 2; factors.push('EMA20<EMA50'); }
+
+  if (last.close > lastEma20) { score += 1; factors.push('Price>EMA20'); }
+  else                         { score -= 1; }
+
+  if (lastRsi > 55)      { score += 1; factors.push(`RSI:${lastRsi.toFixed(0)}`); }
+  else if (lastRsi < 45) { score -= 1; factors.push(`RSI:${lastRsi.toFixed(0)}`); }
+
+  if (lastHist > 0) { score += 1; factors.push('MACD+'); }
+  else               { score -= 1; factors.push('MACD-'); }
+
+  const bos = detectBOS(candles);
+  if (bos === 'BULLISH_BOS')  { score += 2; factors.push('BOS↑'); }
+  else if (bos === 'BEARISH_BOS') { score -= 2; factors.push('BOS↓'); }
+
+  const choch = detectCHOCH(candles);
+  if (choch === 'BULLISH_CHOCH')  { score += 1; factors.push('CHOCH↑'); }
+  else if (choch === 'BEARISH_CHOCH') { score -= 1; factors.push('CHOCH↓'); }
+
+  const recentCandles = candles.slice(-5);
+  const bullishBody   = recentCandles.filter(c => c.close > c.open).length;
+  if (bullishBody >= 3) score += 1;
+  else if (bullishBody <= 1) score -= 1;
+
+  const maxScore = 10;
+  const strength = Math.round((Math.abs(score) / maxScore) * 100);
+
+  let bias;
+  if (score >= 4)       bias = 'STRONG_BUY';
+  else if (score >= 2)  bias = 'BUY';
+  else if (score <= -4) bias = 'STRONG_SELL';
+  else if (score <= -2) bias = 'SELL';
+  else                  bias = 'NEUTRAL';
+
+  const msLabel = bos || choch ||
+    detectLiquiditySweep(candles) || 'NONE';
+
+  const atrValue   = lastAtr;
+  const volatility = atrValue / last.close * 10000;
+
+  return { bias, strength: Math.min(strength, 100), score, factors, atr: atrValue, rsi: lastRsi, volatility, marketStructure: msLabel };
+}
+
+function evaluateM5Entry(m5Candles, direction) {
+  if (!m5Candles || m5Candles.length < 10) return { valid: false, reason: 'Insufficient M5 data' };
+
+  const lastCandle = m5Candles[m5Candles.length - 1];
+  const prevCandle = m5Candles[m5Candles.length - 2];
+
+  if (isSidewaysCandle(lastCandle)) return { valid: false, reason: 'M5 sideways candle' };
+
+  const body  = Math.abs(lastCandle.close - lastCandle.open);
+  const range = lastCandle.high - lastCandle.low;
+  if (body < range * 0.2) return { valid: false, reason: 'M5 weak momentum' };
+
+  const atrArr  = atr(m5Candles, 14);
+  const lastAtr = atrArr[atrArr.length - 1];
+  if (body < lastAtr * 0.3) return { valid: false, reason: 'M5 below ATR threshold' };
+
+  const hasRejection = isRejectionCandle(lastCandle, direction);
+  if (!hasRejection) return { valid: false, reason: 'No M5 rejection candle' };
+
+  const sweep    = detectLiquiditySweep(m5Candles);
+  const hasSweep = direction === 'BUY' ? sweep === 'BULLISH_SWEEP' : sweep === 'BEARISH_SWEEP';
+
+  return { valid: true, hasSweep, candleStrength: body / lastAtr };
+}
+
+/**
+ * evaluatePullbackEntry — Mode agresif.
+ * Entry valid jika harga sudah berada di zona pullback EMA20/EMA50.
+ * Tidak menunggu rejection candle — entry lebih awal, SL tighter.
+ */
+function evaluatePullbackEntry(m5Candles, direction) {
+  if (!m5Candles || m5Candles.length < 52) {
+    return { valid: false, reason: 'Insufficient data for pullback detection' };
+  }
+
+  const pb = detectPullback(m5Candles, direction);
+
+  if (pb.inZone) {
+    const sweep    = detectLiquiditySweep(m5Candles);
+    const hasSweep = direction === 'BUY' ? sweep === 'BULLISH_SWEEP' : sweep === 'BEARISH_SWEEP';
+    return {
+      valid:       true,
+      hasSweep,
+      pullbackZone: pb.zoneType,
+      reason:       pb.reason,
+      candleStrength: 1.0,
+    };
+  }
+
+  return { valid: false, reason: pb.reason || 'Tidak di zona pullback' };
+}
+
+function assessVolatility(candles) {
+  if (!candles || candles.length < 5) return 'NORMAL';
+  const last5   = candles.slice(-5);
+  const ranges  = last5.map(c => c.high - c.low);
+  const avgRange = ranges.reduce((s, r) => s + r, 0) / ranges.length;
+  const maxRange = Math.max(...ranges);
+
+  const atrArr = atr(candles, 14);
+  const lastAtr = atrArr.length > 0 ? atrArr[atrArr.length - 1] : avgRange;
+
+  if (maxRange > lastAtr * 4.0 || maxRange > avgRange * 5)  return 'SPIKE';
+  if (avgRange > lastAtr * 2.5 || avgRange > 12)            return 'EXTREME';
+  if (avgRange > lastAtr * 1.6 || avgRange > 7)             return 'HIGH';
+  return 'NORMAL';
+}
+
+function calculateSignal(currentPrice, direction) {
+  if (typeof currentPrice !== 'number' || !isFinite(currentPrice) || currentPrice <= 0) {
+    throw new Error(`calculateSignal: harga tidak valid (${currentPrice})`);
+  }
+  if (!['BUY', 'SELL'].includes(direction)) {
+    throw new Error(`calculateSignal: direction tidak valid (${direction})`);
+  }
+  const entry = parseFloat(currentPrice.toFixed(2));
+  if (direction === 'BUY') {
+    return {
+      entry,
+      tp1: parseFloat((entry + TP1_POINTS).toFixed(2)),
+      tp2: parseFloat((entry + TP2_POINTS).toFixed(2)),
+      sl:  parseFloat((entry - SL_POINTS).toFixed(2)),
+    };
+  } else {
+    return {
+      entry,
+      tp1: parseFloat((entry - TP1_POINTS).toFixed(2)),
+      tp2: parseFloat((entry - TP2_POINTS).toFixed(2)),
+      sl:  parseFloat((entry + SL_POINTS).toFixed(2)),
+    };
+  }
+}
+
+function calculateConfidence(h4, h1, m15, m5Entry, sweep, m1) {
+  let score = 0;
+
+  if (h4.bias.includes('STRONG')) score += 30;
+  else if (h4.bias !== 'NEUTRAL') score += 20;
+
+  if (h1.bias.includes('STRONG')) score += 25;
+  else if (h1.bias !== 'NEUTRAL') score += 15;
+
+  if (m15.bias !== 'NEUTRAL') score += 15;
+
+  if (m1 && m1.bias !== 'NEUTRAL') {
+    const h4Bull = h4.bias.includes('BUY');
+    const m1Bull = m1.bias.includes('BUY');
+    if (h4Bull === m1Bull) score += 5;
+    else                   score -= 2;
+  }
+
+  if (m5Entry.valid)    score += 20;
+  if (m5Entry.hasSweep) score += 10;
+
+  if (h4.rsi != null) {
+    const h4Bull = h4.bias.includes('BUY');
+    if (h4Bull  && h4.rsi < 70) score += 3;
+    if (!h4Bull && h4.rsi > 30) score += 3;
+  }
+
+  score = Math.min(score, 97);
+  score = Math.max(score, 10);
+
+  return score;
+}
+
+function runStrategy(timeframeData) {
+  const { m1, m5, m15, h1, h4 } = timeframeData;
+
+  const h4Analysis  = analyzeTimeframe(h4);
+  const h1Analysis  = analyzeTimeframe(h1);
+  const m15Analysis = analyzeTimeframe(m15);
+  const m5Analysis  = analyzeTimeframe(m5);
+  const m1Analysis  = m1 && m1.length > 10 ? analyzeTimeframe(m1) : { bias: 'NEUTRAL', strength: 0 };
+
+  const h4Bullish = h4Analysis.bias.includes('BUY');
+  const h4Bearish = h4Analysis.bias.includes('SELL');
+  const h1Bullish = h1Analysis.bias.includes('BUY');
+  const h1Bearish = h1Analysis.bias.includes('SELL');
+
+  const aligned   = (h4Bullish && h1Bullish) || (h4Bearish && h1Bearish);
+  const direction = h4Bullish && h1Bullish ? 'BUY' : 'SELL';
+
+  const volatility = assessVolatility(m5 || []);
+  const spikeRisk  = volatility === 'SPIKE' || volatility === 'EXTREME';
+
+  // ── Entry mode: aggressive = pullback, conservative = M5 rejection ────────
+  const entryMode = (process.env.ENTRY_MODE || 'aggressive').toLowerCase();
+  const useAggressive = entryMode === 'aggressive';
+
+  let m5EntryResult = { valid: false, reason: 'Trend not aligned' };
+  let confidence    = 0;
+  let canEntry      = false;
+
+  if (aligned && !spikeRisk) {
+    if (useAggressive) {
+      m5EntryResult = evaluatePullbackEntry(m5, direction);
+    } else {
+      m5EntryResult = evaluateM5Entry(m5, direction);
+    }
+    confidence = calculateConfidence(h4Analysis, h1Analysis, m15Analysis, m5EntryResult, m5EntryResult.hasSweep, m1Analysis);
+    canEntry   = m5EntryResult.valid && confidence >= parseInt(process.env.MIN_CONFIDENCE || '55');
+  } else if (spikeRisk) {
+    m5EntryResult = { valid: false, reason: 'Spike/extreme volatility detected' };
+    // Tetap hitung confidence untuk display — agar watchlist tidak tampilkan 0%
+    confidence = calculateConfidence(h4Analysis, h1Analysis, m15Analysis, { valid: false, hasSweep: false }, false, m1Analysis);
+    canEntry = false;
+  }
+
+  const currentPrice  = m5 && m5.length > 0 ? m5[m5.length - 1].close : 0;
+  const priceIsValid  = currentPrice > 0 && isFinite(currentPrice);
+  const levels        = (canEntry && priceIsValid) ? calculateSignal(currentPrice, direction) : null;
+  const finalCanEntry = canEntry && priceIsValid;
+
+  return {
+    canEntry:   finalCanEntry,
+    direction,
+    aligned,
+    spikeRisk,
+    volatility,
+    confidence,
+    entryMode,
+    m5Entry:    m5EntryResult,
+    levels,
+    analysis: {
+      m1:  m1Analysis,
+      m5:  m5Analysis,
+      m15: m15Analysis,
+      h1:  h1Analysis,
+      h4:  h4Analysis,
+    },
+  };
+}
+
+module.exports = { runStrategy, analyzeTimeframe, calculateSignal };

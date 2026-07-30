@@ -1,0 +1,518 @@
+const { getAllTimeframes, fetchSpotPrice }  = require('../../market/data');
+const { getCachedPrice } = require('../../market/cache');
+const { runStrategy, calculateSignal } = require('../../analysis/strategy');
+const { getOverallBias }   = require('../../analysis/scanner');
+const {
+  insertSignal, getOpenSignals, closeSignal,
+  markTp1Hit, markBreakevenTriggered, setChannelMsgId,
+} = require('../../database/db');
+const {
+  saveLearningEntry, autoRetrain,
+  runSimilarity, applyAdaptiveConfidence, getTradingSession,
+} = require('../../analysis/learning');
+const { renderBanner } = require('../../banner');
+const { formatSignalMessage, formatTradeJournal } = require('../../utils/format');
+const { toWIB } = require('../../utils/wib_time');
+
+function isOwner(ctx) {
+  return String(ctx.from?.id) === String(process.env.OWNER_ID);
+}
+
+function registerOwnerCommands(bot) {
+
+  bot.command('forcebuy', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForce(ctx, bot, 'BUY');
+  });
+
+  bot.command('forcesell', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForce(ctx, bot, 'SELL');
+  });
+
+  // ─── /forcetp1 ──────────────────────────────────────────────────────────────
+  bot.command('forcetp1', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForceOutcome(ctx, bot, 'TP1');
+  });
+
+  // ─── /forcetp2 ──────────────────────────────────────────────────────────────
+  bot.command('forcetp2', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForceOutcome(ctx, bot, 'TP2');
+  });
+
+  // ─── /forcebe ───────────────────────────────────────────────────────────────
+  bot.command('forcebe', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForceOutcome(ctx, bot, 'BE');
+  });
+
+  // ─── /forceloss ──────────────────────────────────────────────────────────────
+  bot.command('forceloss', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    await handleForceOutcome(ctx, bot, 'LOSS');
+  });
+
+  bot.command('reload', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    try {
+      await ctx.replyWithHTML([
+        `🔄 <b>AZZAVISION AI — Config Check</b>`,
+        ``,
+        `⚙️ Konfigurasi aktif:`,
+        `• <b>MIN_CONFIDENCE</b>  : <code>${process.env.MIN_CONFIDENCE || '65'}%</code>`,
+        `• <b>ENTRY_MODE</b>      : <code>${process.env.ENTRY_MODE || 'aggressive'}</code>`,
+        `• <b>SCAN_INTERVAL</b>   : <code>${(parseInt(process.env.SCAN_INTERVAL || '60000') / 1000)}s</code>`,
+        `• <b>CHANNEL_ID</b>      : <code>${process.env.CHANNEL_ID || '❌ TIDAK DI-SET'}</code>`,
+        `• <b>DB_PATH</b>         : <code>${process.env.DB_PATH    || './data/signals.json'}</code>`,
+        `• <b>LEARN_PATH</b>      : <code>${process.env.LEARN_PATH || './data/learning_dataset.json'}</code>`,
+        ``,
+        `✅ Bot berjalan normal.`,
+        ``,
+        `ℹ️ <i>Konfigurasi dibaca dari .env — ganti channel: /setchannel</i>`,
+      ].join('\n'));
+    } catch (err) {
+      console.error('[RELOAD] Error:', err);
+      await ctx.replyWithHTML(`❌ <b>Reload gagal.</b>\n<code>${err.message}</code>`);
+    }
+  });
+}
+
+// ─── FORCE OUTCOME HANDLER ────────────────────────────────────────────────────
+/**
+ * Simulasi outcome trade untuk testing/demo kanal.
+ * Cari signal OPEN terbaru → tutup dengan hasil yang dipilih → kirim notif.
+ * Jika tidak ada open signal → buat dummy signal dulu.
+ *
+ * outcome: 'TP1' | 'TP2' | 'BE' | 'LOSS'
+ */
+async function handleForceOutcome(ctx, bot, outcome) {
+  try {
+    const channelId = process.env.CHANNEL_ID;
+    const wib       = toWIB();
+
+    // ── Cari signal open terbaru ─────────────────────────────────────────────
+    let openSignals = [];
+    try {
+      openSignals = await getOpenSignals();
+    } catch { /* ignore */ }
+
+    let sig = null;
+    if (openSignals && openSignals.length > 0) {
+      // Ambil yang terbaru (ID terbesar)
+      sig = openSignals.reduce((a, b) => (a.id > b.id ? a : b));
+    }
+
+    // ── Jika tidak ada open signal, buat dummy ───────────────────────────────
+    let isDummy = false;
+    if (!sig) {
+      isDummy = true;
+      let dummyPrice = 3320.00;
+      try {
+        const tfData = await getAllTimeframes();
+        if (tfData?.m5?.length > 0) {
+          dummyPrice = tfData.m5[tfData.m5.length - 1].close;
+        }
+      } catch { /* pakai fallback */ }
+
+      const direction = 'BUY';
+      const levels    = calculateSignal(dummyPrice, direction);
+      const dummyId   = await insertSignal({
+        pair: 'XAUUSD', direction,
+        entry: levels.entry, tp1: levels.tp1, tp2: levels.tp2, sl: levels.sl,
+        confidence: 85,
+        h4_bias: 'STRONG_BUY', h1_bias: 'BUY', m15_bias: 'BUY',
+        m5_signal: `Force ${outcome} Test by Owner`,
+      });
+      sig = {
+        id: dummyId, direction,
+        entry: levels.entry, tp1: levels.tp1, tp2: levels.tp2, sl: levels.sl,
+        pips: 0, breakeven_triggered: false, tp1_hit: false,
+      };
+    }
+
+    // ── Tentukan status dan pips ─────────────────────────────────────────────
+    let status, pips, closePrice;
+    const dir  = sig.direction;
+
+    switch (outcome) {
+      case 'TP1':
+        // TP1 hit — signal TIDAK ditutup, hanya marking
+        pips       = 60;
+        closePrice = dir === 'BUY' ? sig.tp1 : sig.tp1;
+        await markTp1Hit(sig.id).catch(() => {});
+        break;
+
+      case 'TP2':
+        status     = 'WIN';
+        pips       = 125;
+        closePrice = dir === 'BUY' ? sig.tp2 : sig.tp2;
+        sig.pips   = pips;
+        await closeSignal(sig.id, status, pips, closePrice).catch(() => {});
+        break;
+
+      case 'BE':
+        // Simulasikan TP1 + Breakeven
+        status     = 'TP1_BREAKEVEN';
+        pips       = 0;
+        closePrice = sig.entry;
+        sig.pips   = pips;
+        await markTp1Hit(sig.id).catch(() => {});
+        await markBreakevenTriggered(sig.id).catch(() => {});
+        await closeSignal(sig.id, status, pips, closePrice).catch(() => {});
+        break;
+
+      case 'LOSS':
+        status     = 'LOSS';
+        pips       = -40;
+        closePrice = sig.sl;
+        sig.pips   = pips;
+        await closeSignal(sig.id, status, pips, closePrice).catch(() => {});
+        break;
+    }
+
+    // ── Buat pesan notifikasi ────────────────────────────────────────────────
+    let notifMsg = '';
+
+    if (outcome === 'TP1') {
+      const dirEmoji = dir === 'BUY' ? '🟢' : '🔴';
+      notifMsg = [
+        `━━━━━━━━━━━━━━━━━━`,
+        `🎯 <b>AZZAVISION AI — TP1 HIT!</b>`,
+        `━━━━━━━━━━━━━━━━━━`,
+        ``,
+        wib.line,
+        ``,
+        `🪙 <b>Pair</b>      : <code>XAUUSD</code>`,
+        `${dirEmoji} <b>Direction</b> : ${dir}`,
+        ``,
+        `📌 <b>Entry</b>     : <code>${sig.entry}</code>`,
+        `🎯 <b>TP1</b>       : <code>${sig.tp1}</code>`,
+        `💹 <b>Harga Now</b> : <code>${parseFloat(sig.tp1).toFixed(2)}</code>`,
+        ``,
+        `✅ Target pertama tercapai! (+${pips} pips)`,
+        `⚠️ Pertimbangkan pindah SL ke Entry (Breakeven).`,
+        `⏳ Menunggu TP2 (<code>${sig.tp2}</code>) atau Breakeven.`,
+        ``,
+        `📊 <b>Signal ID</b> : <code>#${sig.id}</code>`,
+        isDummy ? `\n🧪 <i>[TEST] Signal dummy untuk demo</i>` : ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `⚡ <i>AZZAVISION AI | Trade Monitor</i>`,
+      ].filter(l => l !== undefined).join('\n');
+    } else {
+      const isWin   = status === 'WIN';
+      const isBE    = status === 'BREAKEVEN' || status === 'TP1_BREAKEVEN';
+      const isLoss  = status === 'LOSS';
+      const medal   = isWin ? (pips >= 125 ? '🏆' : '✅') : isBE ? '🔒' : '❌';
+      const label   = isWin ? 'WIN' : isBE ? 'TP1 + BREAKEVEN' : 'LOSS';
+      const dirEmoji = dir === 'BUY' ? '🟢' : '🔴';
+      const pipSign  = pips >= 0 ? '+' : '';
+
+      let resultLine;
+      if (isWin)       resultLine = `💰 <b>Profit</b>    : <code>+${pips} pips</code> 🎉`;
+      else if (isBE)   resultLine = `🔒 <b>Result</b>    : <code>TP1 + BREAKEVEN</code>\n✅ TP1 pernah tercapai — modal aman`;
+      else             resultLine = `🛑 <b>Loss</b>      : <code>${pipSign}${pips} pips</code>`;
+
+      notifMsg = [
+        `━━━━━━━━━━━━━━━━━━`,
+        `${medal} <b>AZZAVISION AI — SIGNAL ${label}</b>`,
+        `━━━━━━━━━━━━━━━━━━`,
+        ``,
+        wib.line,
+        ``,
+        `🪙 <b>Pair</b>      : <code>XAUUSD</code>`,
+        `${dirEmoji} <b>Direction</b> : ${dir}`,
+        ``,
+        `📌 <b>Entry</b>     : <code>${sig.entry}</code>`,
+        `🎯 <b>Hit Level</b> : <code>${closePrice ? parseFloat(closePrice).toFixed(2) : '—'}</code>`,
+        ``,
+        resultLine,
+        ``,
+        `📊 <b>Signal ID</b> : <code>#${sig.id}</code>`,
+        isDummy ? `🧪 <i>[TEST] Signal dummy untuk demo channel</i>` : ``,
+        ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `⚡ <i>AZZAVISION AI | Auto-Close System</i>`,
+      ].filter(l => l !== undefined).join('\n');
+    }
+
+    // ── Kirim ke channel (jika ada) ──────────────────────────────────────────
+    let channelSent = false;
+    if (bot && channelId) {
+      try {
+        await bot.telegram.sendMessage(channelId, notifMsg, { parse_mode: 'HTML' });
+        channelSent = true;
+
+        // Unpin pesan sinyal awal (jika ada channel_msg_id tersimpan di signal)
+        if (sig.channel_msg_id) {
+          await bot.telegram.unpinChatMessage(channelId, sig.channel_msg_id)
+            .catch(e => console.warn('[FORCE-OUTCOME] Unpin sinyal lama gagal:', e.message));
+          console.log(`[FORCE-OUTCOME] 📌 Unpin signal #${sig.id} (msg_id: ${sig.channel_msg_id})`);
+        }
+
+        // Kirim juga trade journal untuk TP2/BE/LOSS
+        if (outcome !== 'TP1') {
+          const journalMsg = formatTradeJournal(
+            sig, status, parseFloat(closePrice) || parseFloat(sig.entry),
+            ['Force Test by Owner']
+          );
+          await bot.telegram.sendMessage(channelId, journalMsg, { parse_mode: 'HTML' })
+            .catch(e => console.warn('[FORCE-OUTCOME] Journal gagal:', e.message));
+        }
+      } catch (sendErr) {
+        console.warn(`[FORCE-OUTCOME] Kirim ke channel gagal: ${sendErr.message}`);
+      }
+    }
+
+    // ── Konfirmasi ke owner ──────────────────────────────────────────────────
+    const outcomeEmoji = { TP1: '🎯', TP2: '🏆', BE: '🔒', LOSS: '❌' }[outcome];
+    await ctx.replyWithHTML([
+      `${outcomeEmoji} <b>Force ${outcome} berhasil!</b>`,
+      ``,
+      `📌 Signal ID : <code>#${sig.id}</code>`,
+      `📊 Outcome   : <code>${outcome}</code>`,
+      isDummy ? `🧪 Mode      : <code>DUMMY SIGNAL (tidak ada signal open)</code>` : `🔎 Mode      : <code>Signal open terbaru digunakan</code>`,
+      ``,
+      channelSent
+        ? `📡 Notifikasi terkirim ke channel: <code>${channelId}</code>`
+        : `⚠️ Channel tidak dikonfigurasi — notifikasi tidak dikirim.\n   Gunakan <code>/setchannel</code> untuk set channel.`,
+    ].join('\n'));
+
+  } catch (err) {
+    console.error(`[FORCE-OUTCOME] Error:`, err.message);
+    await ctx.replyWithHTML(`❌ <b>Force ${outcome} gagal.</b>\n<code>${err.message}</code>`);
+  }
+}
+
+// ─── CORE FORCE HANDLER ───────────────────────────────────────────────────────
+async function handleForce(ctx, bot, direction) {
+  let loadingMsg = null;
+  try {
+    loadingMsg = await ctx.replyWithHTML(`⏳ <b>Membuat sinyal ${direction} paksa...</b>`);
+  } catch { /* ignore */ }
+
+  const deleteLoading = async () => {
+    if (loadingMsg) {
+      await ctx.telegram.deleteMessage(ctx.chat.id, loadingMsg.message_id).catch(() => {});
+    }
+  };
+
+  try {
+    let currentPrice = 0;
+    let result       = {
+      confidence: 85,
+      analysis: {
+        h4:  { bias: direction, rsi: null, factors: [] },
+        h1:  { bias: direction, rsi: null, factors: [] },
+        m15: { bias: direction, rsi: null, factors: [] },
+        m5:  { bias: direction, rsi: null, factors: [] },
+        m1:  { bias: 'NEUTRAL', rsi: null, factors: [] },
+      },
+    };
+
+    // Prioritas 1: getCachedPrice() — harga real-time dari ticker (update tiap ~6 detik)
+    const cached = getCachedPrice();
+    if (cached && cached > 0) {
+      currentPrice = cached;
+      console.log(`[FORCE] ✅ Harga real-time dari cache: ${currentPrice}`);
+    }
+
+    try {
+      // Prioritas 2: fetchSpotPrice() — ambil langsung dari API jika cache belum ada
+      if (!currentPrice || currentPrice === 0) {
+        const spot = await fetchSpotPrice();
+        if (spot && spot > 0) {
+          currentPrice = spot;
+          console.log(`[FORCE] ✅ Harga real-time dari spot API: ${currentPrice}`);
+        }
+      }
+      const tfData = await getAllTimeframes();
+      // Fallback terakhir: candle M5 terakhir (bisa 0-5 menit telat)
+      if (!currentPrice || currentPrice === 0) {
+        if (tfData?.m5?.length > 0) {
+          currentPrice = tfData.m5[tfData.m5.length - 1].close;
+          console.log(`[FORCE] ⚠️ Harga dari M5 candle terakhir (fallback): ${currentPrice}`);
+        }
+      }
+      const strategyResult = runStrategy(tfData);
+      result = {
+        confidence: strategyResult.confidence || 85,
+        analysis:   strategyResult.analysis   || result.analysis,
+      };
+    } catch (apiErr) {
+      console.warn(`[FORCE] API/strategi gagal: ${apiErr.message}`);
+      if (!currentPrice || currentPrice === 0) currentPrice = 3300;
+    }
+    if (!currentPrice || currentPrice === 0) currentPrice = 3300;
+
+    const levels = calculateSignal(currentPrice, direction);
+
+    let similarityResult = null;
+    try {
+      const currentCondition = {
+        direction,
+        h4_trend:         result.analysis.h4.bias,
+        h1_trend:         result.analysis.h1.bias,
+        m15_trend:        result.analysis.m15.bias,
+        m5_trend:         result.analysis.m5.bias,
+        m1_trend:         result.analysis.m1?.bias || 'NEUTRAL',
+        h4_rsi:           result.analysis.h4.rsi,
+        m5_rsi:           result.analysis.m5.rsi,
+        market_structure: (result.analysis.h4.factors || []).find(f => f.includes('BOS') || f.includes('CHOCH')) || 'NONE',
+        has_rejection:    true,
+        session:          getTradingSession(),
+      };
+      similarityResult = await runSimilarity(currentCondition);
+    } catch { /* non-blocking */ }
+
+    const finalConfidence = similarityResult?.active
+      ? applyAdaptiveConfidence(result.confidence, similarityResult)
+      : result.confidence;
+
+    const signalData = {
+      pair:       'XAUUSD',
+      direction,
+      entry:      levels.entry,
+      tp1:        levels.tp1,
+      tp2:        levels.tp2,
+      sl:         levels.sl,
+      confidence: finalConfidence,
+      h4_bias:    result.analysis.h4.bias,
+      h1_bias:    result.analysis.h1.bias,
+      m15_bias:   result.analysis.m15.bias,
+      m5_signal:  'Force Signal by Owner',
+    };
+
+    const signalId = await insertSignal(signalData);
+    console.log(`[FORCE] ✅ Signal #${signalId} disimpan — ${direction} @ ${levels.entry}`);
+
+    let learnSaved = false;
+    try {
+      await saveLearningEntry(signalId, direction, levels, result.analysis);
+      learnSaved = true;
+    } catch (e) {
+      console.warn('[FORCE] Learning entry gagal disimpan:', e.message);
+    }
+
+    autoRetrain().catch((e) => console.warn('[FORCE] autoRetrain gagal:', e.message));
+
+    const message = formatSignalMessage(signalData, result.analysis, similarityResult);
+
+    let chartBuffer = null;
+    try {
+      const bannerType = direction === 'BUY' ? 'signal_buy' : 'signal_sell';
+      const slPips = Math.abs(levels.entry - levels.sl);
+      const tp2Pips = Math.abs(levels.tp2 - levels.entry);
+      const rrStr = slPips > 0 ? `1 : ${(tp2Pips / slPips).toFixed(2)}` : '1 : 3.13';
+      chartBuffer = await renderBanner(bannerType, {
+        direction,
+        pair: 'XAUUSD',
+        entry: `${levels.entry}`,
+        sl: `${levels.sl}`,
+        tp1: `${levels.tp1}`,
+        tp2: `${levels.tp2}`,
+        tp3: '-',
+        riskReward: rrStr,
+        confidence: finalConfidence,
+        setupTime: toWIB().line.replace(/<[^>]+>/g, ''),
+      });
+    } catch (chartErr) {
+      console.warn('[FORCE] Banner gagal (kirim text saja):', chartErr.message);
+    }
+
+    await deleteLoading();
+
+    const channelId = process.env.CHANNEL_ID;
+
+    if (!channelId) {
+      if (chartBuffer) {
+        await ctx.replyWithPhoto({ source: chartBuffer }, { caption: message, parse_mode: 'HTML' });
+      } else {
+        await ctx.replyWithHTML(message);
+      }
+      await ctx.replyWithHTML([
+        `⚠️ <b>CHANNEL_ID tidak di-set.</b>`,
+        `Sinyal hanya dikirim ke chat ini.`,
+        `📌 Signal ID: <code>#${signalId}</code>`,
+        `💡 Gunakan <code>/setchannel @channel</code> untuk set channel.`,
+        learnSaved ? `🧠 Learning entry disimpan otomatis.` : `⚠️ Learning entry gagal disimpan.`,
+      ].join('\n'));
+      return;
+    }
+
+    let channelSent = false;
+    try {
+      let channelMsgId = null;
+      if (chartBuffer) {
+        const sent = await bot.telegram.sendPhoto(channelId, { source: chartBuffer }, {
+          caption: message, parse_mode: 'HTML',
+        });
+        channelMsgId = sent?.message_id;
+      } else {
+        const sent = await bot.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
+        channelMsgId = sent?.message_id;
+      }
+      channelSent = true;
+      console.log(`[FORCE] ✅ Dikirim ke channel ${channelId} — Signal #${signalId}`);
+      // Pin pesan sinyal & simpan msg_id untuk unpin saat outcome
+      if (channelMsgId) {
+        await bot.telegram.pinChatMessage(channelId, channelMsgId, { disable_notification: true })
+          .catch(e => console.warn('[FORCE-PIN] Pin gagal:', e.message));
+        await setChannelMsgId(signalId, channelMsgId)
+          .catch(e => console.warn('[FORCE-PIN] Simpan channel_msg_id gagal:', e.message));
+        console.log(`[FORCE-PIN] 📌 Signal #${signalId} di-pin (msg_id: ${channelMsgId})`);
+      }
+    } catch (sendErr) {
+      console.error('[FORCE] ❌ Gagal kirim ke channel:', sendErr.message);
+      try {
+        if (chartBuffer) {
+          await ctx.replyWithPhoto({ source: chartBuffer }, { caption: message, parse_mode: 'HTML' });
+        } else {
+          await ctx.replyWithHTML(message);
+        }
+      } catch { /* ignore */ }
+      await ctx.replyWithHTML([
+        `⚠️ <b>Gagal kirim ke channel!</b>`,
+        `<code>${sendErr.message}</code>`,
+        ``,
+        `📌 Signal ID <code>#${signalId}</code> sudah tersimpan.`,
+        `🧠 Learning entry: ${learnSaved ? '✅ disimpan' : '⚠️ gagal'}`,
+        ``,
+        `Pastikan:`,
+        `• Bot sudah jadi <b>Admin</b> di channel`,
+        `• <b>CHANNEL_ID</b> benar: <code>${channelId}</code>`,
+        `• Atau ganti: <code>/setchannel @channel</code>`,
+      ].join('\n'));
+      return;
+    }
+
+    const simInfo = similarityResult?.active
+      ? `\n🔍 Similarity  : <code>${similarityResult.avgSimilarity}%</code> | ${similarityResult.recommendation}`
+      : '';
+
+    await ctx.replyWithHTML([
+      `✅ <b>Sinyal ${direction} berhasil!</b>`,
+      ``,
+      `📌 Signal ID : <code>#${signalId}</code>`,
+      `💰 Entry     : <code>${levels.entry}</code>`,
+      `🎯 TP1 / TP2 : <code>${levels.tp1}</code> / <code>${levels.tp2}</code>`,
+      `🛑 SL        : <code>${levels.sl}</code>`,
+      `📊 Confidence: <code>${finalConfidence}%</code>${simInfo}`,
+      `🧠 Learning  : ${learnSaved ? '✅ Disimpan otomatis ke dataset' : '⚠️ Gagal disimpan'}`,
+      ``,
+      channelSent ? `📡 Dikirim ke channel: <code>${channelId}</code>` : '',
+    ].filter(Boolean).join('\n'));
+
+  } catch (err) {
+    await deleteLoading();
+    console.error('[FORCE] Error fatal:', err);
+    await ctx.replyWithHTML([
+      `❌ <b>Gagal membuat sinyal paksa.</b>`,
+      ``,
+      `<code>${err.message}</code>`,
+    ].join('\n'));
+  }
+}
+
+module.exports = { registerOwnerCommands, handleForce, isOwner };

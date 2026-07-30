@@ -1,0 +1,99 @@
+❓ AZZAVISION AI v5.0 — PANDUAN LENGKAP
+
+━━━━━━━━━━━━━━━━━━
+🤖 DUAL AI ENGINE
+
+1️⃣ Signal Engine
+• Mencari trigger realtime XAUUSD
+• Monitoring TP, SL, Breakeven, Trailing
+• Trade Journal + Performance Report
+• H4 + H1 searah, Entry rejection candle M5
+• Self-learning dari dataset trade selesai
+
+2️⃣ Trade Scanner AI (BARU v5.0)
+• Memberikan SETUP MARKET (bukan entry realtime)
+• SHORT (1-8 jam) | MEDIUM (1-3 hari) | LONG (1-2 minggu)
+• Signal Lifecycle: WAITING → ACTIVE → TP/SL/EXPIRED
+• Signal Lock: 1 sinyal aktif per tipe
+• Risk Management: LOW/MEDIUM/HIGH + RR + Lot
+• AI Strategy Description + High Confluence Alert
+
+━━━━━━━━━━━━━━━━━━
+⚙️ RISK MANAGEMENT
+
+🛑 SL     : 40 points (Signal Engine)
+💰 TP1    : 60 points
+💰 TP2    : 125 points
+🔒 Breakeven: saat profit ≥ 28 points
+ℹ️ BE = BUKAN LOSS — dihitung terpisah
+
+━━━━━━━━━━━━━━━━━━
+📋 PERINTAH UMUM
+
+/market      — Kondisi market semua timeframe
+/stats       — Statistik performa (WIN/LOSS/BE)
+/daily       — Laporan hari ini
+/daily7      — Ringkasan 7 hari
+/journal     — Riwayat sinyal
+/backtest 7  — Backtest 7 hari
+/status      — Status bot
+/help        — Panduan ini
+
+━━━━━━━━━━━━━━━━━━
+🔭 TRADE SCANNER AI (v5.0)
+
+/scan         — Menu utama scanner
+/scan short   — Setup SHORT (1-8 jam)
+/scan medium  — Setup MEDIUM (1-3 hari)
+/scan long    — Setup LONG (1-2 minggu)
+/scan status  — Signal scanner aktif
+/scan history — Histori scanner
+
+━━━━━━━━━━━━━━━━━━
+📚 E-BOOK ENGINE
+
+/ebookstrats — Lihat semua strategi e-book aktif
+/ebook       — Download koleksi e-book Forex
+
+━━━━━━━━━━━━━━━━━━
+🧠 LEARNING COMMANDS
+
+/learnstats  — Status learning dataset
+/similarity  — Similarity setup saat ini
+
+━━━━━━━━━━━━━━━━━━
+🔑 API KEY ROTATION
+
+/apikeys     — Status semua API key (✅⏳❌)
+/aitest      — Health check semua AI provider
+
+━━━━━━━━━━━━━━━━━━
+🔐 OWNER ONLY
+
+/forcebuy    — Force sinyal BUY
+/forcesell   — Force sinyal SELL
+/retrain     — Sinkronisasi dataset
+/scan        — Trade Scanner + Signal Engine scan
+/signaltest  — Tes kirim sinyal ke channel
+/reload      — Reload & cek konfigurasi
+/backup      — Backup manual
+/selftest    — Self-test semua modul
+
+━━━━━━━━━━━━━━━━━━
+🤖 AI ROUTER v5.0
+
+News          → Gemini
+Reasoning     → OpenRouter
+Fast Chat     → Groq
+Emergency     → Offline AI
+Auto-fallback : Gemini → OpenRouter → Groq → Offline
+
+━━━━━━━━━━━━━━━━━━
+⚠️ Confidence minimum: 65%
+Scan interval: 6s
+Learning aktif setelah 30 trades selesai
+API Key rotation: round-robin otomatis
+E-Book Engine: aktif secara otomatis (hybrid)
+
+⚡ AZZAVISION AI v5.0 — AI Trading Assistant
+Dual Engine: Signal Engine + Trade Scanner AI

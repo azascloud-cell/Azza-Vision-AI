@@ -1,0 +1,27 @@
+modules = ["nodejs-24", "python-base-3.13"]
+
+[deployment]
+router = "application"
+deploymentTarget = "autoscale"
+
+[deployment.postBuild]
+args = ["pnpm", "store", "prune"]
+env = { "CI" = "true" }
+
+[workflows]
+runButton = "Project"
+
+[agent]
+stack = "PNPM_WORKSPACE"
+expertMode = true
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+PTERODACTYL_FRONTEND_PATH = "/home/container/dashboard"
+PTERODACTYL_SERVER_ID = "11b9ea11-cc5e-4af6-b901-0086cca1c590"
+PTERODACTYL_URL = "https://serverku.lynzzofficial.com"

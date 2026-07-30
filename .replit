@@ -1,3 +1,4 @@
+modules = ["nodejs-24"]
 [userenv]
 
 [userenv.shared]

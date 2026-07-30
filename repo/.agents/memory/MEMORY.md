@@ -1,0 +1,3 @@
+- [AZZAVISION AI Pterodactyl Setup](azzavision-ptero.md) — panel URL, server UUID, path conventions, known bugs fixed
+- [Signal filters config](signal-filters.md) — threshold config (MIN_CONFIDENCE, cooldown, ENTRY_MODE) history
+- [Backtest engine fix](backtest-engine.md) — isRejectionCandle terlalu ketat → 0 signal; fix & pelajaran

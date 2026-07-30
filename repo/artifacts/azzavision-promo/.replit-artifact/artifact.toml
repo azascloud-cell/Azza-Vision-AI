@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "AZZAVISION AI — Promo Dashboard"
+version = "1.0.0"
+id = "artifacts/azzavision-promo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22357
+
+[services.development]
+run = "pnpm --filter @workspace/azzavision-promo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/azzavision-promo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/azzavision-promo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22357"
+BASE_PATH = "/"
