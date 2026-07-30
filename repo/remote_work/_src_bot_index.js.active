@@ -614,7 +614,19 @@ function registerReplyKeyboardHandlers(bot) {
   // ── 💼 Money Management ────────────────────────────────────────────────────
   bot.hears('💼 Money Management', async (ctx) => {
     try {
-      const message = formatProfileMessage(String(ctx.from?.id || ''));
+      const { getProfile, getBrokerSpec, calcLot, calcPnL } = require('../../database/user_profiles');
+      const SL_PIPS = 40; const TP1_PIPS = 60; const TP2_PIPS = 125;
+      const p    = getProfile(String(ctx.from?.id || ''));
+      const spec = getBrokerSpec(p.broker);
+      const lot  = calcLot(p, SL_PIPS);
+      const sl$  = calcPnL(p, lot, SL_PIPS);
+      const tp1$ = calcPnL(p, lot, TP1_PIPS);
+      const tp2$ = calcPnL(p, lot, TP2_PIPS);
+      const riskAmt = (Number(p.balance) * p.risk / 100).toFixed(2);
+      const rrTp1   = (tp1$ / sl$).toFixed(2);
+      const rrTp2   = (tp2$ / sl$).toFixed(2);
+      const fmt = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       // ── Banner ──────────────────────────────────────────────────────────────
       try {
         const { renderBanner } = require('../banner');
@@ -622,16 +634,41 @@ function registerReplyKeyboardHandlers(bot) {
           sections: [{
             heading: 'MONEY MANAGEMENT',
             rows: [
-              { label: 'Engine',  value: 'Broker-Aware MM v2.0' },
-              { label: 'Pair',    value: 'XAUUSD' },
-              { label: 'Status',  value: 'AKTIF' },
-              { label: 'Mode',    value: 'Risk % per Trade' },
+              { label: 'Suggested Lot', value: `${lot} lot` },
+              { label: 'Risk Amount',   value: `$${riskAmt}` },
+              { label: 'SL Estimasi',   value: `-$${fmt(sl$)}` },
+              { label: 'TP1 Estimasi',  value: `+$${fmt(tp1$)}` },
+              { label: 'TP2 Estimasi',  value: `+$${fmt(tp2$)}` },
             ],
           }],
         });
         await ctx.replyWithPhoto({ source: buf });
       } catch (bErr) { console.warn('[MM] Banner gagal:', bErr.message); }
-      await ctx.replyWithHTML(message);
+
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━`,
+        `💼 <b>MONEY MANAGEMENT</b>`,
+        `━━━━━━━━━━━━━━━━━━`,
+        ``,
+        `🏦 Broker   : <code>${spec.name}</code>  |  <code>XAUUSD</code>`,
+        `💰 Balance  : <code>$${fmt(Number(p.balance))}</code>`,
+        `🎯 Risk     : <code>${p.risk}%</code>  →  <code>$${riskAmt}</code>`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `📌 <b>Suggested Lot</b> : <code>${lot} lot</code>`,
+        `   (based on SL ${SL_PIPS} pips)`,
+        ``,
+        `🛑 SL  <code>(${SL_PIPS} pips)</code>  ≈  <b>-$${fmt(sl$)}</b>`,
+        `🎯 TP1 <code>(${TP1_PIPS} pips)</code>  ≈  <b>+$${fmt(tp1$)}</b>`,
+        `🚀 TP2 <code>(${TP2_PIPS} pips)</code> ≈  <b>+$${fmt(tp2$)}</b>`,
+        ``,
+        `📐 <b>Risk : Reward</b>`,
+        `   TP1 = 1 : ${rrTp1}`,
+        `   TP2 = 1 : ${rrTp2}`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `⚙️ Ubah setting: <code>/balance</code>  <code>/risk</code>  <code>/broker</code>`,
+      ].join('\n'));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal memuat money management.\n<code>${err.message}</code>`);
     }
@@ -640,7 +677,14 @@ function registerReplyKeyboardHandlers(bot) {
   // ── 👤 Profile ─────────────────────────────────────────────────────────────
   bot.hears('👤 Profile', async (ctx) => {
     try {
-      const message = formatProfileMessage(String(ctx.from?.id || ''));
+      const { getProfile, getBrokerSpec, calcLot } = require('../../database/user_profiles');
+      const p    = getProfile(String(ctx.from?.id || ''));
+      const spec = getBrokerSpec(p.broker);
+      const lot  = calcLot(p, 40);
+      const name = ctx.from?.first_name || 'Trader';
+      const uid  = ctx.from?.id || '-';
+      const fmt  = (n) => Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
       // ── Banner ──────────────────────────────────────────────────────────────
       try {
         const { renderBanner } = require('../banner');
@@ -648,16 +692,43 @@ function registerReplyKeyboardHandlers(bot) {
           sections: [{
             heading: 'TRADER PROFILE',
             rows: [
-              { label: 'Engine',  value: 'MM v2.0' },
-              { label: 'Pair',    value: 'XAUUSD' },
-              { label: 'Status',  value: 'AKTIF' },
-              { label: 'Mode',    value: 'Broker-Aware' },
+              { label: 'Trader',   value: name },
+              { label: 'Broker',   value: spec.name },
+              { label: 'Balance',  value: `$${fmt(Number(p.balance))}` },
+              { label: 'Risk',     value: `${p.risk}%` },
+              { label: 'Lot Mode', value: p.lot_mode.toUpperCase() },
             ],
           }],
         });
         await ctx.replyWithPhoto({ source: buf });
       } catch (bErr) { console.warn('[PROFILE] Banner gagal:', bErr.message); }
-      await ctx.replyWithHTML(message);
+
+      await ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━`,
+        `👤 <b>TRADER PROFILE</b>`,
+        `━━━━━━━━━━━━━━━━━━`,
+        ``,
+        `🙋 <b>Nama</b>      : <code>${name}</code>`,
+        `🪪 <b>Telegram ID</b>: <code>${uid}</code>`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `⚙️ <b>KONFIGURASI</b>`,
+        `━━━━━━━━━━━━━━━━━━`,
+        ``,
+        `🏦 <b>Broker</b>    : <code>${spec.name}</code>`,
+        `🪙 <b>Pair</b>      : <code>XAUUSD</code>`,
+        `💰 <b>Balance</b>   : <code>$${fmt(Number(p.balance))}</code>`,
+        `🎯 <b>Risk</b>      : <code>${p.risk}%</code>`,
+        `⚙️ <b>Lot Mode</b>  : <code>${p.lot_mode.toUpperCase()}</code>`,
+        `📌 <b>Recom. Lot</b>: <code>${lot} lot</code>`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━`,
+        `📋 <b>Ubah konfigurasi:</b>`,
+        `<code>/balance</code> — set modal`,
+        `<code>/risk</code>    — set % risiko`,
+        `<code>/broker</code>  — ganti broker`,
+        `<code>/lot</code>     — toggle auto/manual`,
+      ].join('\n'));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal memuat profile.\n<code>${err.message}</code>`);
     }
