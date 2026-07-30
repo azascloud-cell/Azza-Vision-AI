@@ -1,0 +1,6 @@
+[userenv]
+
+[userenv.shared]
+REPO_URL = "https://github.com/azascloud-cell/Azza-Vision-AI"
+CHAT_ID = "6874843931"
+BOT_TOKEN = "8929375653:AAEno7SrV_4KMgLQ2iwKsvfHjY5wiAjSzgQ"
