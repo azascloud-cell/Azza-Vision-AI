@@ -12,7 +12,7 @@ const { isMarketOpen } = require('../utils/market_hours');
 const { validatePrice, validateSignal } = require('../utils/signal_validator');
 const { getAllTimeframes }   = require('../market/data');
 const { calculateSignal }   = require('./strategy');
-const { insertSignal }      = require('../database/db');
+const { insertSignal, setChannelMsgId } = require('../database/db');
 const { generateSignalChart } = require('../chart/generator');
 const { getPriceCache }     = require('../market/cache');
 
@@ -171,14 +171,15 @@ async function broadcastEbookSignal(bot, ebookResult, currentPrice, newsInfo) {
       analysis:   fakeAnalysis,
     }).catch(() => null);
 
+    // Kirim banner dulu (tanpa caption), lalu teks sinyal terpisah
+    // agar tidak kena limit 1024 char caption Telegram
     if (chartBuf) {
-      await bot.telegram.sendPhoto(channelId, { source: chartBuf }, {
-        caption:    message,
-        parse_mode: 'HTML',
-      });
-    } else {
-      await bot.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
+      await bot.telegram.sendPhoto(channelId, { source: chartBuf })
+        .catch(e => console.warn('[EBOOK-ENGINE] Banner gagal kirim:', e.message));
     }
+
+    // Kirim teks sinyal terpisah + pin otomatis
+    const sigMsg = await bot.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
 
     // Save to DB
     signalId = await insertSignal({
@@ -190,6 +191,15 @@ async function broadcastEbookSignal(bot, ebookResult, currentPrice, newsInfo) {
       confidence,
       strategy:   `EBOOK:${ebookResult.strategyName}`,
     });
+
+    // Pin pesan sinyal + simpan channel_msg_id untuk unpin nanti
+    if (sigMsg && signalId) {
+      await bot.telegram.pinChatMessage(channelId, sigMsg.message_id, {
+        disable_notification: true,
+      }).catch(e => console.warn('[EBOOK-ENGINE] Pin gagal:', e.message));
+      await setChannelMsgId(signalId, sigMsg.message_id)
+        .catch(e => console.warn('[EBOOK-ENGINE] setChannelMsgId gagal:', e.message));
+    }
 
     console.log(`[EBOOK-ENGINE] ✅ Signal #${signalId} terkirim (${direction} @ ${levels.entry} | ${ebookResult.strategyName})`);
   } catch (err) {

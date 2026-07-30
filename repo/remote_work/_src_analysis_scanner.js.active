@@ -260,6 +260,7 @@ async function analysisTick() {
               } : null;
               await broadcastEbookSignal(botInstance, bestSignal, price, newsInfoForBroadcast);
               lastSignalTime = now;
+              lastWatchlistBroadcast = now; // Cegah watchlist ikut broadcast setelah signal terkirim
             }
           } else {
             const minLeft = Math.ceil((SIGNAL_COOLDOWN - sinceLastSignal) / 60000);
@@ -1170,7 +1171,7 @@ async function doScan(silent = false) {
         const reward      = Math.abs(levels.tp2 - levels.entry);
         const rrNum       = risk > 0 ? (reward / risk).toFixed(2) : '—';
         const riskReward  = `1:${rrNum}`;
-        const setupTime   = toWIB(new Date());
+        const setupTime   = toWIB(new Date()).line.replace(/<[^>]+>/g, '');
 
         const sigBanner = await renderBanner(sigBannerType, {
           direction,
