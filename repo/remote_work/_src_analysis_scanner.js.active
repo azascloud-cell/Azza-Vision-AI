@@ -866,18 +866,22 @@ async function doScan(silent = false) {
       }
     }
 
-    // ── TREND_CONTINUATION override ──────────────────────────────────────────
-    // Di kondisi trending kuat (TREND_CONTINUATION), komponen reversal
-    // (Trendline Bounce, Engulfing, Divergence, Fibonacci) tidak akan trigger
-    // karena market sedang momentum — bukan reversal. Hanya S&D + EMA Trend
-    // yang relevan (35 pts = 33/100). Turunkan threshold ke 30 untuk mode ini.
-    if (ensembleResult && result.m5Entry?.pullbackZone === 'TREND_CONTINUATION') {
-      const TREND_CONT_MIN = 30;
-      if (!ensembleResult.passed && ensembleResult.totalScore >= TREND_CONT_MIN) {
+    // ── Pullback zone ensemble override ──────────────────────────────────────
+    // Di kondisi pullback valid (EMA20_PULLBACK, EMA50_PULLBACK, TREND_CONTINUATION),
+    // komponen reversal (Trendline Bounce, Engulfing, Divergence, Fibonacci) tidak
+    // akan trigger karena market sedang trending — bukan reversal. Hanya S&D + EMA
+    // yang relevan (35 pts = 33/100). Threshold diturunkan ke 30 jika pullback aktif.
+    // Guard: hanya berlaku jika confidence sudah cukup (m5Entry.valid) dan semua
+    // kondisi utama terpenuhi (aligned, tidak spike) — bukan bypass mentah.
+    const validPullbackZones = ['EMA20_PULLBACK', 'EMA50_PULLBACK', 'TREND_CONTINUATION'];
+    if (ensembleResult && result.m5Entry?.valid &&
+        validPullbackZones.includes(result.m5Entry?.pullbackZone)) {
+      const PULLBACK_ZONE_MIN = 30;
+      if (!ensembleResult.passed && ensembleResult.totalScore >= PULLBACK_ZONE_MIN) {
         ensembleResult.passed = true;
-        ensembleResult.minRequired = TREND_CONT_MIN;
+        ensembleResult.minRequired = PULLBACK_ZONE_MIN;
         if (!silent) {
-          console.log(`[ENSEMBLE] TREND_CONTINUATION override: ${ensembleResult.totalScore}/100 ≥ ${TREND_CONT_MIN} → PASS`);
+          console.log(`[ENSEMBLE] Pullback zone override (${result.m5Entry.pullbackZone}): ${ensembleResult.totalScore}/100 ≥ ${PULLBACK_ZONE_MIN} → PASS`);
         }
       }
     }
