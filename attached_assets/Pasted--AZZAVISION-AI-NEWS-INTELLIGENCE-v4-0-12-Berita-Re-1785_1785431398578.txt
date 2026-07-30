@@ -1,0 +1,68 @@
+━━━━━━━━━━━━━━━━━━━━
+📰 AZZAVISION AI — NEWS INTELLIGENCE v4.0
+━━━━━━━━━━━━━━━━━━━━
+
+📋 12 Berita Relevan (XAUUSD/Gold):
+
+🟨 1. Stock Market Midday, July 30: Microsoft Soars 15%, Boosting 
+   🏦 Macro Economy | Weight: 6/10 | 🔴 BEARISH_GOLD
+   Investors are pivoting back into technology despite GDP slowdown.
+
+🟧 2. US stocks, bitcoin gain since Fed held rates steady at July 
+   🏛️ Central Bank | Weight: 8/10 | 🔴 BEARISH_GOLD
+   The Federal Reserve held interest rates steady, and US stocks and crypto have reacted positively.
+
+🟨 3. Could Alamos Gold (TSX:AGI) Be 43% Below Fair Value Followin
+   ⛏️ Mining Company | Weight: 4/10 | 🟢 BULLISH_GOLD
+   Alamos Gold reported higher sales and net income, along with lower gold production.
+
+🟥 4. United States Dollar Index slumps as suspected Japanese inte
+   🏦 Macro Economy | Weight: 9/10 | 🟢 BULLISH_GOLD
+   The US Dollar Index tumbles due to suspected Japanese intervention to support the Yen.
+
+🟩 5. Malaysia: Balanced macro profile supports Ringgit – MUFG
+   🏦 Macro Economy | Weight: 3/10 | 🟡 NEUTRAL
+   Malaysia remains one of Asia’s stronger-performing economies with above-trend growth.
+
+🟧 6. British Pound surges on BoE hawkish hold, Yen intervention c
+   🏛️ Central Bank | Weight: 7/10 | 🟢 BULLISH_GOLD
+   The Pound Sterling registers gains versus the US Dollar after the Bank of England decided to hold rates unchanged.
+
+🟨 7. Euro rises as Eurozone growth outpaces forecasts
+   🏦 Macro Economy | Weight: 5/10 | 🟢 BULLISH_GOLD
+   EUR/USD trades higher near the 1.1460 area due to stronger-than-expected European economic data.
+
+🟩 8. Australian Dollar tumbles against Japanese Yen on suspected 
+   🏦 Macro Economy | Weight: 2/10 | 🟡 NEUTRAL
+   AUD/JPY tumbles due to a sudden surge in the Japanese Yen, fuelling speculation of Japanese authorities' intervention.
+
+━━━━━━━━━━━━━━━━━━━━
+📊 TOTAL MARKET SCORE
+
+🟢 Bullish  : 40%
+🔴 Bearish  : 30%
+🟡 Neutral  : 30%
+
+━━━━━━━━━━━━━━━━━━━━
+🤖 AI MARKET VERDICT
+
+🎯 Action         : 🔻 SELL
+
+📌 Fundamental:
+The US Dollar Index slumps due to suspected Japanese intervention, and the Euro rises as Eurozone growth outpaces forecasts. However, the Federal Reserve held interest rates steady, and US stocks and crypto have reacted positively.
+
+💭 Sentimen:
+The market sentiment is mixed, with some currencies like the Pound Sterling and Euro gaining against the US Dollar, while others like the Australian Dollar are affected by suspected Japanese intervention.
+
+🟢 Dampak Gold     : BULLISH
+🔴 Dampak USD      : BEARISH
+🔴 Volatilitas     : HIGH
+⏱ Estimasi Durasi  : 4-8 jam
+
+📡 Confidence Impact: +5%
+
+💬 Alasan AI (berdasarkan artikel):
+The suspected Japanese intervention to support the Yen and the stronger-than-expected European economic data are contributing to the US Dollar's weakness, which could lead to a bullish impact on gold prices.
+
+━━━━━━━━━━━━━━━━━━━━
+⚡ AZZAVISION AI | News Intelligence v4.0
