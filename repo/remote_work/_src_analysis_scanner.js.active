@@ -866,6 +866,22 @@ async function doScan(silent = false) {
       }
     }
 
+    // ── TREND_CONTINUATION override ──────────────────────────────────────────
+    // Di kondisi trending kuat (TREND_CONTINUATION), komponen reversal
+    // (Trendline Bounce, Engulfing, Divergence, Fibonacci) tidak akan trigger
+    // karena market sedang momentum — bukan reversal. Hanya S&D + EMA Trend
+    // yang relevan (35 pts = 33/100). Turunkan threshold ke 30 untuk mode ini.
+    if (ensembleResult && result.m5Entry?.pullbackZone === 'TREND_CONTINUATION') {
+      const TREND_CONT_MIN = 30;
+      if (!ensembleResult.passed && ensembleResult.totalScore >= TREND_CONT_MIN) {
+        ensembleResult.passed = true;
+        ensembleResult.minRequired = TREND_CONT_MIN;
+        if (!silent) {
+          console.log(`[ENSEMBLE] TREND_CONTINUATION override: ${ensembleResult.totalScore}/100 ≥ ${TREND_CONT_MIN} → PASS`);
+        }
+      }
+    }
+
     // ── NEWS INTELLIGENCE ENGINE ───────────────────────────────────────────────
     // Fail-safe: jika news engine error, scanner tetap berjalan normal.
     // News hanya menjadi filter tambahan — tidak mengganti logika utama.
