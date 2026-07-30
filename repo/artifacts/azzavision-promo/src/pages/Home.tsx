@@ -98,81 +98,16 @@ function LiveClock() {
   );
 }
 
-// ─── Azza SVG character ───────────────────────────────────────────────────────
+// ─── Azza character image ─────────────────────────────────────────────────────
 function AzzaChar({ w = 120, h = 170 }: { w?: number; h?: number }) {
   return (
     <div style={{ width: w, height: h, position: 'relative', flexShrink: 0 }}>
-      <svg viewBox="0 0 80 120" width={w} height={h} style={{ position: 'absolute', inset: 0 }}>
-        <defs>
-          <radialGradient id="ag" cx="50%" cy="60%" r="55%">
-            <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="#D4AF37" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        <rect width="80" height="120" fill="url(#ag)" />
-        {/* body / hoodie */}
-        <rect x="18" y="62" width="44" height="46" rx="6" fill="#141410" />
-        <rect x="18" y="62" width="44" height="10" rx="3" fill="#1C1C14" />
-        {/* hoodie logo */}
-        <text x="40" y="86" textAnchor="middle" fill="#D4AF37" fontSize="9" fontWeight="900">▲</text>
-        <text x="40" y="96" textAnchor="middle" fill="#D4AF37" fontSize="5" letterSpacing="1">AZZA</text>
-        {/* neck */}
-        <rect x="33" y="54" width="14" height="12" rx="3" fill="#C8906A" />
-        {/* head */}
-        <ellipse cx="40" cy="41" rx="17" ry="19" fill="#C8906A" />
-        {/* hair base */}
-        <ellipse cx="40" cy="24" rx="18" ry="11" fill="#111008" />
-        <rect x="22" y="24" width="36" height="14" rx="2" fill="#111008" />
-        {/* spiky hair strands */}
-        <path d="M22 28 Q18 15 24 10 Q26 20 22 28Z" fill="#111008" />
-        <path d="M58 28 Q62 14 55 9 Q54 21 58 28Z" fill="#111008" />
-        <path d="M40 22 Q38 10 40 6 Q42 10 40 22Z" fill="#111008" />
-        <path d="M32 24 Q28 12 33 7 Q34 18 32 24Z" fill="#111008" />
-        <path d="M50 24 Q54 11 49 7 Q48 18 50 24Z" fill="#111008" />
-        {/* ears */}
-        <ellipse cx="23" cy="41" rx="3.5" ry="4.5" fill="#C8906A" />
-        <ellipse cx="57" cy="41" rx="3.5" ry="4.5" fill="#C8906A" />
-        {/* eyebrows */}
-        <path d="M31 34 Q34 31 37 33" stroke="#111008" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        <path d="M43 33 Q46 31 49 34" stroke="#111008" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        {/* eyes */}
-        <ellipse cx="34" cy="40" rx="3.5" ry="4" fill="#111008" />
-        <ellipse cx="46" cy="40" rx="3.5" ry="4" fill="#111008" />
-        <ellipse cx="34" cy="40" rx="2.5" ry="3" fill="#3B2A10" />
-        <ellipse cx="46" cy="40" rx="2.5" ry="3" fill="#3B2A10" />
-        <circle cx="35.2" cy="38.5" r="1" fill="white" opacity="0.85" />
-        <circle cx="47.2" cy="38.5" r="1" fill="white" opacity="0.85" />
-        {/* nose */}
-        <path d="M39 46 Q40 48 41 46" stroke="#A0704A" strokeWidth="1" fill="none" strokeLinecap="round" />
-        {/* slight smile */}
-        <path d="M36 50 Q40 53 44 50" stroke="#A0704A" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-        {/* arms */}
-        <rect x="8"  y="65" width="12" height="36" rx="6" fill="#141410" />
-        <rect x="60" y="65" width="12" height="36" rx="6" fill="#141410" />
-        {/* hands */}
-        <ellipse cx="14"  cy="102" rx="6" ry="5" fill="#C8906A" />
-        <ellipse cx="66"  cy="102" rx="6" ry="5" fill="#C8906A" />
-        {/* laptop base */}
-        <rect x="10" y="103" width="60" height="14" rx="3" fill="#222" />
-        <rect x="12" y="105" width="56" height="10" rx="2" fill="#0A0A0A" />
-        {/* screen glow */}
-        <rect x="13" y="106" width="54" height="8" rx="1" fill="#D4AF37" opacity="0.08" />
-        {/* mini chart on screen */}
-        <polyline points="15,112 21,110 27,113 33,108 39,111 45,106 51,109 57,104 63,107" fill="none" stroke="#D4AF37" strokeWidth="0.9" opacity="0.75" />
-        {/* gold sparkles */}
-        <text x="8"  y="58" fill="#F5C542" fontSize="7" opacity="0.7">✦</text>
-        <text x="68" y="55" fill="#F5C542" fontSize="5" opacity="0.5">✦</text>
-        <text x="2"  y="85" fill="#D4AF37" fontSize="4" opacity="0.4">✦</text>
-      </svg>
-      {/* name badge */}
-      <div style={{
-        position: 'absolute', bottom: 4, left: '50%', transform: 'translateX(-50%)',
-        padding: '2px 8px', borderRadius: 6,
-        background: 'rgba(212,175,55,0.15)', border: '1px solid rgba(212,175,55,0.3)',
-        whiteSpace: 'nowrap',
-      }}>
-        <span style={{ fontSize: 8, color: '#D4AF37', fontWeight: 900, letterSpacing: 1 }}>AZZA</span>
-      </div>
+      <img
+        src={`${import.meta.env.BASE_URL}azza-char.png`}
+        alt="Azza — Founder & Trader"
+        draggable={false}
+        style={{ width: '100%', height: '100%', objectFit: 'contain', objectPosition: 'bottom' }}
+      />
     </div>
   );
 }
@@ -391,8 +326,9 @@ export default function Home() {
         {/* lydia chip */}
         <div className="flex items-center gap-3 px-4 py-3 border-b border-[#D4AF37]/8 flex-shrink-0">
           <div className="relative flex-shrink-0">
-            <Mascot xPct={0} yPct={0} wPct={33} hPct={32} w={38} h={38}
-              style={{ borderRadius: '50%', border: '1px solid rgba(212,175,55,0.35)' }} />
+            <img src={`${import.meta.env.BASE_URL}lydia-char.png`} alt="Lydia"
+              draggable={false}
+              style={{ width: 38, height: 38, objectFit: 'cover', objectPosition: 'top', borderRadius: '50%', border: '1px solid rgba(212,175,55,0.35)' }} />
             <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-400 rounded-full border-2 border-[#0D0D0D]" />
           </div>
           <div className="min-w-0">
@@ -523,11 +459,15 @@ export default function Home() {
                 {/* Lydia */}
                 <div className="float-a relative">
                   <div className="absolute -inset-3 rounded-full pointer-events-none"
-                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%)' }} />
-                  <Mascot xPct={0} yPct={0} wPct={33} hPct={68} w={130} h={180}
-                    className="relative" />
+                    style={{ background: 'radial-gradient(circle, rgba(212,175,55,0.12) 0%, transparent 70%)' }} />
+                  <img
+                    src={`${import.meta.env.BASE_URL}lydia-char.png`}
+                    alt="Lydia — AI Assistant"
+                    draggable={false}
+                    style={{ width: 148, height: 200, objectFit: 'contain', objectPosition: 'bottom', position: 'relative' }}
+                  />
                   {/* lydia label */}
-                  <div className="absolute bottom-6 right-0 px-2 py-1 rounded-lg text-center"
+                  <div className="absolute bottom-4 right-0 px-2 py-1 rounded-lg text-center"
                     style={{ background: 'rgba(11,11,11,0.88)', border: '1px solid rgba(212,175,55,0.25)' }}>
                     <div className="text-[8px] text-[#D4AF37] font-bold">LYDIA ✦</div>
                     <div className="text-[7px] text-gray-500">AI Assistant</div>
@@ -620,8 +560,9 @@ export default function Home() {
               <div className="rounded-2xl bg-[#0D0D0D] gb p-4">
                 <div className="flex items-center justify-between mb-3.5">
                   <span className="text-[9px] text-gray-500 font-semibold tracking-widest">SIGNAL CHECKLIST</span>
-                  <Mascot xPct={0} yPct={0} wPct={33} hPct={32} w={30} h={30}
-                    style={{ borderRadius: '50%', border: '1px solid rgba(212,175,55,0.25)' }} />
+                  <img src={`${import.meta.env.BASE_URL}lydia-char.png`} alt="Lydia"
+                    draggable={false}
+                    style={{ width: 30, height: 30, objectFit: 'cover', objectPosition: 'top center', borderRadius: '50%', border: '1px solid rgba(212,175,55,0.25)', flexShrink: 0 }} />
                 </div>
                 {[
                   { l: 'H4 Trend',   badge: 'STRONG_BUY', ok: true  },
@@ -645,8 +586,9 @@ export default function Home() {
               {/* lydia assist */}
               <div className="rounded-2xl p-4 flex items-center gap-3 flex-1"
                 style={{ background: 'linear-gradient(135deg,#130F00,#0D0D0D)', border: '1px solid rgba(212,175,55,0.18)' }}>
-                <Mascot xPct={0} yPct={0} wPct={33} hPct={50} w={46} h={52}
-                  className="rounded-xl flex-shrink-0" />
+                <img src={`${import.meta.env.BASE_URL}lydia-char.png`} alt="Lydia"
+                  draggable={false}
+                  style={{ width: 50, height: 58, objectFit: 'contain', objectPosition: 'bottom', flexShrink: 0, borderRadius: 10 }} />
                 <div>
                   <div className="text-[9px] text-[#D4AF37] font-bold mb-1">LYDIA says:</div>
                   <p className="text-[10px] text-gray-400 leading-relaxed">
@@ -740,8 +682,9 @@ export default function Home() {
 
               {/* small lydia decoration */}
               <div className="mt-4 pt-3 border-t border-white/5 flex items-center gap-2">
-                <Mascot xPct={0} yPct={0} wPct={33} hPct={32} w={28} h={28}
-                  style={{ borderRadius: '50%', border: '1px solid rgba(212,175,55,0.2)', opacity: 0.8 }} />
+                <img src={`${import.meta.env.BASE_URL}lydia-char.png`} alt="Lydia"
+                  draggable={false}
+                  style={{ width: 28, height: 28, objectFit: 'cover', objectPosition: 'top center', borderRadius: '50%', border: '1px solid rgba(212,175,55,0.2)', opacity: 0.85, flexShrink: 0 }} />
                 <span className="text-[9px] text-gray-600 italic">Analysed by Lydia AI</span>
               </div>
             </div>
@@ -783,8 +726,9 @@ export default function Home() {
                   <div className="text-[8px] text-gray-600">Founder & Trader</div>
                 </div>
                 <div className="float-a">
-                  <Mascot xPct={0} yPct={0} wPct={33} hPct={50} w={55} h={64}
-                    className="rounded-xl" />
+                  <img src={`${import.meta.env.BASE_URL}lydia-char.png`} alt="Lydia"
+                    draggable={false}
+                    style={{ width: 55, height: 68, objectFit: 'contain', objectPosition: 'bottom', borderRadius: 10 }} />
                 </div>
               </div>
 
