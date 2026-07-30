@@ -614,7 +614,7 @@ function registerReplyKeyboardHandlers(bot) {
   // ── 💼 Money Management ────────────────────────────────────────────────────
   bot.hears('💼 Money Management', async (ctx) => {
     try {
-      const { getProfile, getBrokerSpec, calcLot, calcPnL } = require('../../database/user_profiles');
+      const { getProfile, getBrokerSpec, calcLot, calcPnL } = require('../database/user_profiles');
       const SL_PIPS = 40; const TP1_PIPS = 60; const TP2_PIPS = 125;
       const p    = getProfile(String(ctx.from?.id || ''));
       const spec = getBrokerSpec(p.broker);
@@ -677,7 +677,7 @@ function registerReplyKeyboardHandlers(bot) {
   // ── 👤 Profile ─────────────────────────────────────────────────────────────
   bot.hears('👤 Profile', async (ctx) => {
     try {
-      const { getProfile, getBrokerSpec, calcLot } = require('../../database/user_profiles');
+      const { getProfile, getBrokerSpec, calcLot } = require('../database/user_profiles');
       const p    = getProfile(String(ctx.from?.id || ''));
       const spec = getBrokerSpec(p.broker);
       const lot  = calcLot(p, 40);
