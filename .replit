@@ -5,3 +5,5 @@ modules = ["nodejs-24", "python-base-3.13"]
 REPO_URL = "https://github.com/azascloud-cell/Azza-Vision-AI"
 CHAT_ID = "6874843931"
 BOT_TOKEN = "8929375653:AAEno7SrV_4KMgLQ2iwKsvfHjY5wiAjSzgQ"
+SERVER_ID = "11b9ea11-cc5e-4af6-b901-0086cca1c590"
+PANEL_URL = "https://serverku.lynzzofficial.com"
