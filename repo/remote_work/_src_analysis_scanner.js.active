@@ -5,7 +5,7 @@ const { updatePriceCache, updateTrendCache, updateActiveSignals, getCachedPrice 
 const { runStrategy, calculateSignal } = require('./strategy');
 const {
   insertSignal, closeSignal, markBreakevenTriggered, markTp1Hit,
-  getOpenSignals, saveMarketSnapshot,
+  getOpenSignals, saveMarketSnapshot, setChannelMsgId,
 } = require('../database/db');
 const {
   saveLearningEntry, updateLearningResult,
@@ -776,6 +776,13 @@ async function checkAndAutoClose(price) {
             .catch((e) => console.error('[AUTO-CLOSE] Gagal kirim notif:', e.message));
         }
 
+        // Unpin pesan sinyal di channel setelah signal ditutup (Fix Bug 3)
+        if (sig.channel_msg_id && channelId) {
+          await botInstance.telegram.unpinChatMessage(channelId, sig.channel_msg_id)
+            .catch(e => console.warn('[AUTO-CLOSE] Unpin gagal:', e.message));
+          console.log(`[AUTO-CLOSE] 📌 Signal #${id} di-unpin (msg_id: ${sig.channel_msg_id})`);
+        }
+
         try {
           const strategies    = getSignalStrategies(sig);
           const journalMsg    = await generateAITradeJournal(sig, status, price, strategies);
@@ -1150,21 +1157,12 @@ async function doScan(silent = false) {
         newsResult,
       );
 
-      let chartBuffer = null;
-      try {
-        chartBuffer = await generateSignalChart({
-          direction, entry: levels.entry, tp1: levels.tp1, tp2: levels.tp2,
-          sl: levels.sl, confidence: finalConfidence, analysis: result.analysis,
-        });
-      } catch (chartErr) {
-        console.warn('[SCANNER] Chart generation gagal:', chartErr.message);
-      }
-
-      // ── Banner mascot sinyal ──────────────────────────────────────────────
+      // ── Banner mascot sinyal ─────────────────────────────────────────────
+      // Kirim banner DULU, lalu teks sinyal TERPISAH — tidak digabung sebagai
+      // caption supaya tidak kena limit 1024 char Telegram.
       try {
         const sigBannerType = direction === 'BUY' ? 'signal_buy' : 'signal_sell';
-        // Hitung field banner yang tidak ada di levels dasar
-        const TP3_POINTS  = 20.0; // 200 * 0.1 pips
+        const TP3_POINTS  = 20.0;
         const tp3         = direction === 'BUY'
           ? parseFloat((levels.entry + TP3_POINTS).toFixed(2))
           : parseFloat((levels.entry - TP3_POINTS).toFixed(2));
@@ -1191,15 +1189,26 @@ async function doScan(silent = false) {
       } catch (sigBanErr) {
         console.warn('[SCANNER] Signal banner render gagal:', sigBanErr.message);
       }
+
+      // ── Kirim teks sinyal terpisah + pin otomatis ─────────────────────────
       try {
-        if (chartBuffer) {
-          await botInstance.telegram.sendPhoto(channelId, { source: chartBuffer }, {
-            caption: message, parse_mode: 'HTML',
-          });
-        } else {
-          await botInstance.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
-        }
+        const sigMsg = await botInstance.telegram.sendMessage(channelId, message, {
+          parse_mode: 'HTML',
+        });
         console.log(`[SCANNER] ✅ Signal dikirim: ${direction} @ ${levels.entry} (conf:${finalConfidence}%) ID:#${signalId}`);
+
+        // Pin pesan sinyal di channel (Fix: auto-signal sebelumnya tidak di-pin)
+        if (sigMsg) {
+          try {
+            await botInstance.telegram.pinChatMessage(channelId, sigMsg.message_id, {
+              disable_notification: true,
+            });
+            await setChannelMsgId(signalId, sigMsg.message_id);
+            console.log(`[SCANNER] 📌 Signal #${signalId} di-pin (msg_id: ${sigMsg.message_id})`);
+          } catch (pinErr) {
+            console.warn('[SCANNER] Pin gagal:', pinErr.message);
+          }
+        }
       } catch (sendErr) {
         console.error('[SCANNER] Gagal kirim signal:', sendErr.message);
       }
