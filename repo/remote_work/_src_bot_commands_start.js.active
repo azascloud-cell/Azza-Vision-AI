@@ -4,16 +4,18 @@
  * start.js — /start command + Reply Keyboard Layout
  *
  * Exports:
- *   registerStart(bot)         — Register /start command
- *   buildDashboardText(name)   — Build bot status text for dashboard/refresh
- *   sendOrEditDashboard(ctx, text) — Send or edit dashboard message with keyboard
+ *   registerStart(bot)              — Register /start command
+ *   buildDashboardText(name)        — Build bot status text
+ *   sendOrEditDashboard(ctx, text)  — Send dashboard message + keyboard
  */
 
+const path   = require('path');
+const fs     = require('fs').promises;
 const { Markup } = require('telegraf');
 
 // ─── Reply Keyboard Layout ────────────────────────────────────────────────────
 // PENTING: label tombol di sini HARUS SAMA PERSIS dengan string di bot.hears()
-// di _src_bot_index.js — termasuk emoji dan spasi.
+// di src/bot/index.js — termasuk emoji dan spasi.
 
 const mainKeyboard = Markup.keyboard([
   ['📊 Market',           '📈 Statistik'],
@@ -30,7 +32,23 @@ const mainKeyboard = Markup.keyboard([
   ['🔄 Refresh',          '❓ Bantuan'],
 ]).resize();
 
-// ─── Build dashboard/status text ─────────────────────────────────────────────
+// ─── Baca URL dashboard (tunnel / manual / env) ───────────────────────────────
+async function getDashboardUrl() {
+  // 1. Config manual (/setdashboard)
+  try {
+    const cfg = JSON.parse(await fs.readFile(path.resolve('./data/dashboard_config.json'), 'utf8'));
+    if (cfg?.url) return cfg.url;
+  } catch {}
+  // 2. Auto tunnel-url.txt
+  try {
+    const raw = (await fs.readFile(path.resolve('./tunnel-url.txt'), 'utf8')).trim();
+    if (raw.startsWith('http')) return raw;
+  } catch {}
+  // 3. Env var
+  return process.env.DASHBOARD_URL || null;
+}
+
+// ─── Build welcome / status text ─────────────────────────────────────────────
 async function buildDashboardText(name = 'Trader') {
   try {
     const { getOpenSignals, getLastSignalTime } = require('../../database/db');
@@ -42,9 +60,9 @@ async function buildDashboardText(name = 'Trader') {
     const wib         = toWIB();
 
     const openLines = openSignals.length > 0
-      ? openSignals.slice(0, 3).map((s) =>
-          `  • ${s.direction} @ ${s.entry} (${s.confidence}%)`
-        ).join('\n')
+      ? openSignals.slice(0, 3)
+          .map((s) => `  • ${s.direction} @ ${s.entry} (${s.confidence}%)`)
+          .join('\n')
       : '  Tidak ada sinyal terbuka.';
 
     let lastSignalWib = 'Belum ada sinyal';
@@ -54,43 +72,46 @@ async function buildDashboardText(name = 'Trader') {
     }
 
     return [
-      `🔍 <b>AZZAVISION AI — BOT STATUS</b>`,
+      `👋 Halo, <b>${name}</b>! Selamat datang di AZZAVISION AI.`,
       ``,
-      `━━━━━━━━━━━━━━━━━━`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `🔍 <b>STATUS BOT</b>`,
+      `━━━━━━━━━━━━━━━━━━━━`,
       `🟢 Status    : ONLINE & AKTIF`,
       `📡 Interval  : <code>${interval}s</code>`,
       `🎯 Min Conf  : <code>${process.env.MIN_CONFIDENCE || '65'}%</code>`,
       ``,
-      `━━━━━━━━━━━━━━━━━━`,
       `📌 <b>OPEN SIGNALS (${openSignals.length})</b>`,
       openLines,
       ``,
-      `━━━━━━━━━━━━━━━━━━`,
       `🕐 Sinyal Terakhir: ${lastSignalWib}`,
       ``,
       wib.line,
       ``,
       `🪙 Pair: XAUUSD  |  💾 DB: JSON Storage`,
-      `⚡ <i>AZZAVISION AI v3.2.1 — Auto Gold Signals</i>`,
+      `⚡ <i>AZZAVISION AI v5.7 — Auto Gold Signals</i>`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `💡 Gunakan keyboard menu di bawah atau ketik /help`,
     ].join('\n');
 
   } catch (err) {
     const { toWIB } = require('../../utils/wib_time');
     const wib = toWIB();
     return [
-      `🔍 <b>AZZAVISION AI — BOT STATUS</b>`,
+      `👋 Halo, <b>${name}</b>! Selamat datang di AZZAVISION AI.`,
       ``,
       `🟢 Status : ONLINE`,
       wib.line,
       ``,
       `⚡ <i>AZZAVISION AI — Auto Gold Signals</i>`,
+      `💡 Gunakan keyboard menu di bawah atau ketik /help`,
     ].join('\n');
   }
 }
 
-// ─── Send or edit dashboard message ──────────────────────────────────────────
+// ─── Send dashboard message + keyboard ───────────────────────────────────────
 async function sendOrEditDashboard(ctx, text) {
-  // Selalu kirim pesan baru dengan keyboard (tidak edit — keyboard perlu dikirim ulang)
   await ctx.replyWithHTML(text, mainKeyboard);
 }
 
@@ -98,6 +119,30 @@ async function sendOrEditDashboard(ctx, text) {
 function registerStart(bot) {
   bot.command('start', async (ctx) => {
     const name = ctx.from?.first_name || 'Trader';
+
+    // ── 1. Banner mascot (dashboard) ─────────────────────────────────────────
+    try {
+      const { renderBanner } = require('../../banner');
+      const openSignals = await (async () => {
+        try { return await require('../../database/db').getOpenSignals(); } catch { return []; }
+      })();
+      const bannerBuffer = await renderBanner('dashboard', {
+        sections: [{
+          heading: `AZZAVISION AI — SELAMAT DATANG`,
+          rows: [
+            { label: 'Status',       value: 'ONLINE & AKTIF' },
+            { label: 'Pair',         value: 'XAUUSD' },
+            { label: 'Open Signals', value: String(openSignals.length) },
+            { label: 'Engine',       value: 'Dual AI + Trade Scanner' },
+          ],
+        }],
+      });
+      await ctx.replyWithPhoto({ source: bannerBuffer });
+    } catch (bannerErr) {
+      console.warn('[START] Banner gagal:', bannerErr.message);
+    }
+
+    // ── 2. Welcome text + keyboard ───────────────────────────────────────────
     try {
       const text = await buildDashboardText(name);
       await ctx.replyWithHTML(text, mainKeyboard);
@@ -107,6 +152,17 @@ function registerStart(bot) {
         mainKeyboard
       );
     }
+
+    // ── 3. Tombol dashboard web (jika URL tersedia) ──────────────────────────
+    try {
+      const url = await getDashboardUrl();
+      if (url) {
+        await ctx.replyWithHTML(
+          `🌐 <b>Dashboard Web tersedia:</b>`,
+          Markup.inlineKeyboard([[Markup.button.url('🚀 Buka Dashboard', url)]])
+        );
+      }
+    } catch {}
   });
 }
 

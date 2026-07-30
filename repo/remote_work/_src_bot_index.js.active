@@ -222,6 +222,22 @@ function registerReplyKeyboardHandlers(bot) {
       const { todayWIB }          = require('../utils/wib_time');
       const today = todayWIB();
       const stats = await getDailyStats(today);
+      // ── Banner ────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('daily_report', {
+          sections: [{
+            heading: `DAILY REPORT — ${today}`,
+            rows: [
+              { label: 'Total Sinyal', value: String(stats?.total    ?? 0) },
+              { label: 'Win',          value: String(stats?.wins     ?? 0) },
+              { label: 'Loss',         value: String(stats?.losses   ?? 0) },
+              { label: 'Win Rate',     value: stats?.total > 0 ? `${((( stats.wins||0) / stats.total) * 100).toFixed(1)}%` : '-' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[DAILY] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(formatDailyReport(stats, today));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal ambil data harian.\n<code>${err.message}</code>`);
@@ -233,6 +249,25 @@ function registerReplyKeyboardHandlers(bot) {
       const { getWeeklyStats }     = require('../database/db');
       const { formatWeeklyReport } = require('./commands/daily');
       const rows = await getWeeklyStats();
+      // ── Banner ────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const totalW = rows.reduce((s, r) => s + (r.wins || 0), 0);
+        const totalL = rows.reduce((s, r) => s + (r.losses || 0), 0);
+        const totalN = totalW + totalL;
+        const buf = await renderBanner('weekly_report', {
+          sections: [{
+            heading: 'WEEKLY REPORT — 7 HARI TERAKHIR',
+            rows: [
+              { label: 'Total Sinyal', value: String(totalN) },
+              { label: 'Win',          value: String(totalW) },
+              { label: 'Loss',         value: String(totalL) },
+              { label: 'Win Rate',     value: totalN > 0 ? `${((totalW / totalN) * 100).toFixed(1)}%` : '-' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[WEEKLY] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(formatWeeklyReport(rows));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal ambil data mingguan.\n<code>${err.message}</code>`);
@@ -251,6 +286,23 @@ function registerReplyKeyboardHandlers(bot) {
       const PAGE_SIZE = 10;
       const total     = Math.ceil(sorted.length / PAGE_SIZE);
       const summary   = computeSummary(allSignals);
+      // ── Banner ────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const decided = (summary.wins || 0) + (summary.losses || 0);
+        const buf = await renderBanner('trading_journal', {
+          sections: [{
+            heading: 'SIGNAL JOURNAL',
+            rows: [
+              { label: 'Total Sinyal', value: String(allSignals.length) },
+              { label: 'WIN',          value: String(summary.wins    || 0) },
+              { label: 'LOSS',         value: String(summary.losses  || 0) },
+              { label: 'Win Rate',     value: decided > 0 ? `${(((summary.wins||0)/decided)*100).toFixed(1)}%` : '-' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[JOURNAL] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(formatJournalPage(sorted.slice(0, PAGE_SIZE), 1, total, summary));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal memuat journal.\n<code>${err.message}</code>`);
@@ -273,6 +325,22 @@ function registerReplyKeyboardHandlers(bot) {
         const lsw = toWIB(new Date(lastSignal));
         lastSignalWib = `${lsw.dateNum} ${lsw.month} ${lsw.year} ${lsw.hours}:${lsw.minutes} WIB`;
       }
+      // ── Banner ──────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('dashboard', {
+          sections: [{
+            heading: 'AZZAVISION AI — BOT STATUS',
+            rows: [
+              { label: 'Status',       value: 'ONLINE & AKTIF' },
+              { label: 'Interval',     value: `${interval}s` },
+              { label: 'Min Conf',     value: `${process.env.MIN_CONFIDENCE || '65'}%` },
+              { label: 'Open Signals', value: String(openSignals.length) },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[BOT-STATUS] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML([
         `🔍 <b>AZZAVISION AI — BOT STATUS</b>`, ``,
         `━━━━━━━━━━━━━━━━━━`,
@@ -286,7 +354,7 @@ function registerReplyKeyboardHandlers(bot) {
         `🕐 Sinyal Terakhir: ${lastSignalWib}`, ``,
         wib.line, ``,
         `🪙 Pair: XAUUSD  |  💾 DB: JSON Storage`,
-        `⚡ <i>AZZAVISION AI v3.2.1 — Auto Gold Signals</i>`,
+        `⚡ <i>AZZAVISION AI v5.7 — Auto Gold Signals</i>`,
       ].join('\n'));
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal ambil status.\n<code>${err.message}</code>`);
@@ -349,6 +417,22 @@ function registerReplyKeyboardHandlers(bot) {
       const after  = await getLearnStats();
       if (loadingMsg) await ctx.telegram.deleteMessage(ctx.chat.id, loadingMsg.message_id).catch(() => {});
       const db = before.wins + before.losses, da = after.wins + after.losses;
+      // ── Banner ────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('retrain_ai', {
+          sections: [{
+            heading: 'RETRAIN AI — SELESAI',
+            rows: [
+              { label: 'Total Entries', value: String(result.total)   },
+              { label: 'Updated',       value: String(result.updated) },
+              { label: 'Dataset',       value: `${before.closed} → ${after.closed}` },
+              { label: 'Win Rate',      value: `${db > 0 ? ((before.wins/db)*100).toFixed(1) : 0}% → ${da > 0 ? ((after.wins/da)*100).toFixed(1) : 0}%` },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[RETRAIN] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML([
         `━━━━━━━━━━━━━━━━━━━━`,
         `🔄 <b>MANUAL RETRAIN SELESAI</b>`,
@@ -463,6 +547,22 @@ function registerReplyKeyboardHandlers(bot) {
     try {
       const { formatStrategyStatsMessage } = require('../database/strategy_stats');
       const msg = await formatStrategyStatsMessage();
+      // ── Banner ────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('strategy_stats', {
+          sections: [{
+            heading: 'STRATEGY PERFORMANCE STATS',
+            rows: [
+              { label: 'Engine',  value: 'Dual AI + E-Book' },
+              { label: 'Pair',    value: 'XAUUSD' },
+              { label: 'Period',  value: 'All Time' },
+              { label: 'Status',  value: 'ONLINE' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[STRATSTATS] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(msg);
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal ambil strategi stats.\n<code>${err.message}</code>`);
@@ -515,6 +615,22 @@ function registerReplyKeyboardHandlers(bot) {
   bot.hears('💼 Money Management', async (ctx) => {
     try {
       const message = formatProfileMessage(String(ctx.from?.id || ''));
+      // ── Banner ──────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('risk_management', {
+          sections: [{
+            heading: 'MONEY MANAGEMENT',
+            rows: [
+              { label: 'Engine',  value: 'Broker-Aware MM v2.0' },
+              { label: 'Pair',    value: 'XAUUSD' },
+              { label: 'Status',  value: 'AKTIF' },
+              { label: 'Mode',    value: 'Risk % per Trade' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[MM] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(message);
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal memuat money management.\n<code>${err.message}</code>`);
@@ -525,6 +641,22 @@ function registerReplyKeyboardHandlers(bot) {
   bot.hears('👤 Profile', async (ctx) => {
     try {
       const message = formatProfileMessage(String(ctx.from?.id || ''));
+      // ── Banner ──────────────────────────────────────────────────────────────
+      try {
+        const { renderBanner } = require('../banner');
+        const buf = await renderBanner('profile', {
+          sections: [{
+            heading: 'TRADER PROFILE',
+            rows: [
+              { label: 'Engine',  value: 'MM v2.0' },
+              { label: 'Pair',    value: 'XAUUSD' },
+              { label: 'Status',  value: 'AKTIF' },
+              { label: 'Mode',    value: 'Broker-Aware' },
+            ],
+          }],
+        });
+        await ctx.replyWithPhoto({ source: buf });
+      } catch (bErr) { console.warn('[PROFILE] Banner gagal:', bErr.message); }
       await ctx.replyWithHTML(message);
     } catch (err) {
       await ctx.replyWithHTML(`❌ Gagal memuat profile.\n<code>${err.message}</code>`);
