@@ -440,13 +440,20 @@ async function checkWatchlistBroadcast() {
     const msg = lines.join('\n');
 
     // ── Banner mascot watchlist ─────────────────────────────────────────────
+    // infoBanner butuh format sections:[{heading, rows, progress?}]
     try {
       const wlBanner = await renderBanner('watchlist', {
-        headline: `${direction} | Conf ${displayConf}%`,
-        rows: [
-          { label: 'Pair', value: 'XAUUSD' },
-          { label: 'Bias', value: overall.label },
-          { label: 'Readiness', value: `${readiness.passed}/${readiness.total} syarat` },
+        sections: [
+          {
+            heading: `${direction} Signal Monitor`,
+            rows: [
+              { label: 'Pair',      value: 'XAUUSD' },
+              { label: 'Bias',      value: overall.label },
+              { label: 'Confidence', value: `${displayConf}%` },
+              { label: 'Readiness', value: `${readiness.passed}/${readiness.total} syarat` },
+            ],
+            progress: { percent: readiness.score, label: `${readiness.score}%` },
+          },
         ],
       });
       await botInstance.telegram.sendPhoto(channelId, { source: wlBanner })
@@ -1156,14 +1163,28 @@ async function doScan(silent = false) {
       // ── Banner mascot sinyal ──────────────────────────────────────────────
       try {
         const sigBannerType = direction === 'BUY' ? 'signal_buy' : 'signal_sell';
+        // Hitung field banner yang tidak ada di levels dasar
+        const TP3_POINTS  = 20.0; // 200 * 0.1 pips
+        const tp3         = direction === 'BUY'
+          ? parseFloat((levels.entry + TP3_POINTS).toFixed(2))
+          : parseFloat((levels.entry - TP3_POINTS).toFixed(2));
+        const risk        = Math.abs(levels.entry - levels.sl);
+        const reward      = Math.abs(levels.tp2 - levels.entry);
+        const rrNum       = risk > 0 ? (reward / risk).toFixed(2) : '—';
+        const riskReward  = `1:${rrNum}`;
+        const setupTime   = toWIB(new Date());
+
         const sigBanner = await renderBanner(sigBannerType, {
           direction,
           pair: 'XAUUSD',
           entry: levels.entry,
           tp1: levels.tp1,
           tp2: levels.tp2,
+          tp3,
           sl: levels.sl,
+          riskReward,
           confidence: finalConfidence,
+          setupTime,
         });
         await botInstance.telegram.sendPhoto(channelId, { source: sigBanner })
           .catch(e => console.warn('[SCANNER] Signal banner gagal kirim:', e.message));
