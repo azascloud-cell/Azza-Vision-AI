@@ -1,6 +1,6 @@
 # AZZAVISION AI — Trading Signal Bot
 
-**Versi aktif: v5.6**  
+**Versi aktif: v5.7**  
 **Platform:** Telegram Bot + Web Dashboard  
 **Runtime:** Node.js 22 (Docker: `ghcr.io/parkervcp/yolks:nodejs_22`)  
 **Hosted:** Pterodactyl Panel — `serverku.lynzzofficial.com`  
@@ -104,9 +104,40 @@ Selain sinyal, bot memiliki **dashboard web** yang bisa diakses via Cloudflare T
 
 ## Command Bot
 
+### Keyboard Menu (Tombol Utama)
+
+| Tombol | Fungsi |
+|---|---|
+| 📊 Market | Harga & analisis market saat ini |
+| 📈 Statistik | Statistik sinyal (win rate, dll) |
+| 📅 Daily | Rekap harian |
+| 📅 Weekly | Rekap mingguan |
+| 📖 Journal | Trade journal semua sinyal |
+| 🤖 Bot Status | Status bot + open signals |
+| 🧠 Learning | Status learning engine |
+| 🔄 Retrain | Manual retrain (Owner) |
+| 👀 Watchlist | Cek syarat entry saat ini |
+| ❓ Kenapa Belum Entry? | Analisis alasan bot belum entry |
+| 📚 Strategi Stats | Performa per strategi |
+| 📉 Backtest 7D | Backtest 7 hari |
+| 📊 Backtest 30D | Backtest 30 hari |
+| 📄 Export Excel | Export ke XLS (Owner) |
+| 💼 Money Management | Info risk/lot/broker |
+| 👤 Profile | Profil money management |
+| 🟢 Force BUY | Force entry BUY (Owner) |
+| 🔴 Force SELL | Force entry SELL (Owner) |
+| 🔭 Trade Scanner | Status trade scanner aktif (Owner) |
+| 📡 Scan Status | Detail scanner SHORT/MEDIUM/LONG (Owner) |
+| 📰 News | News Intelligence v4.0 |
+| 📑 Export PDF | Export ke PDF (Owner) |
+| 🔄 Refresh | Refresh dashboard status |
+| ❓ Bantuan | Link ke /help |
+
+### Slash Commands
+
 | Command | Siapa | Keterangan |
 |---|---|---|
-| `/start` | Semua | Dashboard teks + menu utama |
+| `/start` | Semua | Dashboard teks + keyboard menu utama |
 | `/help` | Semua | Daftar command |
 | `/market` | Semua | Harga & status market saat ini |
 | `/stats` | Semua | Statistik sinyal (win rate, dll) |
@@ -121,13 +152,36 @@ Selain sinyal, bot memiliki **dashboard web** yang bisa diakses via Cloudflare T
 | `/journal` | Semua | Trade journal |
 | `/daily` | Semua | Rekap harian |
 | `/backtest` | Semua | Backtest strategi |
-| `/news` | Semua | Update news & dampak ke market |
-| `/doctor` | Owner | Audit koneksi AI + market API (`/audit`) |
+| `/news` | Semua | News Intelligence v4.0 (kategori, bobot, AI verdict) |
+| `/watchlist` | Semua | Cek syarat entry detail |
+| `/why` | Semua | Analisis mendalam kenapa belum entry |
+| `/stratstats` | Semua | Statistik per strategi |
+| `/learning` | Semua | Status learning mode |
+| `/tradejournal` | Semua | Journal berbasis persistent trade DB |
+| `/tradehistory` | Semua | Histori trade dari DB |
+| `/report` | Semua | Performance report manual |
+| `/dailyreport` | Semua | Report harian |
+| `/weeklyreport` | Semua | Report mingguan |
+| `/reporthistory` | Semua | Histori report |
+| `/backup` | Owner | Jalankan backup manual |
+| `/backupstatus` | Owner | Kondisi backup engine |
+| `/backuphistory` | Owner | Histori backup |
+| `/restorelist` | Owner | Daftar backup tersedia |
+| `/selftest` | Owner | Self-test koneksi & komponen |
+| `/debug` | Owner | Toggle debug mode |
+| `/documentation` | Owner | Generate dokumentasi developer |
+| `/forcebuy` | Owner | Force entry BUY |
+| `/forcesell` | Owner | Force entry SELL |
 | `/signaltest` | Owner | Test generate sinyal + banner |
-| `/owner` | Owner | Force buy/sell, kelola sinyal manual |
-| `/apikey` | Owner | Kelola API key AI |
 | `/retrain` | Owner | Retrain model learning |
+| `/apikey` | Owner | Kelola API key AI |
 | `/setdashboard` | Owner | Set URL dashboard manual |
+| `/dashboard` | Owner | Tampilkan link dashboard web |
+| `/balance` | Owner | Set saldo akun |
+| `/risk` | Owner | Set risk per trade |
+| `/broker` | Owner | Pilih broker |
+| `/lot` | Owner | Kalkulasi lot |
+| `/profile` | Owner | Profil money management |
 
 ---
 
@@ -177,24 +231,58 @@ File-file di bawah adalah backup aktif yang sudah di-patch. Ini yang dipakai seb
 |---|---|
 | `pterodactyl-dashboard-server.active.js` | `/pterodactyl-dashboard-server.js` |
 | `dashboard-index.active.html` | `/dashboard/index.html` |
-| `_src_analysis_trade_scanner.js.active` | `/src/analysis/trade_scanner.js` |
-| `_src_analysis_scanner.js.active` | `/src/analysis/scanner.js` |
-| `_src_analysis_ebook_engine.js.active` | `/src/analysis/ebook_engine.js` |
-| `_src_banner_registry.js.active` | `/src/banner/registry.js` |
+| `src-index.active.js` | `/src/index.js` |
+| `_src_bot_index.js.active` | `/src/bot/index.js` |
+| `_src_bot_commands_start.js.active` | `/src/bot/commands/start.js` |
 | `_src_bot_commands_scan.js.active` | `/src/bot/commands/scan.js` |
 | `_src_bot_commands_owner.js.active` | `/src/bot/commands/owner.js` |
 | `_src_bot_commands_signaltest.js.active` | `/src/bot/commands/signaltest.js` |
 | `_src_bot_commands_dashboard.js.active` | `/src/bot/commands/dashboard.js` |
 | `_src_bot_commands_doctor.js.active` | `/src/bot/commands/doctor.js` |
 | `_src_bot_commands_news.js.active` | `/src/bot/commands/news.js` |
+| `_src_bot_commands_watchlist_cmd.js.active` | `/src/bot/commands/watchlist_cmd.js` |
+| `_src_bot_commands_why.js.active` | `/src/bot/commands/why.js` |
+| `_src_analysis_trade_scanner.js.active` | `/src/analysis/trade_scanner.js` |
+| `_src_analysis_scanner.js.active` | `/src/analysis/scanner.js` |
+| `_src_analysis_ebook_engine.js.active` | `/src/analysis/ebook_engine.js` |
+| `_src_analysis_backtest.js.active` | `/src/analysis/backtest.js` |
+| `_src_analysis_pullback.js.active` | `/src/analysis/pullback.js` |
+| `_src_analysis_strategy.js.active` | `/src/analysis/strategy.js` |
+| `_src_banner_registry.js.active` | `/src/banner/registry.js` |
 | `_src_database_db.js.active` | `/src/database/db.js` |
 | `_src_database_db_extended.js.active` | `/src/database/db_extended.js` |
 | `_src_scheduler_report_scheduler.js.active` | `/src/scheduler/report_scheduler.js` |
-| `_src_bot_commands_news.js.active` | `/src/bot/commands/news.js` |
+| `_src_market_key_manager.js.active` | `/src/market/key_manager.js` |
 
 ---
 
 ## Changelog
+
+### v5.7 — 2026-07-31
+
+**Keyboard Menu Fix + Tombol News + Backup Start Command**
+
+**`src/bot/commands/start.js`** *(backup baru: `_src_bot_commands_start.js.active`)*
+- File ini sebelumnya tidak ada di backup lokal Replit — sekarang dibuat lengkap
+- Mendefinisikan `mainKeyboard` (reply keyboard layout) — **ini sumber kebenaran untuk label tombol**
+- Label tombol di keyboard HARUS sama persis dengan string `bot.hears()` di `bot/index.js` (termasuk emoji)
+- Export `registerStart`, `buildDashboardText`, `sendOrEditDashboard`
+
+**`src/bot/index.js`** *(backup: `_src_bot_index.js.active`)*
+- **Tambah**: `bot.hears('📰 News', ...)` — handler baru untuk tombol News di keyboard
+  - Logika identik dengan `/news` command (news_engine_v4 + banner + format pesan)
+- Keyboard sekarang punya 24 tombol (12 baris × 2) + baris Bantuan
+
+**Keyboard layout baru** (baris 11 diubah):
+- Sebelum: `📄 Export PDF | 🔄 Refresh` → `❓ Bantuan` (full)
+- Sesudah: `📰 News | 📑 Export PDF` → `🔄 Refresh | ❓ Bantuan`
+
+**README**
+- Update tabel backup file lokal (tambah 8+ file yang sebelumnya tidak terdaftar)
+- Pisahkan tabel command menjadi dua: **Keyboard Menu** (tombol) + **Slash Commands**
+- Update versi ke v5.7
+
+---
 
 ### v5.6 — 2026-07-31
 
