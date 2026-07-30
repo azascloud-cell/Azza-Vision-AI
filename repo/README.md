@@ -1,6 +1,6 @@
 # AZZAVISION AI — Trading Signal Bot
 
-**Versi aktif: v5.5**  
+**Versi aktif: v5.6**  
 **Platform:** Telegram Bot + Web Dashboard  
 **Runtime:** Node.js 22 (Docker: `ghcr.io/parkervcp/yolks:nodejs_22`)  
 **Hosted:** Pterodactyl Panel — `serverku.lynzzofficial.com`  
@@ -190,10 +190,22 @@ File-file di bawah adalah backup aktif yang sudah di-patch. Ini yang dipakai seb
 | `_src_database_db.js.active` | `/src/database/db.js` |
 | `_src_database_db_extended.js.active` | `/src/database/db_extended.js` |
 | `_src_scheduler_report_scheduler.js.active` | `/src/scheduler/report_scheduler.js` |
+| `_src_bot_commands_news.js.active` | `/src/bot/commands/news.js` |
 
 ---
 
 ## Changelog
+
+### v5.6 — 2026-07-31
+
+**News Intelligence Banner — Content Area Hitam (Black)**
+
+**`src/bot/commands/news.js`**
+- **Bug**: Banner News Intelligence hanya menampilkan header; area konten (tengah) sepenuhnya hitam/kosong
+- **Root cause**: `renderBanner('news_intelligence', { rows: [...] })` — field `rows` dikirim di level atas (flat), sedangkan engine layout `info` mengharuskan format `sections: [{ heading, rows }]` (lihat komentar di `scanner.js` line 443: *"infoBanner butuh format sections:[{heading, rows, progress?}]"*)
+- **Fix**: Ganti kedua panggilan `renderBanner` (user chat + channel forward) dari flat `rows` ke `sections: [{ heading, rows }]`; tambah field `Dampak Gold` dari `v4.ai_verdict.impact_gold`; semua value dikonversi ke `String(...)` agar tidak ada number yang menyebabkan render gagal
+
+---
 
 ### v5.5 — 2026-07-30
 

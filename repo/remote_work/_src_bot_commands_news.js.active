@@ -37,12 +37,16 @@ function registerNews(bot) {
       try {
         const v4 = newsResult.v4;
         const buffer = await renderBanner('news_intelligence', {
-          headline: v4?.ai_verdict?.action || 'NEUTRAL',
-          subtitle: newsResult.filterText ? newsResult.filterText.replace(/^[^\s]+\s/, '') : '-',
-          rows: [
-            { label: 'Confidence Impact', value: `${newsResult.confidenceAdjustment >= 0 ? '+' : ''}${newsResult.confidenceAdjustment}%` },
-            { label: 'Block Entry', value: newsResult.blockEntry ? 'YA' : 'TIDAK' },
-            { label: 'Berita Dianalisis', value: newsResult.items?.length || 0 },
+          sections: [
+            {
+              heading: `AI VERDICT — ${v4?.ai_verdict?.action || 'NEUTRAL'}`,
+              rows: [
+                { label: 'Dampak Gold',       value: String(v4?.ai_verdict?.impact_gold || '-') },
+                { label: 'Confidence Impact', value: `${newsResult.confidenceAdjustment >= 0 ? '+' : ''}${newsResult.confidenceAdjustment}%` },
+                { label: 'Block Entry',       value: newsResult.blockEntry ? 'YA' : 'TIDAK' },
+                { label: 'Berita Dianalisis', value: String(newsResult.items?.length || 0) },
+              ],
+            },
           ],
         });
         await ctx.replyWithPhoto({ source: buffer });
@@ -66,12 +70,16 @@ function registerNews(bot) {
         try {
           const v4ch = newsResult.v4;
           const chBanner = await renderBanner('news_intelligence', {
-            headline: v4ch?.ai_verdict?.action || 'NEUTRAL',
-            subtitle: newsResult.filterText ? newsResult.filterText.replace(/^[^\s]+\s/, '') : '-',
-            rows: [
-              { label: 'Confidence Impact', value: `${newsResult.confidenceAdjustment >= 0 ? '+' : ''}${newsResult.confidenceAdjustment}%` },
-              { label: 'Block Entry', value: newsResult.blockEntry ? 'YA' : 'TIDAK' },
-              { label: 'Berita Dianalisis', value: newsResult.items?.length || 0 },
+            sections: [
+              {
+                heading: `AI VERDICT — ${v4ch?.ai_verdict?.action || 'NEUTRAL'}`,
+                rows: [
+                  { label: 'Dampak Gold',       value: String(v4ch?.ai_verdict?.impact_gold || '-') },
+                  { label: 'Confidence Impact', value: `${newsResult.confidenceAdjustment >= 0 ? '+' : ''}${newsResult.confidenceAdjustment}%` },
+                  { label: 'Block Entry',       value: newsResult.blockEntry ? 'YA' : 'TIDAK' },
+                  { label: 'Berita Dianalisis', value: String(newsResult.items?.length || 0) },
+                ],
+              },
             ],
           });
           await ctx.telegram.sendPhoto(channelId, { source: chBanner })
