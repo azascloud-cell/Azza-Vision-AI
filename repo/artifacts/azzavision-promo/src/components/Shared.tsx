@@ -1,5 +1,5 @@
 // ─── Shared UI components for AZZAVISION AI ──────────────────────────────────
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
@@ -117,6 +117,7 @@ export function StatCard({ icon, label, value, sub, color = "text-white" }: {
 // ─── Signal card ─────────────────────────────────────────────────────────────
 export function SignalCard({ s, onExpand }: { s: Signal; onExpand?: (id: number) => void }) {
   const buy = s.direction === "BUY";
+  const [hovered, setHovered] = useState(false);
   const statusStyle: Record<string, string> = {
     OPEN:          "text-emerald-400 bg-emerald-500/15 border-emerald-500/35",
     "STOP LOSS":   "text-red-400     bg-red-500/15     border-red-500/35",
@@ -125,8 +126,15 @@ export function SignalCard({ s, onExpand }: { s: Signal; onExpand?: (id: number)
   };
   return (
     <div
-      className="group relative rounded-2xl bg-[#0F0F0F] border border-[#D4AF37]/12 hover:border-[#D4AF37]/40 transition-all duration-300 p-5 overflow-hidden cursor-pointer"
-      style={{ boxShadow: "0 2px 16px rgba(0,0,0,0.5)" }}
+      className="signal-card group relative rounded-2xl bg-[#0F0F0F] border border-[#D4AF37]/12 hover:border-[#D4AF37]/45 transition-all duration-300 p-5 overflow-hidden cursor-pointer"
+      style={{
+        boxShadow: hovered
+          ? "0 0 28px rgba(212,175,55,0.30), 0 4px 20px rgba(0,0,0,0.6)"
+          : "0 2px 16px rgba(0,0,0,0.5)",
+        transition: "box-shadow 0.35s ease, border-color 0.3s ease",
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       onClick={() => onExpand?.(s.id)}
     >
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
@@ -175,6 +183,7 @@ export function SignalCard({ s, onExpand }: { s: Signal; onExpand?: (id: number)
             width: `${s.confidence}%`,
             background: "linear-gradient(90deg, #D4AF37, #F5C542)",
             boxShadow: "0 0 8px rgba(212,175,55,0.55)",
+            transition: "width 1.2s cubic-bezier(0.22,1,0.36,1)",
           }} />
       </div>
       <div className="flex justify-end mt-1.5">
@@ -294,6 +303,170 @@ export function Card({ children, className = "" }: { children: React.ReactNode; 
     <div className={`rounded-2xl bg-[#0D0D0D] border border-[#D4AF37]/18 overflow-hidden ${className}`}
       style={{ boxShadow: "0 0 18px rgba(212,175,55,0.04), inset 0 1px 0 rgba(212,175,55,0.08)" }}>
       {children}
+    </div>
+  );
+}
+
+// ─── Daily Music Player ───────────────────────────────────────────────────────
+const PLAYLIST = [
+  { title: "Focus Flow",    artist: "Trading Vibes", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+  { title: "Gold Rush",     artist: "Market Beats",  src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
+  { title: "Discipline",    artist: "Azza Sessions", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
+  { title: "Chart Breaker", artist: "Studio AI",     src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" },
+];
+
+export function MusicPlayer() {
+  const [idx,      setIdx]      = useState(0);
+  const [playing,  setPlaying]  = useState(false);
+  const [progress, setProgress] = useState(0);   // 0–1
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const track = PLAYLIST[idx];
+
+  // Load new track when idx changes
+  useEffect(() => {
+    if (!audioRef.current) audioRef.current = new Audio();
+    const a = audioRef.current;
+    a.pause();
+    a.src = track.src;
+    a.load();
+    setProgress(0);
+
+    const onTime  = () => setProgress(a.duration ? a.currentTime / a.duration : 0);
+    const onMeta  = () => setDuration(a.duration);
+    const onEnded = () => { setPlaying(false); setProgress(0); };
+
+    a.addEventListener("timeupdate",      onTime);
+    a.addEventListener("loadedmetadata",  onMeta);
+    a.addEventListener("ended",           onEnded);
+
+    if (playing) a.play().catch(() => setPlaying(false));
+
+    return () => {
+      a.removeEventListener("timeupdate",     onTime);
+      a.removeEventListener("loadedmetadata", onMeta);
+      a.removeEventListener("ended",          onEnded);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [idx]);
+
+  // Toggle play/pause
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (playing) a.play().catch(() => setPlaying(false));
+    else         a.pause();
+  }, [playing]);
+
+  // Cleanup
+  useEffect(() => () => { audioRef.current?.pause(); }, []);
+
+  const prev = () => setIdx(i => (i - 1 + PLAYLIST.length) % PLAYLIST.length);
+  const next = () => setIdx(i => (i + 1) % PLAYLIST.length);
+
+  function seek(e: React.MouseEvent<HTMLDivElement>) {
+    const a = audioRef.current;
+    if (!a || !a.duration) return;
+    const rect  = e.currentTarget.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    a.currentTime = ratio * a.duration;
+    setProgress(ratio);
+  }
+
+  const fmt = (s: number) => {
+    if (!s || isNaN(s)) return "0:00";
+    return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+  };
+
+  return (
+    <div className="mx-3 mb-2 flex-shrink-0 rounded-xl p-3.5" style={{
+      background: "linear-gradient(135deg,#0D0919,#0D0D0D,#110D00)",
+      border: "1px solid rgba(124,58,237,0.30)",
+      boxShadow: "0 0 22px rgba(124,58,237,0.12), 0 0 32px rgba(212,175,55,0.05)",
+    }}>
+      {/* title bar */}
+      <div className="flex items-center gap-1.5 mb-2.5">
+        <span className="text-[10px]">🎵</span>
+        <span className="text-[9px] font-semibold tracking-[0.18em] text-[#D4AF37]">DAILY MUSIC</span>
+        <span className="ml-auto w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+      </div>
+
+      {/* song info */}
+      <div className="text-center mb-2.5 min-w-0">
+        <div className="text-[12px] font-bold text-white truncate leading-snug">{track.title}</div>
+        <div className="text-[9px] text-purple-300 truncate">{track.artist}</div>
+      </div>
+
+      {/* progress bar */}
+      <div className="mb-2">
+        <div className="h-[3px] bg-[#1A1A1A] rounded-full overflow-hidden cursor-pointer" onClick={seek}>
+          <div className="h-full rounded-full" style={{
+            width: `${progress * 100}%`,
+            background: "linear-gradient(90deg,#7C3AED,#D4AF37)",
+            boxShadow: "0 0 6px rgba(124,58,237,0.5)",
+            transition: "width 0.25s linear",
+          }} />
+        </div>
+        <div className="flex justify-between mt-1">
+          <span className="text-[8px] text-gray-600">{fmt(progress * duration)}</span>
+          <span className="text-[8px] text-gray-600">{fmt(duration)}</span>
+        </div>
+      </div>
+
+      {/* controls */}
+      <div className="flex items-center justify-center gap-4">
+        <button onClick={prev}
+          className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-[#D4AF37] hover:bg-[#D4AF37]/8 transition-all">
+          <svg viewBox="0 0 14 14" fill="currentColor" className="w-3.5 h-3.5">
+            <path d="M2 2h1.5v10H2V2zm9.5 1.5L5.5 7l6 3.5V3.5z" />
+          </svg>
+        </button>
+
+        <button onClick={() => setPlaying(p => !p)}
+          className="w-9 h-9 flex items-center justify-center rounded-full text-black transition-all"
+          style={{
+            background: playing
+              ? "linear-gradient(135deg,#7C3AED,#D4AF37)"
+              : "linear-gradient(135deg,#D4AF37,#F5C542)",
+            boxShadow: playing
+              ? "0 0 18px rgba(124,58,237,0.5)"
+              : "0 0 12px rgba(212,175,55,0.4)",
+          }}>
+          {playing ? (
+            <svg viewBox="0 0 14 14" fill="currentColor" className="w-3.5 h-3.5">
+              <rect x="2" y="2" width="3.5" height="10" rx="0.5" />
+              <rect x="8.5" y="2" width="3.5" height="10" rx="0.5" />
+            </svg>
+          ) : (
+            <svg viewBox="0 0 14 14" fill="currentColor" className="w-3.5 h-3.5 ml-0.5">
+              <path d="M3 2l9 5-9 5V2z" />
+            </svg>
+          )}
+        </button>
+
+        <button onClick={next}
+          className="w-7 h-7 flex items-center justify-center rounded-lg text-gray-500 hover:text-[#D4AF37] hover:bg-[#D4AF37]/8 transition-all">
+          <svg viewBox="0 0 14 14" fill="currentColor" className="w-3.5 h-3.5">
+            <path d="M10.5 2H12v10h-1.5V2zM2 3.5L8 7l-6 3.5V3.5z" />
+          </svg>
+        </button>
+      </div>
+
+      {/* dot indicators */}
+      <div className="flex items-center justify-center gap-1.5 mt-2.5">
+        {PLAYLIST.map((_, i) => (
+          <button key={i} onClick={() => setIdx(i)}
+            className="rounded-full transition-all duration-300"
+            style={{
+              width: i === idx ? 14 : 5,
+              height: 5,
+              background: i === idx
+                ? "linear-gradient(90deg,#7C3AED,#D4AF37)"
+                : "#2A2A2A",
+            }} />
+        ))}
+      </div>
     </div>
   );
 }

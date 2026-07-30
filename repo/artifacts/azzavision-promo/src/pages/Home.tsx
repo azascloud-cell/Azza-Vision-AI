@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { Logo, LiveClock } from "../components/Shared";
+import { Logo, LiveClock, MusicPlayer } from "../components/Shared";
 import DashboardPage  from "./DashboardPage";
 import SignalsPage    from "./SignalsPage";
 import JournalPage    from "./JournalPage";
@@ -96,6 +96,14 @@ export default function Home() {
           0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.35); }
           50%      { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
         }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(12px); }
+          to   { opacity: 1; transform: translateY(0);    }
+        }
+        @keyframes fadeInCard {
+          from { opacity: 0; transform: translateY(8px) scale(0.99); }
+          to   { opacity: 1; transform: translateY(0)   scale(1);    }
+        }
         .float-a  { animation: floatY  4s ease-in-out infinite; }
         .float-b  { animation: floatY2 5s 0.8s ease-in-out infinite; }
         .shimmer-gold {
@@ -110,8 +118,16 @@ export default function Home() {
         ::-webkit-scrollbar-track  { background: #111; }
         ::-webkit-scrollbar-thumb  { background: #D4AF37; border-radius: 2px; }
         .nav-active {
-          background: linear-gradient(135deg,rgba(212,175,55,0.16),rgba(212,175,55,0.04));
-          border: 1px solid rgba(212,175,55,0.28);
+          background: linear-gradient(135deg,rgba(212,175,55,0.20),rgba(212,175,55,0.06));
+          border: 1px solid rgba(212,175,55,0.38);
+          box-shadow: 0 0 14px rgba(212,175,55,0.10), inset 0 1px 0 rgba(212,175,55,0.12);
+        }
+        .nav-active span { filter: drop-shadow(0 0 4px rgba(212,175,55,0.55)); }
+        .page-fade { animation: fadeInUp 0.38s cubic-bezier(0.22,1,0.36,1) both; }
+        .card-fade { animation: fadeInCard 0.42s cubic-bezier(0.22,1,0.36,1) both; }
+        @media (max-width: 639px) {
+          .stat-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .hero-chars { display: none !important; }
         }
       `}</style>
 
@@ -161,6 +177,9 @@ export default function Home() {
             </button>
           ))}
         </nav>
+
+        {/* music player */}
+        <MusicPlayer />
 
         {/* market time */}
         <div className="mx-3 mb-2 p-3.5 rounded-xl bg-[#111] border border-[#D4AF37]/22 flex-shrink-0"
@@ -240,15 +259,17 @@ export default function Home() {
         </header>
 
         {/* scrollable content */}
-        <div className="flex-1 overflow-y-auto px-5 py-4">
-          {page === "dashboard"   && <DashboardPage />}
-          {page === "signals"     && <SignalsPage />}
-          {page === "journal"     && <JournalPage />}
-          {page === "studio"      && <StudioPage />}
-          {page === "backtest"    && <BacktestPage />}
-          {page === "performance" && <PerformancePage />}
-          {page === "reports"     && <ReportsPage />}
-          {page === "settings"    && <SettingsPage />}
+        <div className="flex-1 overflow-y-auto overflow-x-hidden px-4 sm:px-5 py-4">
+          <div key={page} className="page-fade">
+            {page === "dashboard"   && <DashboardPage />}
+            {page === "signals"     && <SignalsPage />}
+            {page === "journal"     && <JournalPage />}
+            {page === "studio"      && <StudioPage />}
+            {page === "backtest"    && <BacktestPage />}
+            {page === "performance" && <PerformancePage />}
+            {page === "reports"     && <ReportsPage />}
+            {page === "settings"    && <SettingsPage />}
+          </div>
         </div>
       </main>
     </div>
