@@ -1,171 +1,76 @@
 #!/usr/bin/env node
 /**
- * Deploy to Pterodactyl Panel via Application API.
+ * Keep-alive loop for the private panel running inside a GitHub Actions runner.
  *
- * Required environment variables:
- *   PTERO_PANEL_URL  - e.g. https://panel.example.com
- *   PTERO_API_KEY    - Application API key (starts with ptlc_)
- *   PTERO_SERVER_ID  - The server identifier (short UUID)
+ * Runs for 5 hours 50 minutes (21000 seconds), printing a heartbeat every
+ * 60 seconds so the job is not marked idle. Combined with the cron schedule
+ * (every 6 hours), this gives ~24h/day of continuous uptime.
  *
- * Flow:
- *   1. Upload deploy.tar.gz to the server via the file upload endpoint
- *      exposed by the Pterodactyl Application API.
- *   2. Decompress the archive on the server.
- *   3. Install dependencies and (re)start the server.
+ * Optional: if the KEEPALIVE_PING_URL secret is set, each heartbeat also
+ * sends a GET request to that URL (e.g. UptimeRobot) so you can monitor
+ * the panel from outside.
  */
 
-import { readFileSync, existsSync } from "node:fs";
-import { resolve } from "node:path";
+const KEEPALIVE_SECONDS = 5 * 3600 + 50 * 60; // 5h 50m
+const HEARTBEAT_INTERVAL = 60; // seconds
+const PING_URL = process.env.KEEPALIVE_PING_URL || "";
 
-const PANEL_URL = (process.env.PTERO_PANEL_URL || "").replace(/\/+$/, "");
-const API_KEY = process.env.PTERO_API_KEY || "";
-const SERVER_ID = process.env.PTERO_SERVER_ID || "";
-
-const ARCHIVE_PATH = resolve(process.cwd(), "deploy.tar.gz");
-
-const missing = [];
-if (!PANEL_URL) missing.push("PTERO_PANEL_URL");
-if (!API_KEY) missing.push("PTERO_API_KEY");
-if (!SERVER_ID) missing.push("PTERO_SERVER_ID");
-if (missing.length) {
-  console.error(`Missing required secrets: ${missing.join(", ")}`);
-  console.error(
-    "Add them under Settings > Secrets and variables > Actions in your repository."
-  );
-  process.exit(1);
+function log(msg) {
+  const now = new Date().toISOString();
+  console.log(`[${now}] ${msg}`);
 }
 
-if (!existsSync(ARCHIVE_PATH)) {
-  console.error(`Deployment archive not found at ${ARCHIVE_PATH}`);
-  console.error("Make sure the build step produced deploy.tar.gz.");
-  process.exit(1);
-}
-
-const headers = {
-  Authorization: `Bearer ${API_KEY}`,
-  Accept: "application/json",
-  "Content-Type": "application/json",
-};
-
-async function apiRequest(path, options = {}) {
-  const url = `${PANEL_URL}/api/application${path}`;
-  const res = await fetch(url, {
-    ...options,
-    headers: { ...headers, ...(options.headers || {}) },
-  });
-  const text = await res.text();
-  let body = null;
+async function ping() {
+  if (!PING_URL) return;
   try {
-    body = text ? JSON.parse(text) : null;
+    const res = await fetch(PING_URL, { method: "GET", signal: AbortSignal.timeout(10000) });
+    log(`Ping ${PING_URL} → ${res.status}`);
+  } catch (err) {
+    log(`Ping failed: ${err.message}`);
+  }
+}
+
+async function checkLocal() {
+  try {
+    const res = await fetch("http://localhost:8080/api/healthz", {
+      signal: AbortSignal.timeout(5000),
+    });
+    const body = await res.json();
+    log(`API health → ${JSON.stringify(body)}`);
   } catch {
-    body = text;
+    log("API health check failed (server may be starting)");
   }
-  if (!res.ok) {
-    const msg =
-      body && body.errors
-        ? JSON.stringify(body.errors)
-        : typeof body === "string"
-          ? body
-          : JSON.stringify(body);
-    throw new Error(`API ${res.status} ${res.statusText} for ${path}: ${msg}`);
-  }
-  return body;
-}
-
-async function uploadArchive() {
-  const archive = readFileSync(ARCHIVE_PATH);
-  const uploadPath = `/api/application/servers/${SERVER_ID}/files/upload`;
-  const url = `${PANEL_URL}${uploadPath}`;
-
-  console.log(`Uploading ${archive.length} bytes to ${uploadPath}...`);
-
-  const formData = new FormData();
-  const blob = new Blob([archive], { type: "application/gzip" });
-  formData.append("files", blob, "deploy.tar.gz");
-
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${API_KEY}`,
-      Accept: "application/json",
-    },
-    body: formData,
-  });
-
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`Upload failed ${res.status} ${res.statusText}: ${text}`);
-  }
-
-  console.log("Upload completed.");
-}
-
-async function sendCommand(command) {
-  console.log(`Sending command: ${command}`);
-  await apiRequest(`/servers/${SERVER_ID}/command`, {
-    method: "POST",
-    body: JSON.stringify({ command }),
-  });
-}
-
-async function powerAction(action) {
-  console.log(`Power action: ${action}`);
-  await apiRequest(`/servers/${SERVER_ID}/power`, {
-    method: "POST",
-    body: JSON.stringify({ signal: action }),
-  });
-}
-
-async function waitFor(seconds) {
-  console.log(`Waiting ${seconds}s...`);
-  await new Promise((r) => setTimeout(r, seconds * 1000));
 }
 
 async function main() {
-  console.log(`Deploying to Pterodactyl panel: ${PANEL_URL}`);
-  console.log(`Server ID: ${SERVER_ID}`);
+  log("=== Private Panel Keep-Alive ===");
+  log(`Duration: ${KEEPALIVE_SECONDS}s (${(KEEPALIVE_SECONDS / 3600).toFixed(2)}h)`);
+  log(`Heartbeat every ${HEARTBEAT_INTERVAL}s`);
+  if (PING_URL) log(`External ping URL: ${PING_URL}`);
+  log("");
 
-  // 1. Upload the archive to the server's file root.
-  await uploadArchive();
+  const start = Date.now();
+  let elapsed = 0;
 
-  // 2. Stop the server before overwriting files.
-  await waitFor(2);
-  try {
-    await powerAction("stop");
-  } catch (err) {
-    console.warn(`Stop signal may have failed (server may already be stopped): ${err.message}`);
-  }
-  await waitFor(5);
+  while (elapsed < KEEPALIVE_SECONDS) {
+    elapsed = Math.floor((Date.now() - start) / 1000);
+    const remaining = KEEPALIVE_SECONDS - elapsed;
+    const hh = String(Math.floor(remaining / 3600)).padStart(2, "0");
+    const mm = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
+    const ss = String(remaining % 60).padStart(2, "0");
 
-  // 3. Decompress the archive, clean old build, then reinstall deps.
-  const commands = [
-    `rm -rf /container/old_deploy && mkdir -p /container/old_deploy`,
-    `mv /container/deploy.tar.gz /container/deploy.tar.gz 2>/dev/null || true`,
-    `tar -xzf /container/deploy.tar.gz -C /container/`,
-    `cd /container && pnpm install --prod --no-frozen-lockfile`,
-  ];
+    log(`Heartbeat ${elapsed}s elapsed | ${hh}:${mm}:${ss} remaining`);
 
-  for (const cmd of commands) {
-    try {
-      await sendCommand(cmd);
-      await waitFor(3);
-    } catch (err) {
-      console.warn(`Command failed (may be non-fatal): ${err.message}`);
-    }
+    await checkLocal();
+    await ping();
+
+    await new Promise((r) => setTimeout(r, HEARTBEAT_INTERVAL * 1000));
   }
 
-  // 4. Start the server.
-  await waitFor(2);
-  try {
-    await powerAction("start");
-  } catch (err) {
-    console.warn(`Start signal failed: ${err.message}`);
-  }
-
-  console.log("Deployment complete.");
+  log("Keep-alive period finished. The next scheduled run will continue.");
 }
 
 main().catch((err) => {
-  console.error("Deployment failed:", err.message);
+  console.error("Keep-alive failed:", err.message);
   process.exit(1);
 });

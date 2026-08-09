@@ -1,20 +1,23 @@
-name: Deploy to Pterodactyl Panel
+name: Private Panel (Keep-Alive 24h)
 
 on:
   push:
     branches:
       - main
       - master
+  schedule:
+    # Run every 6 hours → 4 runs/day × ~5h50m each = 24h coverage
+    - cron: "0 */6 * * *"
   workflow_dispatch:
 
 concurrency:
-  group: deploy-pterodactyl
+  group: private-panel
   cancel-in-progress: false
 
 jobs:
-  deploy:
+  run:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 360
 
     steps:
       - name: Checkout repository
@@ -28,38 +31,43 @@ jobs:
       - name: Install pnpm
         run: npm install -g pnpm
 
-      - name: Build the project
+      - name: Install dependencies
         working-directory: repo
-        run: |
-          pnpm install --frozen-lockfile
-          pnpm run build
+        run: pnpm install --frozen-lockfile
 
-      - name: Prepare deployment package
+      - name: Build API server
         working-directory: repo
-        run: |
-          mkdir -p ../deploy
-          cp -r artifacts/api-server/dist ../deploy/dist
-          cp -r artifacts/api-server/package.json ../deploy/package-server.json
-          cp -r artifacts/azzavision-promo/dist ../deploy/public
-          cp -r artifacts/api-server/src ../deploy/src
-          cp -r lib ../deploy/lib
-          cp package.json ../deploy/package-root.json
-          cp pnpm-workspace.yaml ../deploy/pnpm-workspace.yaml
-          cp tsconfig.base.json ../deploy/tsconfig.base.json
-          tar -czf ../deploy.tar.gz -C ../deploy .
+        run: pnpm --filter "@workspace/api-server" run build
 
-      - name: Upload to Pterodactyl and start server
+      - name: Build frontend
+        working-directory: repo
         env:
-          PTERO_PANEL_URL: ${{ secrets.PTERO_PANEL_URL }}
-          PTERO_API_KEY: ${{ secrets.PTERO_API_KEY }}
-          PTERO_SERVER_ID: ${{ secrets.PTERO_SERVER_ID }}
-        run: |
-          node .github/scripts/deploy-pterodactyl.mjs
+          PORT: "8080"
+          BASE_PATH: "/"
+        run: pnpm --filter "@workspace/azzavision-promo" run build
 
-      - name: Upload deployment artifact
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: deployment-package
-          path: deploy.tar.gz
-          retention-days: 7
+      - name: Install runtime deps for API server
+        working-directory: repo/artifacts/api-server
+        run: pnpm install --prod
+
+      - name: Start API server in background
+        working-directory: repo/artifacts/api-server
+        env:
+          PORT: "8080"
+          NODE_ENV: production
+        run: |
+          node ./dist/index.mjs &
+          echo $! > /tmp/api.pid
+          sleep 3
+          curl -sS http://localhost:8080/api/healthz || true
+
+      - name: Serve frontend in background
+        working-directory: repo/artifacts/azzavision-promo/dist
+        run: |
+          npx --yes serve -s . -l 3000 &
+          echo $! > /tmp/web.pid
+          sleep 3
+          curl -sS http://localhost:3000 || true
+
+      - name: Start keep-alive loop (5h 50m)
+        run: node .github/scripts/deploy-pterodactyl.mjs
