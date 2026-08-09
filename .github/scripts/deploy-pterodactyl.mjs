@@ -32,13 +32,23 @@ async function ping() {
 
 async function checkLocal() {
   try {
-    const res = await fetch("http://localhost:8080/api/healthz", {
+    const res = await fetch("http://localhost:8090/api/healthz", {
       signal: AbortSignal.timeout(5000),
     });
     const body = await res.json();
-    log(`API health → ${JSON.stringify(body)}`);
+    log(`Proxy health → ${JSON.stringify(body)}`);
   } catch {
-    log("API health check failed (server may be starting)");
+    log("Proxy health check failed (server may be starting)");
+  }
+}
+
+async function checkCloudflared() {
+  try {
+    const fs = await import("node:fs");
+    if (!fs.existsSync("/tmp/cloudflared.pid")) return;
+    log("Cloudflare Tunnel: active (pid file present)");
+  } catch {
+    // ignore
   }
 }
 
@@ -62,6 +72,7 @@ async function main() {
     log(`Heartbeat ${elapsed}s elapsed | ${hh}:${mm}:${ss} remaining`);
 
     await checkLocal();
+    await checkCloudflared();
     await ping();
 
     await new Promise((r) => setTimeout(r, HEARTBEAT_INTERVAL * 1000));

@@ -69,5 +69,32 @@ jobs:
           sleep 3
           curl -sS http://localhost:3000 || true
 
+      - name: Start reverse proxy in background
+        run: |
+          node .github/scripts/reverse-proxy.mjs &
+          echo $! > /tmp/proxy.pid
+          sleep 2
+          curl -sS http://localhost:8090/api/healthz || true
+
+      - name: Install cloudflared
+        run: |
+          curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared
+          chmod +x /usr/local/bin/cloudflared
+          cloudflared --version
+
+      - name: Start Cloudflare Tunnel in background
+        env:
+          CLOUDFLARED_TOKEN: ${{ secrets.CLOUDFLARED_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARED_TOKEN" ]; then
+            echo "CLOUDFLARED_TOKEN secret is not set — tunnel disabled"
+            exit 0
+          fi
+          cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" \
+            --url http://localhost:8090 > /tmp/cloudflared.log 2>&1 &
+          echo $! > /tmp/cloudflared.pid
+          sleep 5
+          cat /tmp/cloudflared.log || true
+
       - name: Start keep-alive loop (5h 50m)
         run: node .github/scripts/deploy-pterodactyl.mjs
