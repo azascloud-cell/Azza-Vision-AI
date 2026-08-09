@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Keep-alive loop for the private panel running inside a GitHub Actions runner.
+ * Keep-alive loop for the Pterodactyl Panel running inside a GitHub Actions runner.
  *
  * Runs for 5 hours 50 minutes (21000 seconds), printing a heartbeat every
  * 60 seconds so the job is not marked idle. Combined with the cron schedule
@@ -46,13 +46,13 @@ async function ping() {
 
 async function checkLocal() {
   try {
-    const res = await fetch("http://localhost:8090/api/healthz", {
+    const res = await fetch("http://localhost:8090", {
       signal: AbortSignal.timeout(5000),
+      redirect: "manual",
     });
-    const body = await res.json();
-    log(`Proxy health → ${JSON.stringify(body)}`);
+    log(`Panel health → HTTP ${res.status}`);
   } catch {
-    log("Proxy health check failed (server may be starting)");
+    log("Panel health check failed (container may be starting)");
   }
 }
 
@@ -69,7 +69,7 @@ async function checkCloudflared() {
 }
 
 async function main() {
-  log("=== Private Panel Keep-Alive ===");
+  log("=== Pterodactyl Panel Keep-Alive ===");
   log(`Duration: ${KEEPALIVE_SECONDS}s (${(KEEPALIVE_SECONDS / 3600).toFixed(2)}h)`);
   log(`Heartbeat every ${HEARTBEAT_INTERVAL}s`);
   if (PING_URL) log(`External ping URL: ${PING_URL}`);

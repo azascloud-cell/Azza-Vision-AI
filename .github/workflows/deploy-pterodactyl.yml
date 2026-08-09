@@ -1,4 +1,4 @@
-name: Private Panel (Keep-Alive 24h)
+name: Pterodactyl Panel (Keep-Alive 24h)
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: private-panel
+  group: pterodactyl-panel
   cancel-in-progress: false
 
 jobs:
@@ -23,58 +23,53 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install pnpm
-        run: npm install -g pnpm
-
-      - name: Install dependencies
-        working-directory: repo
-        run: pnpm install --frozen-lockfile
-
-      - name: Build API server
-        working-directory: repo
-        run: pnpm --filter "@workspace/api-server" run build
-
-      - name: Build frontend
-        working-directory: repo
-        env:
-          PORT: "8080"
-          BASE_PATH: "/"
-        run: pnpm --filter "@workspace/azzavision-promo" run build
-
-      - name: Install runtime deps for API server
-        working-directory: repo/artifacts/api-server
-        run: pnpm install --prod
-
-      - name: Start API server in background
-        working-directory: repo/artifacts/api-server
-        env:
-          PORT: "8080"
-          NODE_ENV: production
+      - name: Create data directories
         run: |
-          node ./dist/index.mjs &
-          echo $! > /tmp/api.pid
-          sleep 3
-          curl -sS http://localhost:8080/api/healthz || true
+          mkdir -p /tmp/pterodactyl/{database,var,nginx,certs,logs}
 
-      - name: Serve frontend in background
-        working-directory: repo/artifacts/azzavision-promo/dist
+      - name: Start Pterodactyl Panel stack
+        working-directory: .github/pterodactyl
         run: |
-          npx --yes serve -s . -l 3000 &
-          echo $! > /tmp/web.pid
-          sleep 3
-          curl -sS http://localhost:3000 || true
+          docker compose up -d
+          echo "Waiting for panel to initialize..."
+          for i in $(seq 1 60); do
+            if curl -sS http://localhost:8090 | grep -q "pterodactyl\|Pterodactyl\|html" 2>/dev/null; then
+              echo "Panel is responding on port 8090"
+              break
+            fi
+            echo "  attempt $i/60..."
+            sleep 5
+          done
+          docker compose ps
+          docker compose logs --tail=30 panel || true
 
-      - name: Start reverse proxy in background
+      - name: Create admin user
         run: |
-          node .github/scripts/reverse-proxy.mjs &
-          echo $! > /tmp/proxy.pid
-          sleep 2
-          curl -sS http://localhost:8090/api/healthz || true
+          # Wait for the panel container to be fully ready
+          sleep 10
+
+          # Create admin user via artisan inside the panel container
+          docker compose -f .github/pterodactyl/docker-compose.yml exec -T panel \
+            php artisan p:user:make \
+              --email="${{ secrets.PANEL_ADMIN_EMAIL || 'admin@azzavision.local' }}" \
+              --username="${{ secrets.PANEL_ADMIN_USER || 'admin' }}" \
+              --name-first="${{ secrets.PANEL_ADMIN_FIRST || 'Admin' }}" \
+              --name-last="${{ secrets.PANEL_ADMIN_LAST || 'User' }}" \
+              --password="${{ secrets.PANEL_ADMIN_PASS || 'AzzaVision2024!' }}" \
+              --admin=1 \
+              --no-password 2>/dev/null || true
+
+          # If --no-password didn't work (older versions), try with password
+          docker compose -f .github/pterodactyl/docker-compose.yml exec -T panel \
+            php artisan p:user:make \
+              --email="${{ secrets.PANEL_ADMIN_EMAIL || 'admin@azzavision.local' }}" \
+              --username="${{ secrets.PANEL_ADMIN_USER || 'admin' }}" \
+              --name-first="${{ secrets.PANEL_ADMIN_FIRST || 'Admin' }}" \
+              --name-last="${{ secrets.PANEL_ADMIN_LAST || 'User' }}" \
+              --password="${{ secrets.PANEL_ADMIN_PASS || 'AzzaVision2024!' }}" \
+              --admin=1 2>/dev/null || true
+
+          echo "Admin user creation attempted."
 
       - name: Install cloudflared
         run: |
@@ -87,7 +82,7 @@ jobs:
           CLOUDFLARED_TOKEN: ${{ secrets.CLOUDFLARED_TOKEN }}
         run: |
           if [ -n "$CLOUDFLARED_TOKEN" ]; then
-            echo "Using named tunnel (token-based) — URL is configured in Cloudflare Zero Trust dashboard"
+            echo "Using named tunnel (token-based)"
             cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" > /tmp/cloudflared.log 2>&1 &
           else
             echo "No CLOUDFLARED_TOKEN set — using quick tunnel (auto-generated URL)"
@@ -97,42 +92,73 @@ jobs:
           sleep 8
           cat /tmp/cloudflared.log || true
 
-      - name: Extract and display tunnel URL
+      - name: Extract and display tunnel URL + login credentials
         run: |
-          # Wait a bit more for the URL to appear in the log
           sleep 5
 
           # Try to extract the trycloudflare.com URL from the log
           TUNNEL_URL="$(grep -oP 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' /tmp/cloudflared.log | head -1 || true)"
 
+          ADMIN_EMAIL="${{ secrets.PANEL_ADMIN_EMAIL || 'admin@azzavision.local' }}"
+          ADMIN_USER="${{ secrets.PANEL_ADMIN_USER || 'admin' }}"
+          ADMIN_PASS="${{ secrets.PANEL_ADMIN_PASS || 'AzzaVision2024!' }}"
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "## 🚀 Pterodactyl Panel" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
           if [ -n "$TUNNEL_URL" ]; then
-            echo "========================================================"
-            echo "  PANEL URL:  $TUNNEL_URL"
-            echo "========================================================"
             echo "$TUNNEL_URL" > /tmp/tunnel-url.txt
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "## 🌐 Panel URL" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Panel URL" >> "$GITHUB_STEP_SUMMARY"
             echo "**$TUNNEL_URL**" >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "This URL is temporary and changes every workflow run." >> "$GITHUB_STEP_SUMMARY"
+            echo "### Login Credentials" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Email | \`$ADMIN_EMAIL\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Username | \`$ADMIN_USER\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Password | \`$ADMIN_PASS\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "_URL bersifat sementara dan berubah setiap workflow run. Gunakan CLOUDFLARED_TOKEN untuk URL tetap._" >> "$GITHUB_STEP_SUMMARY"
+
+            echo ""
+            echo "========================================================"
+            echo "  PTERODACTYL PANEL IS READY"
+            echo "========================================================"
+            echo "  URL      : $TUNNEL_URL"
+            echo "  Email    : $ADMIN_EMAIL"
+            echo "  Username : $ADMIN_USER"
+            echo "  Password : $ADMIN_PASS"
+            echo "========================================================"
           elif [ -f /tmp/cloudflared.pid ] && kill -0 "$(cat /tmp/cloudflared.pid)" 2>/dev/null; then
-            echo "========================================================"
-            echo "  Named tunnel is active."
-            echo "  Find your URL in Cloudflare Zero Trust dashboard:"
-            echo "  Networks → Tunnels → your tunnel → Public Hostnames"
-            echo "========================================================"
             echo "named-tunnel" > /tmp/tunnel-url.txt
+            echo "### Panel URL" >> "$GITHUB_STEP_SUMMARY"
+            echo "Named tunnel aktif. Cek URL di [Cloudflare Zero Trust dashboard](https://one.dash.cloudflare.com/) → **Networks → Tunnels → Public Hostnames**." >> "$GITHUB_STEP_SUMMARY"
+            echo "Pastikan public hostname mengarah ke \`http://localhost:8090\`." >> "$GITHUB_STEP_SUMMARY"
             echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "## 🌐 Panel URL" >> "$GITHUB_STEP_SUMMARY"
-            echo "Named tunnel is active. Find your URL in the [Cloudflare Zero Trust dashboard](https://one.dash.cloudflare.com/) under **Networks → Tunnels → Public Hostnames**." >> "$GITHUB_STEP_SUMMARY"
-            echo "" >> "$GITHUB_STEP_SUMMARY"
-            echo "Make sure the public hostname routes to `http://localhost:8090`." >> "$GITHUB_STEP_SUMMARY"
+            echo "### Login Credentials" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+            echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Email | \`$ADMIN_EMAIL\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Username | \`$ADMIN_USER\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Password | \`$ADMIN_PASS\` |" >> "$GITHUB_STEP_SUMMARY"
+
+            echo ""
+            echo "========================================================"
+            echo "  NAMED TUNNEL ACTIVE"
+            echo "  Find URL: https://one.dash.cloudflare.com/"
+            echo "  Networks → Tunnels → Public Hostnames"
+            echo "  Route to: http://localhost:8090"
+            echo "========================================================"
+            echo "  Email    : $ADMIN_EMAIL"
+            echo "  Username : $ADMIN_USER"
+            echo "  Password : $ADMIN_PASS"
+            echo "========================================================"
           else
-            echo "========================================================"
-            echo "  Tunnel failed to start. Check /tmp/cloudflared.log"
-            echo "========================================================"
-            cat /tmp/cloudflared.log || true
             echo "failed" > /tmp/tunnel-url.txt
+            echo "### Tunnel Failed" >> "$GITHUB_STEP_SUMMARY"
+            echo "Tunnel gagal start. Cek log di langkah sebelumnya." >> "$GITHUB_STEP_SUMMARY"
+            cat /tmp/cloudflared.log || true
           fi
 
       - name: Start keep-alive loop (5h 50m)
