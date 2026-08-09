@@ -1,0 +1,65 @@
+name: Deploy to Pterodactyl Panel
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-pterodactyl
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Build the project
+        working-directory: repo
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm run build
+
+      - name: Prepare deployment package
+        working-directory: repo
+        run: |
+          mkdir -p ../deploy
+          cp -r artifacts/api-server/dist ../deploy/dist
+          cp -r artifacts/api-server/package.json ../deploy/package-server.json
+          cp -r artifacts/azzavision-promo/dist ../deploy/public
+          cp -r artifacts/api-server/src ../deploy/src
+          cp -r lib ../deploy/lib
+          cp package.json ../deploy/package-root.json
+          cp pnpm-workspace.yaml ../deploy/pnpm-workspace.yaml
+          cp tsconfig.base.json ../deploy/tsconfig.base.json
+          tar -czf ../deploy.tar.gz -C ../deploy .
+
+      - name: Upload to Pterodactyl and start server
+        env:
+          PTERO_PANEL_URL: ${{ secrets.PTERO_PANEL_URL }}
+          PTERO_API_KEY: ${{ secrets.PTERO_API_KEY }}
+          PTERO_SERVER_ID: ${{ secrets.PTERO_SERVER_ID }}
+        run: |
+          node .github/scripts/deploy-pterodactyl.mjs
+
+      - name: Upload deployment artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deployment-package
+          path: deploy.tar.gz
+          retention-days: 7
