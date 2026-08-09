@@ -86,15 +86,54 @@ jobs:
         env:
           CLOUDFLARED_TOKEN: ${{ secrets.CLOUDFLARED_TOKEN }}
         run: |
-          if [ -z "$CLOUDFLARED_TOKEN" ]; then
-            echo "CLOUDFLARED_TOKEN secret is not set — tunnel disabled"
-            exit 0
+          if [ -n "$CLOUDFLARED_TOKEN" ]; then
+            echo "Using named tunnel (token-based) — URL is configured in Cloudflare Zero Trust dashboard"
+            cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" > /tmp/cloudflared.log 2>&1 &
+          else
+            echo "No CLOUDFLARED_TOKEN set — using quick tunnel (auto-generated URL)"
+            cloudflared tunnel --no-autoupdate --url http://localhost:8090 > /tmp/cloudflared.log 2>&1 &
           fi
-          cloudflared tunnel --no-autoupdate run --token "$CLOUDFLARED_TOKEN" \
-            --url http://localhost:8090 > /tmp/cloudflared.log 2>&1 &
           echo $! > /tmp/cloudflared.pid
-          sleep 5
+          sleep 8
           cat /tmp/cloudflared.log || true
+
+      - name: Extract and display tunnel URL
+        run: |
+          # Wait a bit more for the URL to appear in the log
+          sleep 5
+
+          # Try to extract the trycloudflare.com URL from the log
+          TUNNEL_URL="$(grep -oP 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' /tmp/cloudflared.log | head -1 || true)"
+
+          if [ -n "$TUNNEL_URL" ]; then
+            echo "========================================================"
+            echo "  PANEL URL:  $TUNNEL_URL"
+            echo "========================================================"
+            echo "$TUNNEL_URL" > /tmp/tunnel-url.txt
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## 🌐 Panel URL" >> "$GITHUB_STEP_SUMMARY"
+            echo "**$TUNNEL_URL**" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "This URL is temporary and changes every workflow run." >> "$GITHUB_STEP_SUMMARY"
+          elif [ -f /tmp/cloudflared.pid ] && kill -0 "$(cat /tmp/cloudflared.pid)" 2>/dev/null; then
+            echo "========================================================"
+            echo "  Named tunnel is active."
+            echo "  Find your URL in Cloudflare Zero Trust dashboard:"
+            echo "  Networks → Tunnels → your tunnel → Public Hostnames"
+            echo "========================================================"
+            echo "named-tunnel" > /tmp/tunnel-url.txt
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## 🌐 Panel URL" >> "$GITHUB_STEP_SUMMARY"
+            echo "Named tunnel is active. Find your URL in the [Cloudflare Zero Trust dashboard](https://one.dash.cloudflare.com/) under **Networks → Tunnels → Public Hostnames**." >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "Make sure the public hostname routes to `http://localhost:8090`." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "========================================================"
+            echo "  Tunnel failed to start. Check /tmp/cloudflared.log"
+            echo "========================================================"
+            cat /tmp/cloudflared.log || true
+            echo "failed" > /tmp/tunnel-url.txt
+          fi
 
       - name: Start keep-alive loop (5h 50m)
         run: node .github/scripts/deploy-pterodactyl.mjs
