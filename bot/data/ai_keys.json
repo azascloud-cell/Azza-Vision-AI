@@ -1,0 +1,18 @@
+{
+  "groq": [
+    {
+      "key": "REDACTED",
+      "status": "ACTIVE",
+      "addedAt": 1783608412295,
+      "lastUsedAt": 1785212101453
+    },
+    {
+      "key": "REDACTED",
+      "status": "ACTIVE",
+      "addedAt": 1783608455272,
+      "lastUsedAt": 1785213093784
+    }
+  ],
+  "openrouter": [],
+  "gemini": []
+}

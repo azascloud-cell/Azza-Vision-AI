@@ -1,0 +1,8 @@
+# Sensitive / runtime (jangan commit)
+bot/.env
+bot/node_modules/
+bot/cloudflared
+bot/cloudflared.log
+bot/tunnel-url.txt
+bot/npm-debug.log*
+*.log

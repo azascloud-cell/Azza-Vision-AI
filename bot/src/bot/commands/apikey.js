@@ -1,0 +1,233 @@
+/**
+ * apikey.js — AI Key Manager Command
+ *
+ * /apikey              → Dashboard overview
+ * /apikey add <provider> <key>   → Tambah key
+ * /apikey list                   → List semua key (masked)
+ * /apikey remove <provider> <n>  → Hapus key
+ * /apikey enable <provider> <n>  → Aktifkan key
+ * /apikey disable <provider> <n> → Nonaktifkan key
+ * /apikey test                   → Test semua key
+ *
+ * OWNER ONLY — semua perintah hanya untuk OWNER_ID.
+ */
+
+'use strict';
+
+const km     = require('../../analysis/ai_key_manager');
+const engine = require('../../analysis/ai_engine');
+
+const PROVIDER_EMOJI = { groq: '⚡', openrouter: '🌐', gemini: '💎' };
+const STATUS_EMOJI   = {
+  ACTIVE:   '✅',
+  COOLDOWN: '⏳',
+  INVALID:  '❌',
+  DISABLED: '🚫',
+};
+
+function isOwner(ctx) {
+  return String(ctx.from?.id) === String(process.env.OWNER_ID);
+}
+
+function ownerGuard(ctx) {
+  if (!isOwner(ctx)) {
+    ctx.replyWithHTML('⛔ <b>Akses ditolak.</b>\nCommand ini hanya untuk OWNER.').catch(() => {});
+    return false;
+  }
+  return true;
+}
+
+// ─── DASHBOARD ────────────────────────────────────────────────────────────────
+function buildDashboard() {
+  const dash  = km.getDashboard();
+  const cfg   = km.getProviderConfig();
+  const order = engine.getProviderOrder();
+
+  const lines = [`🤖 <b>AI KEY MANAGER</b>`, ``];
+
+  for (const p of km.PROVIDERS) {
+    const d = dash[p];
+    const e = PROVIDER_EMOJI[p] || '•';
+    lines.push(`${e} <b>${p.toUpperCase()}</b>`);
+    lines.push(`   Key aktif  : <code>${d.active}</code>`);
+    if (d.cooldown > 0) lines.push(`   Cooldown   : <code>${d.cooldown}</code>`);
+    if (d.invalid  > 0) lines.push(`   Invalid    : <code>${d.invalid}</code>`);
+    if (d.disabled > 0) lines.push(`   Disabled   : <code>${d.disabled}</code>`);
+    if (d.total    === 0) lines.push(`   <i>(belum ada key — gunakan /apikey add ${p} &lt;KEY&gt;)</i>`);
+    lines.push(``);
+  }
+
+  const primaryLabel = cfg.mode === 'manual' ? cfg.primary : order[0];
+  lines.push(`🎯 <b>AI Provider Aktif:</b> <code>${(primaryLabel || 'auto').toUpperCase()}</code>`);
+  lines.push(`📋 <b>Mode:</b> <code>${cfg.mode === 'manual' ? 'Manual' : 'Auto (Groq → OpenRouter → Gemini)'}</code>`);
+  lines.push(``);
+  lines.push(`💡 <code>/apikey list</code>  — lihat semua key`);
+  lines.push(`💡 <code>/apikey test</code>  — test semua key`);
+  lines.push(`💡 <code>/provider</code>     — ubah provider`);
+
+  return lines.join('\n');
+}
+
+// ─── LIST ─────────────────────────────────────────────────────────────────────
+function buildList() {
+  const dash  = km.getDashboard();
+  const lines = [`🔑 <b>DAFTAR AI API KEY</b>`, ``];
+
+  for (const p of km.PROVIDERS) {
+    const d = dash[p];
+    const e = PROVIDER_EMOJI[p] || '•';
+    lines.push(`${e} <b>${p.toUpperCase()}</b>`);
+
+    if (d.keys.length === 0) {
+      lines.push(`   <i>Tidak ada key</i>`);
+    } else {
+      for (const k of d.keys) {
+        const emoji    = STATUS_EMOJI[k.status] || '❓';
+        const coolInfo = k.status === 'COOLDOWN' && k.cooldownUntil
+          ? ` (${Math.max(0, Math.ceil((k.cooldownUntil - Date.now()) / 1000))}s)`
+          : '';
+        lines.push(`   ${emoji} #${k.index} <code>${k.masked}</code> — ${k.status}${coolInfo}`);
+      }
+    }
+    lines.push(``);
+  }
+
+  lines.push(`💡 <code>/apikey add &lt;provider&gt; &lt;key&gt;</code> — tambah key baru`);
+  return lines.join('\n');
+}
+
+// ─── REGISTER ─────────────────────────────────────────────────────────────────
+function registerApiKey(bot) {
+  bot.command('apikey', async (ctx) => {
+    if (!ownerGuard(ctx)) return;
+
+    const text = ctx.message?.text || '';
+    const parts = text.trim().split(/\s+/);
+    // parts[0] = '/apikey', parts[1] = subcommand, parts[2..] = args
+    const sub  = (parts[1] || '').toLowerCase();
+    const arg1 = (parts[2] || '').toLowerCase();
+    const arg2 = parts[3] || '';
+
+    try {
+      // ── /apikey (no args) — DASHBOARD ──────────────────────────────────────
+      if (!sub) {
+        return ctx.replyWithHTML(buildDashboard());
+      }
+
+      // ── /apikey list ───────────────────────────────────────────────────────
+      if (sub === 'list') {
+        return ctx.replyWithHTML(buildList());
+      }
+
+      // ── /apikey add <provider> <key> ───────────────────────────────────────
+      if (sub === 'add') {
+        const provider = arg1;
+        const keyValue = arg2;
+        if (!provider || !keyValue) {
+          return ctx.replyWithHTML([
+            `❌ <b>Format salah.</b>`,
+            ``,
+            `Contoh:`,
+            `• <code>/apikey add groq gsk_xxxxx</code>`,
+            `• <code>/apikey add openrouter sk-or-xxxxx</code>`,
+            `• <code>/apikey add gemini AIza-xxxxx</code>`,
+          ].join('\n'));
+        }
+
+        if (!km.PROVIDERS.includes(provider)) {
+          return ctx.replyWithHTML(`❌ Provider tidak valid. Gunakan: <code>groq</code>, <code>openrouter</code>, <code>gemini</code>.`);
+        }
+
+        const idx = km.addKey(provider, keyValue);
+        return ctx.replyWithHTML([
+          `✅ <b>Key berhasil ditambahkan!</b>`,
+          ``,
+          `Provider : <code>${provider.toUpperCase()}</code>`,
+          `Index    : <code>#${idx}</code>`,
+          `Key      : <code>${km.maskKey(keyValue)}</code>`,
+          `Status   : <code>ACTIVE</code>`,
+        ].join('\n'));
+      }
+
+      // ── /apikey remove <provider> <n> ──────────────────────────────────────
+      if (sub === 'remove' || sub === 'delete') {
+        const provider = arg1;
+        const selector = arg2;
+        if (!provider || !selector) {
+          return ctx.replyWithHTML(`❌ Format: <code>/apikey remove &lt;provider&gt; &lt;nomor atau key penuh&gt;</code>`);
+        }
+        km.removeKey(provider, selector);
+        return ctx.replyWithHTML(`🗑️ Key dari <code>${provider.toUpperCase()}</code> berhasil dihapus permanen.`);
+      }
+
+      // ── /apikey enable <provider> <n> ──────────────────────────────────────
+      if (sub === 'enable') {
+        const provider = arg1;
+        const idx      = parseInt(arg2);
+        if (!provider || !idx) {
+          return ctx.replyWithHTML(`❌ Format: <code>/apikey enable &lt;provider&gt; &lt;nomor&gt;</code>`);
+        }
+        km.enableKey(provider, idx);
+        return ctx.replyWithHTML(`✅ Key #${idx} dari <code>${provider.toUpperCase()}</code> diaktifkan kembali.`);
+      }
+
+      // ── /apikey disable <provider> <n> ─────────────────────────────────────
+      if (sub === 'disable') {
+        const provider = arg1;
+        const idx      = parseInt(arg2);
+        if (!provider || !idx) {
+          return ctx.replyWithHTML(`❌ Format: <code>/apikey disable &lt;provider&gt; &lt;nomor&gt;</code>`);
+        }
+        km.disableKey(provider, idx);
+        return ctx.replyWithHTML(`🚫 Key #${idx} dari <code>${provider.toUpperCase()}</code> dinonaktifkan.`);
+      }
+
+      // ── /apikey test ───────────────────────────────────────────────────────
+      if (sub === 'test') {
+        await ctx.replyWithHTML(`🧪 <b>Mengetes semua AI Key...</b>\n<i>Mohon tunggu beberapa detik.</i>`);
+
+        const results = await engine.testAllKeys();
+
+        if (results.length === 0) {
+          return ctx.replyWithHTML(`⚠️ <b>Tidak ada key untuk dites.</b>\nTambahkan key dengan <code>/apikey add</code>.`);
+        }
+
+        const lines = [`📊 <b>HASIL TEST AI KEY</b>`, ``];
+        let lastProvider = '';
+
+        for (const r of results) {
+          if (r.provider !== lastProvider) {
+            if (lastProvider) lines.push(``);
+            lines.push(`${PROVIDER_EMOJI[r.provider] || '•'} <b>${r.provider.toUpperCase()}</b>`);
+            lastProvider = r.provider;
+          }
+          const emoji = r.status === 'OK' ? '✅' : (r.status === 'TIMEOUT' ? '⏱️' : '❌');
+          lines.push(`   ${emoji} #${r.index} — ${r.status} | ${r.latency}`);
+          if (r.error) lines.push(`      <i>${r.error.slice(0, 60)}</i>`);
+        }
+
+        return ctx.replyWithHTML(lines.join('\n'));
+      }
+
+      // ── Unknown subcommand ─────────────────────────────────────────────────
+      return ctx.replyWithHTML([
+        `❓ <b>Subcommand tidak dikenal.</b>`,
+        ``,
+        `<b>Available commands:</b>`,
+        `• <code>/apikey</code>                         — dashboard`,
+        `• <code>/apikey list</code>                    — daftar semua key`,
+        `• <code>/apikey add &lt;provider&gt; &lt;key&gt;</code>    — tambah key`,
+        `• <code>/apikey remove &lt;provider&gt; &lt;n&gt;</code>   — hapus key`,
+        `• <code>/apikey enable &lt;provider&gt; &lt;n&gt;</code>   — aktifkan key`,
+        `• <code>/apikey disable &lt;provider&gt; &lt;n&gt;</code>  — nonaktifkan key`,
+        `• <code>/apikey test</code>                    — test semua key`,
+      ].join('\n'));
+
+    } catch (err) {
+      console.error('[APIKEY CMD] Error:', err.message);
+      return ctx.replyWithHTML(`❌ <b>Error:</b> <code>${err.message}</code>`);
+    }
+  });
+}
+
+module.exports = { registerApiKey };

@@ -1,0 +1,84 @@
+name: AZZAVISION Bot 24/7
+
+# Bot trading signal AZZAVISION AI — dijalankan langsung dari repo ini via GHA.
+# - Restore data (signals/journal/quotes) dari branch `data`.
+# - Tulis .env dari GitHub secrets (tidak pernah commit .env asli).
+# - Keep-alive: restart sebelum limit 6h, persist data berkala.
+# - .env.example adalah template; jangan commit secret.
+
+on:
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: "Job runtime in minutes (max 355)"
+        required: false
+        default: "350"
+        type: number
+  schedule:
+    # Fallback cron: trigger ulang tiap 6h
+    - cron: "10 */6 * * *"
+
+concurrency:
+  group: azzavision-bot
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 356
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Write .env from secrets (never committed)
+        run: |
+          mkdir -p bot
+          cat > bot/.env <<EOF
+          BOT_TOKEN=${BOT_TOKEN}
+          OWNER_ID=${OWNER_ID}
+          CHANNEL_ID=${CHANNEL_ID}
+          TWELVEDATA_API_KEY=${TWELVEDATA_API_KEY}
+          SCAN_INTERVAL=6000
+          MIN_CONFIDENCE=${MIN_CONFIDENCE}
+          DB_PATH=./data/signals.json
+          LEARN_PATH=./data/learning_dataset.json
+          LOG_LEVEL=info
+          ENSEMBLE_MIN_SCORE_AGGRESSIVE=80
+          ENTRY_MODE=${ENTRY_MODE}
+          GEMINI_API_KEY=${GEMINI_API_KEY}
+          GEMINI_MODEL=${GEMINI_MODEL}
+          OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+          OPENROUTER_MODEL=${OPENROUTER_MODEL}
+          GROQ_API_KEY=${GROQ_API_KEY}
+          GROQ_MODEL=${GROQ_MODEL}
+          EOF
+
+      - name: Run Keep-Alive Bot
+        env:
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          OWNER_ID: ${{ secrets.OWNER_ID }}
+          CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
+          TWELVEDATA_API_KEY: ${{ secrets.TWELVEDATA_API_KEY }}
+          MIN_CONFIDENCE: ${{ secrets.MIN_CONFIDENCE || '65' }}
+          ENTRY_MODE: ${{ secrets.ENTRY_MODE || 'aggressive' }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL: ${{ secrets.GROQ_MODEL || 'llama-3.3-70b-versatile' }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GH_REPO: ${{ github.repository }}
+          GH_REF: ${{ github.ref_name }}
+          RUN_MINUTES: ${{ inputs.minutes || 350 }}
+          KEEPALIVE_WORKFLOW: "azzavision.yml"
+          DATA_BRANCH: "data"
+          BACKUP_EVERY_SEC: "300"
+        run: |
+          chmod +x scripts/keepalive_azza.sh scripts/persist_azza.sh
+          ./scripts/keepalive_azza.sh

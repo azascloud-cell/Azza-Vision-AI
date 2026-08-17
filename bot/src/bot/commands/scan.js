@@ -1,0 +1,650 @@
+/**
+ * scan.js — AZZAVISION AI v5.0 Trade Scanner Commands
+ *
+ * /scan             — pilih SHORT/MEDIUM/LONG
+ * /scan short       — Trade Scanner SHORT (1-8 jam)
+ * /scan medium      — Trade Scanner MEDIUM (1-3 hari)
+ * /scan long        — Trade Scanner LONG (1-2 minggu)
+ * /scan history     — Histori scanner
+ * /scan status      — Signal scanner aktif
+ *
+ * LEGACY: Manual scan engine (owner) tetap berjalan di bawah.
+ */
+
+'use strict';
+
+const { Markup }         = require('telegraf');
+const { doScan }         = require('../../analysis/scanner');
+const { getOverallBias } = require('../../analysis/scanner');
+const { getPriceCache }  = require('../../market/cache');
+const { toWIB }          = require('../../utils/wib_time');
+const {
+  generateScan,
+  getActiveScans,
+  getScannerHistory,
+  formatScannerSignal,
+  formatHighConfluence,
+  checkHighConfluence,
+  isLocked,
+  DURATIONS,
+} = require('../../analysis/trade_scanner');
+const { renderBanner } = require('../../banner');
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+function isOwner(ctx) {
+  return String(ctx.from?.id) === String(process.env.OWNER_ID);
+}
+
+function escapeHtml(str) {
+  if (str === null || str === undefined) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function biasBadge(bias) {
+  if (bias === 'STRONG_BUY')  return '🟢 STRONG BUY';
+  if (bias === 'BUY')         return '🟢 Bullish';
+  if (bias === 'STRONG_SELL') return '🔴 STRONG SELL';
+  if (bias === 'SELL')        return '🔴 Bearish';
+  return '🟡 Sideways';
+}
+
+function progressBar(percent, width = 10) {
+  const pct     = Math.max(0, Math.min(100, Math.round(percent)));
+  const filled  = Math.round(pct / 100 * width);
+  const empty   = width - filled;
+  return '█'.repeat(filled) + '░'.repeat(empty) + ` ${pct}%`;
+}
+
+function calcDisplayConfidence(analysis, m5Entry) {
+  const { h4, h1, m15, m1 } = analysis;
+  let score = 0;
+  if (h4.bias.includes('STRONG')) score += 30;
+  else if (h4.bias !== 'NEUTRAL') score += 20;
+  if (h1.bias.includes('STRONG')) score += 25;
+  else if (h1.bias !== 'NEUTRAL') score += 15;
+  if (m15.bias !== 'NEUTRAL') score += 15;
+  if (m1 && m1.bias !== 'NEUTRAL') {
+    const h4Bull = h4.bias.includes('BUY');
+    const m1Bull = m1.bias.includes('BUY');
+    if (h4Bull === m1Bull) score += 5;
+    else score -= 2;
+  }
+  if (m5Entry && m5Entry.valid)    score += 20;
+  if (m5Entry && m5Entry.hasSweep) score += 10;
+  if (h4.rsi != null) {
+    const h4Bull = h4.bias.includes('BUY');
+    if (h4Bull  && h4.rsi < 70) score += 3;
+    if (!h4Bull && h4.rsi > 30) score += 3;
+  }
+  return Math.min(97, Math.max(10, score));
+}
+
+function calcZones(currentPrice, h4Analysis, direction) {
+  const h4Atr = h4Analysis?.atr || 2;
+  const half  = h4Atr * 0.5;
+  const full  = h4Atr;
+  return {
+    resistance: { low: currentPrice + half, high: currentPrice + full },
+    support:    { low: currentPrice - full, high: currentPrice - half },
+  };
+}
+
+// ─── STATUS EMOJI ──────────────────────────────────────────────────────────────
+function statusEmoji(status) {
+  const map = {
+    WAITING:   '⏳',
+    ACTIVE:    '🟡',
+    TP1_HIT:   '🎯',
+    TP2_HIT:   '🏆',
+    SL_HIT:    '❌',
+    EXPIRED:   '⏰',
+  };
+  return map[status] || '❓';
+}
+
+// ─── BUTTONS ──────────────────────────────────────────────────────────────────
+function buildScanMainButtons() {
+  return Markup.inlineKeyboard([
+    [
+      Markup.button.callback('⚡ SHORT (1-8j)',    'scan_short'),
+      Markup.button.callback('📅 MEDIUM (1-3h)', 'scan_medium'),
+      Markup.button.callback('📆 LONG (1-2mg)',  'scan_long'),
+    ],
+    [
+      Markup.button.callback('📊 Status Aktif',  'scan_scanner_status'),
+      Markup.button.callback('📜 History',        'scan_scanner_history'),
+    ],
+    [
+      Markup.button.callback('🔍 Manual Scan',   'scan_manual'),
+    ],
+  ]);
+}
+
+function buildScanButtons(canEntry, direction) {
+  const rows = [];
+  rows.push([
+    Markup.button.callback('📊 Market', 'scan_market'),
+    Markup.button.callback('🤖 Status', 'scan_status'),
+  ]);
+  if (canEntry) {
+    const entryBtn = direction === 'BUY'
+      ? Markup.button.callback('🟢 Force BUY', 'force_buy')
+      : Markup.button.callback('🔴 Force SELL', 'force_sell');
+    rows.push([entryBtn, Markup.button.callback('🔄 Scan Ulang', 'scan_refresh')]);
+  } else {
+    rows.push([
+      Markup.button.callback('🔄 Scan Ulang', 'scan_refresh'),
+      Markup.button.callback('📈 Statistik', 'scan_stats'),
+    ]);
+  }
+  return Markup.inlineKeyboard(rows);
+}
+
+// ─── TRADE SCANNER ACTION HANDLER ─────────────────────────────────────────────
+async function runTradeScan(ctx, type) {
+  const loading = await ctx.replyWithHTML(`🔭 <b>Membuat Trade Scanner ${type.toUpperCase()}...</b> ⏳`);
+
+  try {
+    const result = await generateScan(type);
+    await ctx.telegram.deleteMessage(ctx.chat.id, loading.message_id).catch(() => {});
+
+    if (result.locked) {
+      const sig = result.existing;
+      const wib = toWIB();
+      return ctx.replyWithHTML([
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `🔒 <b>SCANNER ${type.toUpperCase()} TERKUNCI</b>`,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        ``,
+        `⚠️ Sudah ada signal <b>${type.toUpperCase()}</b> yang masih aktif.`,
+        ``,
+        `${statusEmoji(sig.status)} <b>Status</b>   : <code>${sig.status}</code>`,
+        `📍 <b>Entry Zone</b> : <code>${sig.entry_low} - ${sig.entry_high}</code>`,
+        `🎯 <b>TP2</b>        : <code>${sig.tp2}</code>`,
+        `🛑 <b>SL</b>         : <code>${sig.sl}</code>`,
+        ``,
+        `💡 <i>Signal baru hanya dibuat setelah signal lama selesai (TP2/SL/Expired).</i>`,
+        ``,
+        `━━━━━━━━━━━━━━━━━━━━`,
+        `⚡ <i>AZZAVISION AI v5.0 | Signal Lock Active</i>`,
+      ].join('\n'));
+    }
+
+    const { signal } = result;
+    const msg = formatScannerSignal(signal);
+
+    // Kirim banner PNG dulu (visual), lalu detail teks
+    try {
+      const bannerType = signal.direction === 'BUY' ? 'signal_buy' : 'signal_sell';
+      const buffer = await renderBanner(bannerType, {
+        direction: signal.direction,
+        pair: 'XAUUSD',
+        entry: `${signal.entry_low} - ${signal.entry_high}`,
+        sl: signal.sl,
+        tp1: signal.tp1,
+        tp2: signal.tp2,
+        tp3: '-',
+        riskReward: `1 : ${signal.rr}`,
+        confidence: signal.confidence,
+        setupTime: toWIB().line.replace(/<[^>]+>/g, ''),
+      });
+      await ctx.replyWithPhoto({ source: buffer });
+    } catch (bannerErr) {
+      console.error('[SCAN-BANNER] Gagal render banner:', bannerErr.message);
+    }
+
+    // Kirim ke user terlebih dahulu
+    await ctx.replyWithHTML(msg);
+
+    // ── High Confluence check (ALWAYS evaluate, terlepas dari CHANNEL_ID) ──────
+    let confluenceMsg = null;
+    try {
+      const { doScan, getOverallBias } = require('../../analysis/scanner');
+      const scanResult = await doScan(true);
+      if (scanResult) {
+        const overall      = getOverallBias(scanResult.analysis);
+        const confluenceDir = checkHighConfluence(signal.direction, overall.label);
+        if (confluenceDir) {
+          confluenceMsg = formatHighConfluence(confluenceDir, signal.confidence, scanResult.confidence || 60);
+          // Kirim ke user (selalu)
+          await ctx.replyWithHTML(confluenceMsg);
+        }
+      }
+    } catch { /* skip if Signal Engine data unavailable */ }
+
+    // ── Mirror ke channel jika dikonfigurasi ───────────────────────────────────
+    const channelId = process.env.CHANNEL_ID;
+    if (channelId) {
+      await ctx.telegram.sendMessage(channelId, msg, { parse_mode: 'HTML' }).catch(() => {});
+      if (confluenceMsg) {
+        await ctx.telegram.sendMessage(channelId, confluenceMsg, { parse_mode: 'HTML' }).catch(() => {});
+      }
+    }
+
+  } catch (err) {
+    await ctx.telegram.deleteMessage(ctx.chat.id, loading.message_id).catch(() => {});
+    console.error(`[SCAN-${type.toUpperCase()}] Error:`, err.message);
+    await ctx.replyWithHTML([
+      `❌ <b>Trade Scanner ${type.toUpperCase()} error!</b>`,
+      `<code>${escapeHtml(err.message)}</code>`,
+      `<i>Cek log server untuk detail.</i>`,
+    ].join('\n'));
+  }
+}
+
+// ─── FORMAT SCANNER STATUS ─────────────────────────────────────────────────────
+async function sendScannerStatus(ctx) {
+  const scans = getActiveScans();
+  const wib   = toWIB();
+  const types = ['short', 'medium', 'long'];
+  const lines = [
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📊 <b>AZZAVISION AI — SCANNER STATUS</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    wib.line,
+    ``,
+  ];
+
+  let hasAny = false;
+  for (const t of types) {
+    const sig = scans[t];
+    if (!sig) {
+      lines.push(`⚫ <b>${t.toUpperCase()}</b> : Tidak ada signal aktif`);
+    } else {
+      hasAny = true;
+      const dir = sig.direction === 'BUY' ? '🟢 BUY' : '🔴 SELL';
+      const riskEmoji = sig.risk === 'LOW' ? '🟢' : sig.risk === 'MEDIUM' ? '🟡' : '🔴';
+      lines.push(`${statusEmoji(sig.status)} <b>${t.toUpperCase()}</b> | ${dir}`);
+      lines.push(`   Zone   : <code>${sig.entry_low} – ${sig.entry_high}</code>`);
+      lines.push(`   TP2    : <code>${sig.tp2}</code>  SL: <code>${sig.sl}</code>`);
+      lines.push(`   Conf   : <code>${sig.confidence}%</code>  ${riskEmoji} ${sig.risk}`);
+      lines.push(`   Status : <code>${sig.status}</code>${sig.tp1_hit ? ' 🎯TP1✅' : ''}`);
+    }
+    lines.push('');
+  }
+
+  if (!hasAny) {
+    lines.push(`<i>Tidak ada signal scanner aktif saat ini.</i>`);
+    lines.push(`<i>Gunakan /scan short, /scan medium, atau /scan long untuk membuat scan baru.</i>`);
+  }
+
+  lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+  lines.push(`⚡ <i>AZZAVISION AI v5.0 | Trade Scanner</i>`);
+
+  await ctx.replyWithHTML(lines.join('\n'));
+}
+
+// ─── FORMAT SCANNER HISTORY ────────────────────────────────────────────────────
+async function sendScannerHistory(ctx) {
+  const history = getScannerHistory(10);
+  const wib = toWIB();
+  const lines = [
+    `━━━━━━━━━━━━━━━━━━━━`,
+    `📜 <b>AZZAVISION AI — SCANNER HISTORY</b>`,
+    `━━━━━━━━━━━━━━━━━━━━`,
+    ``,
+    wib.line,
+    ``,
+  ];
+
+  if (history.length === 0) {
+    lines.push(`<i>Belum ada histori scanner.</i>`);
+  } else {
+    for (const sig of history) {
+      const dir = sig.direction === 'BUY' ? '🟢' : '🔴';
+      const outcomeEmoji = sig.status === 'TP2_HIT' ? '🏆' : sig.status === 'SL_HIT' ? '❌' : '⏰';
+      const created = sig.created_at ? new Date(sig.created_at).toLocaleDateString('id-ID') : '-';
+      lines.push(`${outcomeEmoji} <b>${(sig.typeLabel || sig.type || '?').toUpperCase()}</b> ${dir} ${sig.direction}`);
+      lines.push(`   Zone: <code>${sig.entry_low}–${sig.entry_high}</code>  → <code>${sig.status}</code>`);
+      lines.push(`   ${created}  Conf: <code>${sig.confidence}%</code>`);
+      lines.push('');
+    }
+  }
+
+  lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+  lines.push(`⚡ <i>AZZAVISION AI v5.0 | Scanner History (10 terakhir)</i>`);
+
+  await ctx.replyWithHTML(lines.join('\n'));
+}
+
+// ─── REGISTER ─────────────────────────────────────────────────────────────────
+function registerScan(bot) {
+  // Main /scan command — handle subcommands
+  bot.command('scan', async (ctx) => {
+    if (!isOwner(ctx)) {
+      return ctx.replyWithHTML('🚫 <b>Akses ditolak.</b> Perintah ini hanya untuk owner.');
+    }
+
+    const args = (ctx.message?.text || '').trim().split(/\s+/).slice(1);
+    const sub  = (args[0] || '').toLowerCase();
+
+    if (sub === 'short')   return runTradeScan(ctx, 'short');
+    if (sub === 'medium')  return runTradeScan(ctx, 'medium');
+    if (sub === 'long')    return runTradeScan(ctx, 'long');
+    if (sub === 'history') return sendScannerHistory(ctx);
+    if (sub === 'status')  return sendScannerStatus(ctx);
+
+    // Default: tampilkan menu utama
+    const wib = toWIB();
+    await ctx.replyWithHTML([
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `🔭 <b>AZZAVISION AI — TRADE SCANNER</b>`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      ``,
+      wib.line,
+      ``,
+      `Pilih tipe scanner:`,
+      ``,
+      `⚡ <b>SHORT</b>  — Setup 1-8 jam`,
+      `📅 <b>MEDIUM</b> — Setup 1-3 hari`,
+      `📆 <b>LONG</b>   — Setup 1-2 minggu`,
+      ``,
+      `<b>Sub-commands:</b>`,
+      `/scan short   — Buat scan SHORT`,
+      `/scan medium  — Buat scan MEDIUM`,
+      `/scan long    — Buat scan LONG`,
+      `/scan status  — Status scanner aktif`,
+      `/scan history — Histori scanner`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `⚡ <i>AZZAVISION AI v5.0 | Trade Scanner AI</i>`,
+    ].join('\n'), buildScanMainButtons());
+  });
+
+  // Inline button actions for scan type selection
+  bot.action('scan_short',  async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('⚡ Membuat SHORT scan...');
+    await runTradeScan(ctx, 'short');
+  });
+
+  bot.action('scan_medium', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('📅 Membuat MEDIUM scan...');
+    await runTradeScan(ctx, 'medium');
+  });
+
+  bot.action('scan_long',   async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('📆 Membuat LONG scan...');
+    await runTradeScan(ctx, 'long');
+  });
+
+  bot.action('scan_scanner_status', async (ctx) => {
+    await ctx.answerCbQuery();
+    await sendScannerStatus(ctx);
+  });
+
+  bot.action('scan_scanner_history', async (ctx) => {
+    await ctx.answerCbQuery();
+    await sendScannerHistory(ctx);
+  });
+
+  bot.action('scan_manual', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('🔍 Manual scan...');
+    await runScanAndReply(ctx, bot);
+  });
+
+  // Legacy scan action handlers
+  bot.action('scan_refresh', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('🔄 Memperbarui scan...');
+    try { await ctx.deleteMessage().catch(() => {}); } catch { /* ignore */ }
+    await runScanAndReply(ctx, bot);
+  });
+
+  bot.action('force_buy', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('🟢 Force BUY...');
+    const { handleForce } = require('./owner');
+    await handleForce(ctx, bot, 'BUY');
+  });
+
+  bot.action('force_sell', async (ctx) => {
+    if (!isOwner(ctx)) return ctx.answerCbQuery('🚫 Hanya untuk owner.');
+    await ctx.answerCbQuery('🔴 Force SELL...');
+    const { handleForce } = require('./owner');
+    await handleForce(ctx, bot, 'SELL');
+  });
+
+  bot.action('scan_market', async (ctx) => {
+    await ctx.answerCbQuery();
+    try {
+      const cache = getPriceCache();
+      const price = cache.lastPrice;
+      const wib   = cache.timestamp ? toWIB(new Date(cache.timestamp)) : toWIB();
+      const trend = cache.trendSummary;
+      if (!price) return ctx.replyWithHTML('⚠️ <i>Data harga belum tersedia.</i>');
+      const lines = [`💹 <b>XAUUSD</b> : <code>${price.toFixed(2)}</code>`, ``];
+      if (trend) {
+        lines.push(`📊 <b>Timeframe Bias:</b>`);
+        lines.push(`  H4  : ${biasBadge(trend.h4)}`);
+        lines.push(`  H1  : ${biasBadge(trend.h1)}`);
+        lines.push(`  M15 : ${biasBadge(trend.m15)}`);
+        lines.push(`  M5  : ${biasBadge(trend.m5)}`);
+        lines.push(`  M1  : ${biasBadge(trend.m1)}`);
+        lines.push(``);
+        lines.push(`🎯 Overall : <code>${escapeHtml(trend.overall || '-')}</code>`);
+        if (cache.confidence) lines.push(`📡 Confidence : <code>${cache.confidence}%</code>`);
+      }
+      lines.push(``);
+      lines.push(wib.line);
+      await ctx.replyWithHTML(lines.join('\n'));
+    } catch (e) {
+      await ctx.replyWithHTML(`❌ Gagal ambil data market.\n<code>${escapeHtml(e.message)}</code>`);
+    }
+  });
+
+  bot.action('scan_stats', async (ctx) => {
+    await ctx.answerCbQuery();
+    try {
+      const { getStats }    = require('../../database/db');
+      const { formatStats } = require('../../utils/format');
+      const stats   = await getStats();
+      const message = formatStats(stats);
+      await ctx.replyWithHTML(message);
+    } catch (e) {
+      await ctx.replyWithHTML(`❌ Gagal ambil statistik.\n<code>${escapeHtml(e.message)}</code>`);
+    }
+  });
+
+  bot.action('scan_status', async (ctx) => {
+    await ctx.answerCbQuery();
+    try {
+      const { getOpenSignals, getLastSignalTime } = require('../../database/db');
+      const { isoToWIBShort } = require('../../utils/wib_time');
+      const open       = await getOpenSignals();
+      const lastSignal = await getLastSignalTime();
+      const interval   = parseInt(process.env.SCAN_INTERVAL || '6000') / 1000;
+      const openLines = open.length > 0
+        ? open.slice(0, 3).map((s) => {
+            const tp1done  = s.tp1_hit             ? ' ✅TP1' : '';
+            const beActive = s.breakeven_triggered  ? ' 🔒BE'  : '';
+            return `  • ${s.direction} @ ${s.entry}${tp1done}${beActive}`;
+          }).join('\n')
+        : '  Tidak ada sinyal terbuka.';
+      const lastStr = lastSignal ? isoToWIBShort(lastSignal) : '-';
+      await ctx.replyWithHTML([
+        `🤖 <b>BOT STATUS</b>`,
+        `🟢 ONLINE | Scan ${interval}s`,
+        `📌 <b>Open (${open.length})</b>`,
+        openLines,
+        `🕐 Last: ${lastStr}`,
+      ].join('\n'));
+    } catch (e) {
+      await ctx.replyWithHTML(`❌ Gagal ambil status.\n<code>${escapeHtml(e.message)}</code>`);
+    }
+  });
+}
+
+// ─── LEGACY MANUAL SCAN (Signal Engine) ──────────────────────────────────────
+async function runScanAndReply(ctx, bot) {
+  const loading = await ctx.replyWithHTML('🔍 <b>Signal Engine scan manual...</b> ⏳');
+
+  try {
+    const result = await doScan(true);
+    await ctx.telegram.deleteMessage(ctx.chat.id, loading.message_id).catch(() => {});
+
+    if (!result) {
+      return ctx.replyWithHTML([
+        `❌ <b>Scan gagal!</b>`,
+        `Data tidak tersedia. Cek log server.`,
+      ].join('\n'));
+    }
+
+    const { analysis, canEntry, aligned, spikeRisk, volatility, direction } = result;
+    const overall   = getOverallBias(analysis);
+    const cache     = getPriceCache();
+    const realPrice = cache.lastPrice || 0;
+    const wib       = toWIB();
+    const minConf   = parseInt(process.env.MIN_CONFIDENCE || '65');
+
+    const displayConf = (result.confidence > 0)
+      ? result.confidence
+      : calcDisplayConfidence(analysis, result.m5Entry);
+
+    const rejectionReasons = [];
+    const h4Bull  = analysis.h4.bias.includes('BUY');
+    const h4Bear  = analysis.h4.bias.includes('SELL');
+    const h1Bull  = analysis.h1.bias.includes('BUY');
+    const h1Bear  = analysis.h1.bias.includes('SELL');
+
+    if (!aligned) {
+      if ((h4Bull && !h1Bull) || (h4Bear && !h1Bear)) {
+        rejectionReasons.push(`❌ H1 belum searah dengan H4 (H4: ${escapeHtml(analysis.h4.bias)}, H1: ${escapeHtml(analysis.h1.bias)})`);
+      } else if (!h4Bull && !h4Bear) {
+        rejectionReasons.push(`❌ H4 masih sideways — belum ada tren utama`);
+      } else {
+        rejectionReasons.push(`❌ Multi-timeframe belum aligned`);
+      }
+    }
+    if (spikeRisk) rejectionReasons.push(`❌ Volatilitas ekstrem (${escapeHtml(volatility)}) — risiko spike`);
+    if (!result.m5Entry?.valid && aligned && !spikeRisk) {
+      rejectionReasons.push(`❌ Belum ada rejection candle M5 (${escapeHtml(result.m5Entry?.reason || 'tidak terdeteksi')})`);
+    }
+    if (displayConf < minConf) rejectionReasons.push(`❌ Confidence ${displayConf}% < minimum ${minConf}%`);
+    if (result.ensembleResult && !result.ensembleResult.passed) {
+      rejectionReasons.push(`❌ Ensemble score ${result.ensembleResult.totalScore}/100 (butuh ${result.ensembleResult.minRequired || 75})`);
+    }
+
+    const waitingFor = [];
+    if (!aligned) waitingFor.push(`✅ H1 searah dengan H4`);
+    if (!result.m5Entry?.valid) {
+      waitingFor.push(`✅ Rejection candle M5`);
+      waitingFor.push(`✅ Breakout valid atau Retest berhasil`);
+    }
+    if (displayConf < minConf) waitingFor.push(`✅ Konfirmasi tambahan`);
+
+    const zones = realPrice > 0 ? calcZones(realPrice, analysis.h4, direction || 'BUY') : null;
+
+    const mtfLines = [];
+    for (const { label, tf } of [
+      { label: 'H4 ', tf: analysis.h4.bias },
+      { label: 'H1 ', tf: analysis.h1.bias },
+      { label: 'M15', tf: analysis.m15.bias },
+      { label: 'M5 ', tf: analysis.m5.bias },
+      { label: 'M1 ', tf: analysis.m1.bias },
+    ]) {
+      const icon = tf.includes('BUY') ? '✅' : tf.includes('SELL') ? '✅' : '⚠️';
+      mtfLines.push(`  ${icon} ${label} : ${biasBadge(tf)}`);
+    }
+
+    let mtfConclusion = '';
+    if (!aligned) {
+      if (h4Bull && !h1Bull) mtfConclusion = `H1 belum mendukung tren H4 — setup belum valid.`;
+      else if (h4Bear && !h1Bear) mtfConclusion = `H1 belum mendukung tren H4 — setup belum valid.`;
+      else mtfConclusion = `H4 dan H1 belum searah — butuh alignment.`;
+    } else if (spikeRisk) {
+      mtfConclusion = `Trend aligned ✅ tetapi volatilitas terlalu tinggi.`;
+    } else if (!result.m5Entry?.valid) {
+      mtfConclusion = `Trend aligned ✅ — menunggu konfirmasi candle M5.`;
+    } else {
+      mtfConclusion = `Semua timeframe aligned ✅ — setup valid.`;
+    }
+
+    const lines = [
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `🔍 <b>AZZAVISION AI — SIGNAL ENGINE SCAN</b>`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      ``,
+      wib.line,
+      ``,
+      `💹 <b>Harga</b> : <code>${realPrice ? realPrice.toFixed(2) : '-'}</code>`,
+      `🎯 <b>Overall</b> : <code>${escapeHtml(overall.label)}</code>`,
+      ``,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `📐 <b>Multi-Timeframe</b>`,
+      ...mtfLines,
+      ``,
+      `<i>Kesimpulan: ${mtfConclusion}</i>`,
+    ];
+
+    if (zones) {
+      lines.push(``);
+      lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+      lines.push(`📍 <b>Current Zone</b>`);
+      lines.push(`🔴 Resistance : <code>${zones.resistance.low.toFixed(2)}</code> – <code>${zones.resistance.high.toFixed(2)}</code>`);
+      lines.push(`🟢 Support    : <code>${zones.support.low.toFixed(2)}</code> – <code>${zones.support.high.toFixed(2)}</code>`);
+    }
+
+    lines.push(``);
+    lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+    lines.push(`📡 <b>Confidence</b> : <code>${displayConf}%</code>${displayConf < minConf ? ` (butuh ${minConf}%)` : ' ✅'}`);
+    lines.push(`⚡ <b>Volatilitas</b>: <code>${escapeHtml(volatility)}</code>`);
+    lines.push(`📐 <b>Aligned</b>    : ${aligned ? '✅ YA' : '❌ BELUM'}`);
+    lines.push(``);
+    lines.push(`🟢 <b>Progress Setup</b>:`);
+    lines.push(`<code>${progressBar(displayConf)}</code>`);
+
+    lines.push(``);
+    lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+    if (canEntry) {
+      lines.push(`🚦 <b>Status Entry</b>: ✅ BISA ENTRY`);
+    } else {
+      lines.push(`🚦 <b>Status Entry</b>: ⛔ TIDAK ENTRY`);
+      if (rejectionReasons.length > 0) {
+        lines.push(``);
+        lines.push(`🚫 <b>Entry ditolak karena:</b>`);
+        rejectionReasons.forEach(r => lines.push(r));
+      }
+      if (waitingFor.length > 0) {
+        lines.push(``);
+        lines.push(`⏳ <b>Menunggu:</b>`);
+        waitingFor.forEach(w => lines.push(w));
+      }
+    }
+
+    if (canEntry && result.levels) {
+      lines.push(``);
+      lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+      lines.push(`💡 <b>Level Sinyal:</b>`);
+      lines.push(`  Entry : <code>${result.levels.entry.toFixed(2)}</code>`);
+      lines.push(`  TP1   : <code>${result.levels.tp1.toFixed(2)}</code>`);
+      lines.push(`  TP2   : <code>${result.levels.tp2.toFixed(2)}</code>`);
+      lines.push(`  SL    : <code>${result.levels.sl.toFixed(2)}</code>`);
+    }
+
+    lines.push(``);
+    lines.push(`━━━━━━━━━━━━━━━━━━━━`);
+    lines.push(`⚡ <i>AZZAVISION AI v5.0 | Signal Engine Scan</i>`);
+
+    const buttons = buildScanButtons(canEntry, direction);
+    await ctx.replyWithHTML(lines.join('\n'), buttons);
+
+  } catch (err) {
+    await ctx.telegram.deleteMessage(ctx.chat.id, loading.message_id).catch(() => {});
+    console.error('[SCAN] Error:', err.message);
+    await ctx.replyWithHTML([
+      `❌ <b>Scan error!</b>`,
+      `<code>${escapeHtml(err.message)}</code>`,
+      `<i>Cek log server untuk detail.</i>`,
+    ].join('\n'));
+  }
+}
+
+module.exports = { registerScan };
