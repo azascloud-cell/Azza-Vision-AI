@@ -116,10 +116,6 @@ async function main() {
   scheduleDailyLearning(bot);
   startScanner(bot);
 
-  await bot.launch({ allowedUpdates: ['message', 'callback_query'] });
-  console.log('[BOT] ✅ Launched dan polling untuk update Telegram.');
-  debugLog('STARTUP', 'Bot Telegram launched.');
-
   // ── v5.0 Auto Performance Report Scheduler ────────────────────────────────
   startReportScheduler(bot);
   console.log('[SCHEDULER] ✅ Report Scheduler v5.0 aktif (daily + weekly).');
@@ -131,6 +127,10 @@ async function main() {
   // ── v5.0 Trade Scanner AI Scheduler ──────────────────────────────────────
   startTradeScannerScheduler(bot);
   console.log('[SCHEDULER] ✅ Trade Scanner AI aktif (SHORT/MEDIUM/LONG).');
+
+  await bot.launch({ allowedUpdates: ['message', 'callback_query'] });
+  console.log('[BOT] ✅ Launched dan polling untuk update Telegram.');
+  debugLog('STARTUP', 'Bot Telegram launched.');
 
   // ── Register graceful shutdown hooks (Crash Guard) ────────────────────────
   registerShutdownHooks(bot);
