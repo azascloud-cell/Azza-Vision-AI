@@ -523,6 +523,87 @@ function formatHighConfluence(direction, scannerConf, engineConf) {
 let _botInstance = null;
 let _schedulerStarted = false;
 
+// ─── AUTO-GENERATE SCAN ───────────────────────────────────────────────────────
+// Otomatis membuat scan baru untuk tipe yang belum punya signal WAITING/ACTIVE,
+// lalu broadcast ke channel. Dipanggil berkala agar sinyal selalu tersedia
+// tanpa perlu perintah manual /scan.
+async function autoGenerateScans(botInstance) {
+  const enabled = (process.env.AUTO_SCAN_ENABLED || 'true').toLowerCase() === 'true';
+  if (!enabled) return;
+
+  try {
+    const { isMarketOpen } = require('../utils/market_hours');
+    if (!isMarketOpen()) return;
+
+    const channelId = process.env.CHANNEL_ID;
+    if (!botInstance || !channelId) return;
+
+    // Cek harga valid sebelum generate (hindari scan saat data belum siap)
+    const { getCachedPrice } = require('../market/cache');
+    const price = getCachedPrice();
+    if (!price || !isFinite(price) || price <= 0) {
+      console.log('[TRADE-SCANNER] Auto-scan skip: harga belum tersedia');
+      return;
+    }
+
+    const db = loadDB();
+    for (const key of ['short', 'medium', 'long']) {
+      const existing = db[key] ? checkExpired(db[key]) : null;
+      // Lewati jika masih WAITING/ACTIVE (belum selesai)
+      if (existing && (existing.status === 'WAITING' || existing.status === 'ACTIVE' || existing.status === 'TP1_HIT')) {
+        continue;
+      }
+      // Hapus signal lama yang sudah EXPIRED/TP2_HIT/SL_HIT agar tidak menumpuk
+      if (existing && (existing.status === 'EXPIRED' || existing.status === 'TP2_HIT' || existing.status === 'SL_HIT')) {
+        if (!existing._archived) { existing._archived = true; archiveSignal(existing); }
+        delete db[key];
+      }
+
+      // Buat scan baru
+      let result;
+      try {
+        result = await generateScan(key);
+      } catch (genErr) {
+        console.warn(`[TRADE-SCANNER] Auto-generate ${key} gagal:`, genErr.message);
+        continue;
+      }
+      if (result.locked || !result.signal) continue;
+
+      const signal = result.signal;
+      console.log(`[TRADE-SCANNER] ⚡ Auto-scan ${key.toUpperCase()} dibuat — ${signal.direction} @ ${signal.entry_low}-${signal.entry_high} (conf ${signal.confidence}%)`);
+
+      // Broadcast ke channel (banner + teks)
+      try {
+        const { renderBanner } = require('../banner');
+        const bannerType = signal.direction === 'BUY' ? 'signal_buy' : 'signal_sell';
+        const { toWIB } = require('../utils/wib_time');
+        const buffer = await renderBanner(bannerType, {
+          direction: signal.direction,
+          pair: 'XAUUSD',
+          entry: `${signal.entry_low} - ${signal.entry_high}`,
+          sl: signal.sl,
+          tp1: signal.tp1,
+          tp2: signal.tp2,
+          tp3: '-',
+          riskReward: `1 : ${signal.rr}`,
+          confidence: signal.confidence,
+          setupTime: toWIB().line.replace(/<[^>]+>/g, ''),
+        });
+        await botInstance.telegram.sendPhoto(channelId, { source: buffer }).catch(() => {});
+      } catch (bannerErr) {
+        console.warn('[TRADE-SCANNER] Auto-scan banner gagal:', bannerErr.message);
+      }
+      await botInstance.telegram
+        .sendMessage(channelId, formatScannerSignal(signal), { parse_mode: 'HTML' })
+        .catch((e) => console.warn('[TRADE-SCANNER] Auto-scan send gagal:', e.message));
+    }
+
+    if (Object.keys(db).length !== 0) saveDB(db);
+  } catch (err) {
+    console.warn('[TRADE-SCANNER] autoGenerateScans error:', err.message);
+  }
+}
+
 function startTradeScannerScheduler(bot) {
   if (_schedulerStarted) return;
   _botInstance = bot;
@@ -539,7 +620,22 @@ function startTradeScannerScheduler(bot) {
     }
   }, 30 * 1000);
 
-  console.log('[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval)');
+  // Auto-scan: generate sinyal baru setiap AUTO_SCAN_INTERVAL_MIN (default 240 = 4 jam)
+  const autoIntervalMs = (parseInt(process.env.AUTO_SCAN_INTERVAL_MIN || '240', 10) || 240) * 60 * 1000;
+  setInterval(async () => {
+    await autoGenerateScans(_botInstance).catch((e) =>
+      console.warn('[TRADE-SCANNER] Auto-scan error:', e.message)
+    );
+  }, autoIntervalMs);
+
+  // Auto-scan awal: jalankan 30 detik setelah start jika belum ada signal
+  setTimeout(async () => {
+    await autoGenerateScans(_botInstance).catch((e) =>
+      console.warn('[TRADE-SCANNER] Auto-scan initial error:', e.message)
+    );
+  }, 30 * 1000);
+
+  console.log(`[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval) | Auto-scan tiap ${Math.round(autoIntervalMs / 60000)}m`);
 }
 
 // ─── ESCAPE HTML ──────────────────────────────────────────────────────────────
@@ -556,6 +652,7 @@ module.exports = {
   getActiveScans,
   getScannerHistory,
   checkScannerTriggers,
+  autoGenerateScans,
   checkHighConfluence,
   formatScannerSignal,
   formatHighConfluence,
