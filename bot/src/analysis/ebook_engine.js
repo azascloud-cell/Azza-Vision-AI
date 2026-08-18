@@ -174,6 +174,8 @@ async function broadcastEbookSignal(bot, ebookResult, currentPrice) {
     let pinnedMessageId = null;
     try {
       if (sentMsg && sentMsg.message_id) {
+        // Bersihkan pin lama (mis. watchlist yang terpin duluan), lalu pin sinyal.
+        await bot.telegram.unpinAllChatMessages(channelId).catch(() => {});
         await bot.telegram.pinChatMessage(channelId, sentMsg.message_id);
         pinnedMessageId = sentMsg.message_id;
         console.log(`[EBOOK-ENGINE] 📌 Signal ter-pin (#${pinnedMessageId})`);
