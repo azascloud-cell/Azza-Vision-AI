@@ -3103,6 +3103,17 @@
       "h4_bias": "SELL",
       "overall": "STRONG_SELL",
       "confidence": 68,
+      "created_at": "2026-07-28T02:58:08.667Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
       "created_at": "2026-07-28T02:58:38.743Z"
     },
     {
@@ -5282,17 +5293,6 @@
       "overall": "STRONG_BUY",
       "confidence": 73,
       "created_at": "2026-08-18T00:56:29.646Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "STRONG_BUY",
-      "h1_bias": "STRONG_BUY",
-      "h4_bias": "STRONG_BUY",
-      "overall": "STRONG_BUY",
-      "confidence": 73,
-      "created_at": "2026-08-18T00:56:59.565Z"
     }
   ]
 }

@@ -2,9 +2,11 @@
   "groq": [
     {
       "key": "REDACTED",
-      "status": "ACTIVE",
+      "status": "INVALID",
       "addedAt": 1783608412295,
-      "lastUsedAt": 1785212101453
+      "lastUsedAt": 1785212101453,
+      "lastError": "INVALID KEY (401/403)",
+      "lastErrorAt": 1787014619634
     },
     {
       "key": "REDACTED",

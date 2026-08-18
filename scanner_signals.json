@@ -31,7 +31,7 @@
     "type": "medium",
     "typeLabel": "MEDIUM",
     "direction": "SELL",
-    "status": "WAITING",
+    "status": "EXPIRED",
     "entry_low": 4034.49,
     "entry_high": 4029.43,
     "tp1": 4019.96,
