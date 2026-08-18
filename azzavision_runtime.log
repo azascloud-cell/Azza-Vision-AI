@@ -1,0 +1,124 @@
+[2026-08-18T03:00:08.601Z] Launcher started, PORT=2389
+[2026-08-18T03:00:08.603Z] Direct access: http://<IP>:2389  or  http://<domain>:2389
+[2026-08-18T03:00:08.603Z] Starting dashboard server...
+[DASHBOARD] AZZAVISION AI v2.0 listening on port 2389
+[DASHBOARD] Signals : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
+[DASHBOARD] Journal : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/journal.json
+[DASHBOARD] Public  : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/dashboard
+[2026-08-18T03:00:10.608Z] Starting AZZAVISION AI bot...
+[BACKUP_CMD] ✅ Backup commands registered: /backup /backupstatus /backuphistory /restorelist /selftest
+[DEBUG_CMD] ✅ Debug commands registered: /debug
+[DOCGEN] ✅ Documentation commands registered: /documentation [overview|source|architecture]
+
+═══════════════════════════════════════════════════════════════════
+  ⚡  AZZAVISION AI v5.0 — AI Trade Scanner + Multi-AI Engine
+═══════════════════════════════════════════════════════════════════
+  📡 Price Tick       : 6s
+  🎯 Min Confidence   : 65%
+  🏆 Ensemble Min     : 75/100
+  🔒 Signal Cooldown  : 4 jam
+  📢 Channel          : -1004310936137
+  💾 Database         : ./data/signals.json
+  🏦 MM Engine        : Broker-Aware (HFM, Exness, XM, IC Markets, FBS)
+  🆕 MM Commands      : /balance /risk /broker /lot /profile
+  🔍 Debug Commands   : /callbackcheck /callbacklog /buttonhealth /debug
+  📊 Report Commands  : /dailyreport /weeklyreport /report /reporthistory
+  📰 News v5.0        : Kategori + Weighted Scoring + AI Verdict
+  💾 Backup v5.0      : /backup /backupstatus /backuphistory /restorelist
+  🔬 Self Test        : /selftest
+  🔭 Trade Scanner    : /scan short | /scan medium | /scan long
+  🤖 AI Engine        : Gemini → OpenRouter → Groq → Offline AI
+═══════════════════════════════════════════════════════════════════
+
+[LEARN] Dataset siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/learning_dataset.json
+[DB] JSON storage siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
+[CHANNEL] Channel ID loaded from config: -1004310936137
+[BACKUP] Direktori backup siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/backups
+[BACKUP_ENGINE] ✅ Backup Engine v4.0 siap.
+[KEY-MGR] ✅ 46 API key dimuat | Active: 45 | Recovered: 0 | Max req/min per key: 7
+[STARTUP] Menjalankan API health check...
+[STARTUP] Menjalankan auto retrain...
+[RETRAIN-AUTO] Dimulai...
+[RETRAIN] Tidak ada perubahan — 35 entries sudah up-to-date
+[RETRAIN-AUTO] Selesai — tidak ada perubahan (35 entries)
+[STARTUP] Membuat daily backup (JSON snapshots)...
+[BACKUP] Daily backup selesai.
+[DAILY-LEARNING] Scheduler aktif — akan kirim setiap 08:00 WIB
+[SCANNER] ✅ Scanner aktif (interval: 6s)
+[API-HEALTH] ❌ GEMINI — No API key configured
+[API-HEALTH] ❌ OPENROUTER — No API key configured
+[API-HEALTH] ❌ GROQ — HTTP 401
+[SCANNER] Menjalankan init scan pertama...
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[DB] Signal #179 disimpan (BUY @ 4400.05)
+[EBOOK-ENGINE] ✅ Signal #179 terkirim (BUY @ 4400.05 | HHLL Trend Following)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 240min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 240min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 239min | HHLL Trend Following
+[DB] Breakeven triggered — Signal #179
+[BREAKEVEN] 🔒 Signal #179 — profit +36.8 pips → Move SL to BE
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 239min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 238min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 238min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 237min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:57% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 237min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 236min | Sniper High Confluence Entry
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:53% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 236min | Sniper High Confluence Entry
