@@ -3,50 +3,50 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:52:05.706Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:56:28.513Z"
   },
   "475af8df35c44cab88b63daf743ab64d": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:52:47.326Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:57:10.522Z"
   },
   "40d3f9364d8f40c0a3bcb98899072461": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:53:29.334Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:57:52.528Z"
   },
   "c3f873807fb0428d81cfa0e1cb80e00c": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:54:11.338Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:58:34.535Z"
   },
   "8ca1958c2fdd466e9fca21774cea2484": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:54:53.346Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:59:16.541Z"
   },
   "554735fd4ac849e292d7bd86588a6936": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:55:35.351Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T03:59:58.548Z"
   },
   "5cdbd9bafa2d45a197d45dfa1367e40b": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 7,
-    "lastUsed": "2026-08-18T00:56:17.358Z"
+    "hitCount": 14,
+    "lastUsed": "2026-08-18T04:00:40.555Z"
   },
   "e69afdd5abab4e658d7d63520406c5e7": {
     "status": "invalid",
@@ -59,43 +59,43 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:00:53.062Z"
   },
   "19999c19ee434a13969ebf1b55ce68cf": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 1,
-    "lastUsed": "2026-08-18T00:56:23.459Z"
+    "hitCount": 8,
+    "lastUsed": "2026-08-18T04:01:34.563Z"
   },
   "b2178d1c48244ebf8229c1f126a94255": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:02:16.570Z"
   },
   "a9fe18ff41e9471da5cc0a6554c8c705": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:02:58.575Z"
   },
   "5e11580b75c14feaa4da5006ad499c2c": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:03:40.580Z"
   },
   "94f5c485703f429a9cf841751a00aa44": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:03:46.582Z"
   },
   "71187bc2596a4349a6cf0baacff9699d": {
     "status": "active",
@@ -105,11 +105,11 @@
     "lastUsed": null
   },
   "9b75bd877c1b4468bddaf80b5b6319ed": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:03:46.665Z"
   },
   "51c9212fef904d4b97dcb0e0837b441c": {
     "status": "active",
@@ -122,29 +122,29 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:04:22.586Z"
   },
   "1dad2ecda79f493493427a0be3fd1179": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:05:04.591Z"
   },
   "78f49856b64f4d4f87d588eed6b76a8b": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:05:22.772Z"
   },
   "237163a04ca3437981802d81da3f0ab5": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:05:22.772Z"
   },
   "27384e7a946c42dfba912127aebd64e3": {
     "status": "active",
@@ -157,29 +157,29 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:05:58.599Z"
   },
   "a4db4d8536b24c239ed018e7467c2bb4": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:06:40.605Z"
   },
   "bdee534e017649d097f41cdc7df40408": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:07:22.608Z"
   },
   "b40030c0da194322a0ca5a4336db1808": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:07:28.608Z"
   },
   "7c05b34cf4954d8bb15574106e73b2cb": {
     "status": "active",
@@ -192,36 +192,36 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:08:04.612Z"
   },
   "0812f344e13a4cdba2c0636e5668f2b3": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:08:46.615Z"
   },
   "b1a0f428fbe24d5ab6ee48c1e494ced9": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:09:22.880Z"
   },
   "c28a6d0a49d1438e96cd19bd163a74d1": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:09:46.619Z"
   },
   "ee0bd925f9e049f3888370a37d8a1d27": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:09:52.621Z"
   },
   "c49f5a451bc64aaeb133e95efae6414b": {
     "status": "active",
@@ -234,36 +234,36 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:10:22.624Z"
   },
   "0b340bf15f7d4269bc6f5b14b724f052": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:11:04.627Z"
   },
   "6a112fa1d23b423ba514cee24fa63dda": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:11:46.629Z"
   },
   "2fd8c723fcef4e77951fec0e8be75af3": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:12:28.635Z"
   },
   "f761b69a4cc405dae789af211173a258": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:12:34.636Z"
   },
   "ad039f05af844b86a92f30badbd58c47": {
     "status": "active",
@@ -276,29 +276,29 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:13:10.638Z"
   },
   "c59e6adfd20f4a95991a0019b2ee2ae3": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:13:52.639Z"
   },
   "16c6dc197b4e4856804189124ebf3813": {
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 7,
+    "lastUsed": "2026-08-18T04:14:04.639Z"
   },
   "265d3ba6051c4c548919c168fb0e9268": {
-    "status": "active",
+    "status": "invalid",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:14:10.639Z"
   },
   "d1fdd4dc5e0042608302c106a995fe36": {
     "status": "active",
@@ -311,8 +311,8 @@
     "status": "active",
     "cooldownUntil": 0,
     "errorCount": 0,
-    "hitCount": 0,
-    "lastUsed": null
+    "hitCount": 1,
+    "lastUsed": "2026-08-18T04:14:10.717Z"
   },
   "2383cff471ed49799d22f5e1f48111f7": {
     "status": "active",

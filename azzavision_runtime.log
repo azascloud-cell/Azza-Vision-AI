@@ -1,11 +1,11 @@
-[2026-08-18T03:32:22.038Z] Launcher started, PORT=2389
-[2026-08-18T03:32:22.040Z] Direct access: http://<IP>:2389  or  http://<domain>:2389
-[2026-08-18T03:32:22.040Z] Starting dashboard server...
+[2026-08-18T03:56:20.065Z] Launcher started, PORT=2389
+[2026-08-18T03:56:20.067Z] Direct access: http://<IP>:2389  or  http://<domain>:2389
+[2026-08-18T03:56:20.068Z] Starting dashboard server...
 [DASHBOARD] AZZAVISION AI v2.0 listening on port 2389
 [DASHBOARD] Signals : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
 [DASHBOARD] Journal : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/journal.json
 [DASHBOARD] Public  : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/dashboard
-[2026-08-18T03:32:24.046Z] Starting AZZAVISION AI bot...
+[2026-08-18T03:56:22.074Z] Starting AZZAVISION AI bot...
 [BACKUP_CMD] ✅ Backup commands registered: /backup /backupstatus /backuphistory /restorelist /selftest
 [DEBUG_CMD] ✅ Debug commands registered: /debug
 [DOCGEN] ✅ Documentation commands registered: /documentation [overview|source|architecture]
@@ -66,6 +66,27 @@
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
 [SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
 [WATCHLIST] ⏳ Alert terkirim — BUY | conf:46% | readiness:57% (4/7)
+[DB] Signal #180 ditutup → LOSS (-40 pips @ 4391.74352)
+[LEARN] updateLearningResult: Entry untuk Signal #180 tidak ditemukan
+[STRATEGY-STATS] LOSS recorded: Sniper High Confluence Entry (18W/13L)
+[RETRAIN-AUTO] Dimulai...
+[AUTO-CLOSE] ✅ Signal #180 closed: LOSS | SL: 4392.57 | -40 pips
+[RETRAIN] Tidak ada perubahan — 35 entries sudah up-to-date
+[RETRAIN-AUTO] Selesai — tidak ada perubahan (35 entries)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[AI-JOURNAL] AI returned empty/invalid data — using fallback template
+[JOURNAL] 📝 Jurnal AI terkirim untuk trade #180
+[TRADE-SCANNER] 🟡 SHORT signal ACTIVE — price 4391.9364 in zone
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[TRADE-SCANNER] 🟡 MEDIUM signal ACTIVE — price 4391.9364 in zone
+[TRADE-SCANNER] 🟡 LONG signal ACTIVE — price 4391.9364 in zone
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
@@ -80,7 +101,7 @@
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
-[TRADE-SCANNER] ⚡ Auto-scan MEDIUM dibuat — BUY @ 4389.86-4394.21 (conf 60%)
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
@@ -90,44 +111,1751 @@
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
-[TRADE-SCANNER] ⚡ Auto-scan LONG dibuat — BUY @ 4389.86-4394.21 (conf 60%)
-[BOT] Azaroni (@Azaroni1) → 📡
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
 [SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[API ROTATION]
+  Previous : Key 14 (...00aa44)
+  Reason   : Invalid (401/403)
+  Current  : Key 15
+  Time     : Tue, 18 Aug 2026 04:03:46 GMT
+[API ROTATION]
+  Previous : Key 16 (...6319ed)
+  Reason   : Invalid (401/403)
+  Current  : Key 17
+  Time     : Tue, 18 Aug 2026 04:03:46 GMT
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[API ROTATION]
+  Previous : Key 21 (...3f0ab5)
+  Reason   : Invalid (401/403)
+  Current  : Key 22
+  Time     : Tue, 18 Aug 2026 04:05:22 GMT
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[API ROTATION]
+  Previous : Key 26 (...db1808)
+  Reason   : Invalid (401/403)
+  Current  : Key 27
+  Time     : Tue, 18 Aug 2026 04:07:28 GMT
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[API ROTATION]
+  Previous : Key 32 (...8a1d27)
+  Reason   : Invalid (401/403)
+  Current  : Key 33
+  Time     : Tue, 18 Aug 2026 04:09:52 GMT
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[API ROTATION]
+  Previous : Key 38 (...73a258)
+  Reason   : Invalid (401/403)
+  Current  : Key 39
+  Time     : Tue, 18 Aug 2026 04:12:34 GMT
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[DB] Signal #181 disimpan (BUY @ 4391.74)
+[EBOOK-ENGINE] ✅ Signal #181 terkirim (BUY @ 4391.74 | HHLL Trend Following)
+[API ROTATION]
+  Previous : Key 43 (...0e9268)
+  Reason   : Invalid (401/403)
+  Current  : Key 44
+  Time     : Tue, 18 Aug 2026 04:14:10 GMT
+[BOT] Azaroni (@Azaroni1) → 📅
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 240min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 240min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 239min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 239min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 238min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 238min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 237min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 237min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 236min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 236min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 235min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 235min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 234min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 234min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 233min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 233min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:48% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:65% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:61% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[DB] Breakeven triggered — Signal #181
+[BREAKEVEN] 🔒 Signal #181 — profit +29.0 pips → Move SL to BE
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 202min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 202min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 201min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 201min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 200min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 200min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 199min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 199min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 198min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 198min | HHLL Trend Following
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 197min | HHLL Trend Following
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:53% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 197min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 196min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 196min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 195min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 195min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 194min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% NEUTRAL → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 172min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 172min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 171min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 171min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 170min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 170min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 169min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 169min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:58% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 168min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 168min | HHLL Trend Following
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 167min | HHLL Trend Following
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:53% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 167min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 166min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 166min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 165min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 165min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 164min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[DB] Signal #181 ditutup → BREAKEVEN (+0 pips @ 4385.96491)
+[LEARN] updateLearningResult: Entry untuk Signal #181 tidak ditemukan
+[RETRAIN-AUTO] Dimulai...
+[AUTO-CLOSE] ✅ Signal #181 closed: BREAKEVEN | BE @ Entry: 4391.74 | +0 pips
+[RETRAIN] Tidak ada perubahan — 35 entries sudah up-to-date
+[RETRAIN-AUTO] Selesai — tidak ada perubahan (35 entries)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[AI-JOURNAL] AI returned empty/invalid data — using fallback template
+[JOURNAL] 📝 Jurnal AI terkirim untuk trade #181
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:66% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 151min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 151min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 150min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 150min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 149min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 149min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 148min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 148min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:SELL conf:10% | Sim:64% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 147min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 147min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 146min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 146min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 145min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 145min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 144min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 144min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:62% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:SELL))
+[EBOOK-ENGINE] Cooldown 143min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
 [BOT] Azaroni (@Azaroni1) → 🔄
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
-[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[TRADE-SCANNER-BANNER] TP1 banner gagal: Cannot read properties of undefined (reading 'toUpperCase')
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 139min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 138min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 138min | HHLL Trend Following
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 137min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 137min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 136min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 136min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 135min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 135min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 134min | Round Number Rejection
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:53% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 134min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 133min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 133min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 132min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 132min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 131min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 131min | Round Number Rejection
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:56% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[BOT] Azaroni (@Azaroni1) → 📅
+[BOT] Azaroni (@Azaroni1) → 🤖
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 122min | HHLL Trend Following
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
 [SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 121min | HHLL Trend Following
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
 [SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 121min | HHLL Trend Following
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
 [SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 120min | HHLL Trend Following
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
-[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
-[DB] Signal #180 disimpan (BUY @ 4396.57)
-[EBOOK-ENGINE] ✅ Signal #180 terkirim (BUY @ 4396.57 | Sniper High Confluence Entry)
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 120min | HHLL Trend Following
 [AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
 [AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
 [AI] Provider: GROQ | Semua key habis → Switch provider
 [AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
-[SCANNER] bias:NEUTRAL conf:10% | Sim:61% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
-[EBOOK-ENGINE] Cooldown 240min | Sniper High Confluence Entry
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 119min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 119min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:60% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 118min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 118min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 117min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 117min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 116min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 116min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 115min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 115min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 114min | Sniper High Confluence Entry
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% VALID → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 114min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 113min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 113min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 112min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 112min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 111min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 111min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 110min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 110min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[NEWS] Investing.com Commodities: 8 items, 1 relevant
+[NEWS] MarketWatch FX: 8 items, 0 relevant
+[NEWS] Yahoo Finance Gold: 8 items, 8 relevant
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:59% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[WATCHLIST] ⏳ Alert terkirim — BUY | conf:53% | readiness:57% (4/7)
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:55% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 101min | HHLL Trend Following
+[AI] Provider: GROQ | Key: #2 | INVALID KEY → Next key
+[AI] Provider: GROQ | Key: #ENV | INVALID KEY → Next key
+[AI] Provider: GROQ | Semua key habis → Switch provider
+[AI] ⚠️  Semua provider gagal — AI tidak tersedia, bot tetap berjalan normal.
+[SCANNER] bias:NEUTRAL conf:10% | Sim:52% CAUTION → ⏭ SKIP (Trend tidak aligned (H4:STRONG_BUY H1:NEUTRAL))
+[EBOOK-ENGINE] Cooldown 100min | HHLL Trend Following

@@ -4,7 +4,7 @@
     "type": "short",
     "typeLabel": "SHORT",
     "direction": "BUY",
-    "status": "WAITING",
+    "status": "TP1_HIT",
     "entry_low": 4388.32,
     "entry_high": 4392.66,
     "tp1": 4396.49,
@@ -22,16 +22,18 @@
     "expired_hours": 8,
     "created_at": "2026-08-18T02:44:00.059Z",
     "expires_at": "2026-08-18T10:44:00.059Z",
-    "tp1_hit": false,
+    "tp1_hit": true,
     "tp2_hit": false,
-    "sl_hit": false
+    "sl_hit": false,
+    "activated_at": "2026-08-18T03:56:52.531Z",
+    "tp1_hit_at": "2026-08-18T05:54:22.634Z"
   },
   "medium": {
     "id": "medium_1787024034656",
     "type": "medium",
     "typeLabel": "MEDIUM",
     "direction": "BUY",
-    "status": "WAITING",
+    "status": "ACTIVE",
     "entry_low": 4389.86,
     "entry_high": 4394.21,
     "tp1": 4404.03,
@@ -51,14 +53,15 @@
     "expires_at": "2026-08-21T03:33:54.656Z",
     "tp1_hit": false,
     "tp2_hit": false,
-    "sl_hit": false
+    "sl_hit": false,
+    "activated_at": "2026-08-18T03:56:52.873Z"
   },
   "long": {
     "id": "long_1787024038375",
     "type": "long",
     "typeLabel": "LONG",
     "direction": "BUY",
-    "status": "WAITING",
+    "status": "ACTIVE",
     "entry_low": 4389.86,
     "entry_high": 4394.21,
     "tp1": 4417.03,
@@ -78,6 +81,7 @@
     "expires_at": "2026-09-01T03:33:58.375Z",
     "tp1_hit": false,
     "tp2_hit": false,
-    "sl_hit": false
+    "sl_hit": false,
+    "activated_at": "2026-08-18T03:56:53.206Z"
   }
 }
