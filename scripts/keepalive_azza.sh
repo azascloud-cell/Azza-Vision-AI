@@ -42,7 +42,8 @@ main() {
   ( cd "$BOT_DIR" && npm install --no-audit --no-fund --loglevel=error 2>&1 | tail -5 ) || true
 
   echo "Starting AZZAVISION bot..."
-  ( cd "$BOT_DIR" && node --disable-warning=ExperimentalWarning launcher.js > /tmp/azzavision.log 2>&1 ) &
+  mkdir -p "$BOT_DIR/data"
+  ( cd "$BOT_DIR" && node --disable-warning=ExperimentalWarning launcher.js 2>&1 | tee /tmp/azzavision.log > data/azzavision_runtime.log ) &
   BOT_PID=$!
 
   sleep 10
@@ -79,7 +80,7 @@ main() {
 
     if ! kill -0 "$BOT_PID" 2>/dev/null; then
       echo "Bot died; restarting..."
-      ( cd "$BOT_DIR" && node --disable-warning=ExperimentalWarning launcher.js >> /tmp/azzavision.log 2>&1 ) &
+      ( cd "$BOT_DIR" && node --disable-warning=ExperimentalWarning launcher.js 2>&1 | tee /tmp/azzavision.log > data/azzavision_runtime.log ) &
       BOT_PID=$!
     fi
 
