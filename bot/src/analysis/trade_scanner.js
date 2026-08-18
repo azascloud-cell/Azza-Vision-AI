@@ -607,6 +607,10 @@ async function autoGenerateScans(botInstance) {
       await botInstance.telegram
         .sendMessage(channelId, formatScannerSignal(signal), { parse_mode: 'HTML' })
         .catch((e) => console.warn('[TRADE-SCANNER] Auto-scan send gagal:', e.message));
+
+      // Pastikan sinyal baru tercatat di db lokal (generateScan sudah menyimpan ke file,
+      // tapi db lokal masih basi — masukkan agar saveDB() di akhir tidak menimpa).
+      db[key] = signal;
     }
 
     if (Object.keys(db).length !== 0) saveDB(db);
