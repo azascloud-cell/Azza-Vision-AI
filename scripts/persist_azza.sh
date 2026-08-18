@@ -44,8 +44,16 @@ backup() {
     if ! git diff --cached --quiet; then
       git -c user.name="azzavision-backup" -c user.email="azzavision-backup@users.noreply.github.com" \
         commit -q -m "azzavision data backup $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-      git push -q origin "$DATA_BRANCH" || echo "backup: push failed"
-      echo "backup: pushed changes"
+      if ! git push -q origin "$DATA_BRANCH" 2> /tmp/azz_push_err; then
+        echo "backup: push failed ($(tail -1 /tmp/azz_push_err))"
+        echo "backup: retrying with rebase + force-with-lease..."
+        git pull -q --rebase origin "$DATA_BRANCH" 2>/dev/null || git reset -q --hard "origin/$DATA_BRANCH"
+        git push -q --force-with-lease origin "$DATA_BRANCH" 2>/dev/null \
+          && echo "backup: pushed changes" \
+          || echo "backup: push STILL failed"
+      else
+        echo "backup: pushed changes"
+      fi
     else
       echo "backup: no changes"
     fi
