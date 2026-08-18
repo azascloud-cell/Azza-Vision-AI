@@ -620,22 +620,33 @@ function startTradeScannerScheduler(bot) {
     }
   }, 30 * 1000);
 
-  // Auto-scan: generate sinyal baru setiap AUTO_SCAN_INTERVAL_MIN (default 240 = 4 jam)
-  const autoIntervalMs = (parseInt(process.env.AUTO_SCAN_INTERVAL_MIN || '240', 10) || 240) * 60 * 1000;
+  // Auto-scan: generate sinyal baru setiap AUTO_SCAN_INTERVAL_MIN (default 60 menit)
+  // Retry pendek di awal agar segera menghasilkan signal saat data harga siap.
+  const autoIntervalMs = (parseInt(process.env.AUTO_SCAN_INTERVAL_MIN || '60', 10) || 60) * 60 * 1000;
+
+  // Phase 1: coba generate tiap 90 detik sampai berhasil membuat signal apa pun
+  // (data harga belum siap saat boot, jadi retry agresif di awal).
+  const bootstrapMs = 90 * 1000;
+  let bootstrapAttempts = 0;
+  const bootstrapTimer = setInterval(async () => {
+    try {
+      await autoGenerateScans(_botInstance);
+    } catch (e) {
+      console.warn('[TRADE-SCANNER] Bootstrap auto-scan error:', e.message);
+    }
+    bootstrapAttempts++;
+    // Setelah 10 menit (6-7 percobaan) berhenti retry bootstrap
+    if (bootstrapAttempts >= 6) clearInterval(bootstrapTimer);
+  }, bootstrapMs);
+
+  // Phase 2: interval normal
   setInterval(async () => {
     await autoGenerateScans(_botInstance).catch((e) =>
       console.warn('[TRADE-SCANNER] Auto-scan error:', e.message)
     );
   }, autoIntervalMs);
 
-  // Auto-scan awal: jalankan 30 detik setelah start jika belum ada signal
-  setTimeout(async () => {
-    await autoGenerateScans(_botInstance).catch((e) =>
-      console.warn('[TRADE-SCANNER] Auto-scan initial error:', e.message)
-    );
-  }, 30 * 1000);
-
-  console.log(`[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval) | Auto-scan tiap ${Math.round(autoIntervalMs / 60000)}m`);
+  console.log(`[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval) | Auto-scan tiap ${Math.round(autoIntervalMs / 60000)}m (+bootstrap retry)`);
 }
 
 // ─── ESCAPE HTML ──────────────────────────────────────────────────────────────
