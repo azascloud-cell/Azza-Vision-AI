@@ -101,4 +101,5 @@ function startBot() {
 log('Launcher started, PORT=' + PORT);
 log('Direct access: http://<IP>:' + PORT + '  or  http://<domain>:' + PORT);
 startDashboard();
+startTunnel(); // mulai cloudflared agar dashboard punya URL trycloudflare (tunnel-url.txt)
 setTimeout(startBot, 2000);

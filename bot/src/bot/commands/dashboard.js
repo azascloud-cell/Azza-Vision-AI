@@ -33,20 +33,22 @@ async function getTunnelUrl() {
   }
 }
 
-// ─── Baca URL: config manual → tunnel-url.txt → env ─────────────────────────
+// ─── Baca URL: tunnel-url.txt → config manual → env ─────────────────────────
+// Tunnel trycloudflare (ditulis launcher setiap start) diutamakan. Config manual
+// (domain lama) hanya fallback bila tunnel belum/ tidak berhasil.
 async function getDashboardConfig() {
-  // 1. Cek config manual (/setdashboard)
+  // 1. Baca tunnel-url.txt otomatis (ditulis launcher setiap start)
+  const tunnelUrl = await getTunnelUrl();
+  if (tunnelUrl) {
+    return { url: tunnelUrl, updated_at: null, source: 'auto' };
+  }
+
+  // 2. Cek config manual (/setdashboard)
   try {
     const content = await fs.readFile(CONFIG_PATH, 'utf8');
     const cfg = JSON.parse(content);
     if (cfg?.url) return { ...cfg, source: 'manual' };
   } catch {}
-
-  // 2. Baca tunnel-url.txt otomatis (ditulis launcher setiap start)
-  const tunnelUrl = await getTunnelUrl();
-  if (tunnelUrl) {
-    return { url: tunnelUrl, updated_at: null, source: 'auto' };
-  }
 
   // 3. Env var fallback
   const envUrl = process.env.DASHBOARD_URL || '';
