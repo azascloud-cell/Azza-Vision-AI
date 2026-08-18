@@ -34,7 +34,6 @@ function readQuotes() {
         const raw = JSON.parse(fs.readFileSync(QUOTES_FILE, "utf8"));
         return Array.isArray(raw) ? raw : [];
       } catch { return []; }
-      }
     }
     function writeQuotes(arr) {
     fs.mkdirSync(path.dirname(QUOTES_FILE), { recursive: true });
