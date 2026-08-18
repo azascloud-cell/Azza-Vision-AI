@@ -3171,7 +3171,7 @@
       "strategy": "EBOOK:Sniper High Confluence Entry",
       "pinned_message_id": 77,
       "status": "OPEN",
-      "breakeven_triggered": false,
+      "breakeven_triggered": true,
       "tp1_hit": false,
       "pips": 0,
       "created_at": "2026-08-18T06:45:44.754Z",
@@ -3179,127 +3179,6 @@
     }
   ],
   "snapshots": [
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:29:53.363Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:30:23.487Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:30:53.383Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:31:23.361Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:31:53.372Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:32:23.385Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:32:53.391Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:33:23.391Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:33:53.387Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "NEUTRAL",
-      "h4_bias": "STRONG_BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:34:23.394Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "STRONG_SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "BUY",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-18T05:34:53.389Z"
-    },
     {
       "id": 201,
       "m1_bias": "STRONG_SELL",
@@ -5378,6 +5257,127 @@
       "overall": "NEUTRAL",
       "confidence": 0,
       "created_at": "2026-08-18T07:15:28.667Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:15:58.669Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:20:39.851Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:21:04.841Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:21:34.828Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:22:04.852Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:22:34.848Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:23:04.841Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:23:34.858Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:24:04.866Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:24:34.894Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "STRONG_BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "NEUTRAL",
+      "h4_bias": "STRONG_BUY",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-18T07:25:05.788Z"
     }
   ]
 }
