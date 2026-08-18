@@ -1,0 +1,55 @@
+{
+  "strategies": {
+    "Sniper High Confluence Entry": {
+      "wins": 18,
+      "losses": 11,
+      "breakevens": 18
+    },
+    "Engulfing Candle Pattern": {
+      "wins": 2,
+      "losses": 4,
+      "breakevens": 2
+    },
+    "EMA Trend": {
+      "wins": 7,
+      "losses": 11,
+      "breakevens": 5
+    },
+    "Round Number Rejection": {
+      "wins": 5,
+      "losses": 1,
+      "breakevens": 3
+    },
+    "HHLL Trend Following": {
+      "wins": 12,
+      "losses": 25,
+      "breakevens": 12
+    },
+    "Supply & Demand Zone": {
+      "wins": 8,
+      "losses": 10,
+      "breakevens": 4
+    },
+    "Multi-Strategy Analysis": {
+      "wins": 1,
+      "losses": 2,
+      "breakevens": 0
+    },
+    "MACD Momentum Scalp": {
+      "wins": 2,
+      "losses": 1,
+      "breakevens": 0
+    },
+    "Fibonacci 61.8% Retracement": {
+      "wins": 0,
+      "losses": 1,
+      "breakevens": 0
+    },
+    "Trendline Bounce": {
+      "wins": 2,
+      "losses": 1,
+      "breakevens": 0
+    }
+  },
+  "lastUpdated": "2026-07-28T04:07:08.256Z"
+}

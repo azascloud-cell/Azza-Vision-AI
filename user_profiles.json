@@ -1,0 +1,14 @@
+{
+  "7699507804": {
+    "balance": 100,
+    "risk": 1,
+    "broker": "hfm",
+    "lot_mode": "auto"
+  },
+  "6874843931": {
+    "balance": 313,
+    "risk": 1,
+    "broker": "hfm",
+    "lot_mode": "auto"
+  }
+}

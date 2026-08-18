@@ -1,0 +1,65 @@
+{
+  "timestamp": "2026-07-28T04:16:40.908Z",
+  "allValid": true,
+  "results": [
+    {
+      "label": "Source Code",
+      "success": true,
+      "skipped": false,
+      "name": "abangwan-source-2026-07-28.zip",
+      "size": 18867250
+    },
+    {
+      "label": "Database",
+      "success": true,
+      "skipped": false,
+      "name": "abangwan-data-2026-07-28.zip",
+      "size": 29583847
+    },
+    {
+      "label": "Config",
+      "success": true,
+      "skipped": false,
+      "name": "abangwan-config-2026-07-28.zip",
+      "size": 2170
+    }
+  ],
+  "log": {
+    "entries": [
+      {
+        "step": "Backup Source",
+        "status": "❌",
+        "detail": "Dimulai..."
+      },
+      {
+        "step": "Backup Source",
+        "status": "✅",
+        "detail": "abangwan-source-2026-07-28.zip (17.99 MB)"
+      },
+      {
+        "step": "Backup Database",
+        "status": "❌",
+        "detail": "Dimulai..."
+      },
+      {
+        "step": "Backup Database",
+        "status": "✅",
+        "detail": "abangwan-data-2026-07-28.zip (28.21 MB)"
+      },
+      {
+        "step": "Backup Config",
+        "status": "❌",
+        "detail": "Dimulai..."
+      },
+      {
+        "step": "Backup Config",
+        "status": "✅",
+        "detail": "abangwan-config-2026-07-28.zip (2.1 KB)"
+      }
+    ],
+    "startTime": "2026-07-28T04:16:29.791Z",
+    "totalDuration": "11.1s",
+    "endTime": "2026-07-28T04:16:40.908Z"
+  },
+  "nextBackup": "2026-07-28T17:00:00.000Z"
+}
