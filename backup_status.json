@@ -1,27 +1,27 @@
 {
-  "timestamp": "2026-07-28T04:16:40.908Z",
+  "timestamp": "2026-08-18T17:00:07.914Z",
   "allValid": true,
   "results": [
     {
       "label": "Source Code",
       "success": true,
       "skipped": false,
-      "name": "abangwan-source-2026-07-28.zip",
-      "size": 18867250
+      "name": "abangwan-source-2026-08-18.zip",
+      "size": 17989506
     },
     {
       "label": "Database",
       "success": true,
       "skipped": false,
-      "name": "abangwan-data-2026-07-28.zip",
-      "size": 29583847
+      "name": "abangwan-data-2026-08-18.zip",
+      "size": 29521
     },
     {
       "label": "Config",
       "success": true,
       "skipped": false,
-      "name": "abangwan-config-2026-07-28.zip",
-      "size": 2170
+      "name": "abangwan-config-2026-08-18.zip",
+      "size": 1143
     }
   ],
   "log": {
@@ -34,7 +34,7 @@
       {
         "step": "Backup Source",
         "status": "✅",
-        "detail": "abangwan-source-2026-07-28.zip (17.99 MB)"
+        "detail": "abangwan-source-2026-08-18.zip (17.16 MB)"
       },
       {
         "step": "Backup Database",
@@ -44,7 +44,7 @@
       {
         "step": "Backup Database",
         "status": "✅",
-        "detail": "abangwan-data-2026-07-28.zip (28.21 MB)"
+        "detail": "abangwan-data-2026-08-18.zip (28.8 KB)"
       },
       {
         "step": "Backup Config",
@@ -54,12 +54,22 @@
       {
         "step": "Backup Config",
         "status": "✅",
-        "detail": "abangwan-config-2026-07-28.zip (2.1 KB)"
+        "detail": "abangwan-config-2026-08-18.zip (1.1 KB)"
+      },
+      {
+        "step": "Send Telegram",
+        "status": "❌",
+        "detail": "Mengirim..."
+      },
+      {
+        "step": "Send Telegram",
+        "status": "✅",
+        "detail": "Terkirim"
       }
     ],
-    "startTime": "2026-07-28T04:16:29.791Z",
-    "totalDuration": "11.1s",
-    "endTime": "2026-07-28T04:16:40.908Z"
+    "startTime": "2026-08-18T17:00:00.865Z",
+    "totalDuration": "0.7s",
+    "endTime": "2026-08-18T17:00:01.555Z"
   },
-  "nextBackup": "2026-07-28T17:00:00.000Z"
+  "nextBackup": "2026-08-19T17:00:00.000Z"
 }
