@@ -160,13 +160,26 @@ async function broadcastEbookSignal(bot, ebookResult, currentPrice) {
       analysis:   fakeAnalysis,
     }).catch(() => null);
 
+    let sentMsg = null;
     if (chartBuf) {
-      await bot.telegram.sendPhoto(channelId, { source: chartBuf }, {
+      sentMsg = await bot.telegram.sendPhoto(channelId, { source: chartBuf }, {
         caption:    message,
         parse_mode: 'HTML',
       });
     } else {
-      await bot.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
+      sentMsg = await bot.telegram.sendMessage(channelId, message, { parse_mode: 'HTML' });
+    }
+
+    // 📌 Pin sinyal — hanya sinyal yang dipin, bukan watchlist/notif lain.
+    let pinnedMessageId = null;
+    try {
+      if (sentMsg && sentMsg.message_id) {
+        await bot.telegram.pinChatMessage(channelId, sentMsg.message_id);
+        pinnedMessageId = sentMsg.message_id;
+        console.log(`[EBOOK-ENGINE] 📌 Signal ter-pin (#${pinnedMessageId})`);
+      }
+    } catch (pinErr) {
+      console.warn('[EBOOK-ENGINE] Gagal pin sinyal:', pinErr.message);
     }
 
     // Save to DB
@@ -178,6 +191,7 @@ async function broadcastEbookSignal(bot, ebookResult, currentPrice) {
       sl:         levels.sl,
       confidence,
       strategy:   `EBOOK:${ebookResult.strategyName}`,
+      pinned_message_id: pinnedMessageId,
     });
 
     console.log(`[EBOOK-ENGINE] ✅ Signal #${signalId} terkirim (${direction} @ ${levels.entry} | ${ebookResult.strategyName})`);

@@ -597,6 +597,16 @@ async function checkAndAutoClose(price) {
       }
 
       if (botInstance && channelId) {
+        // 📌 Unpin sinyal setelah outcome (SL hit / WIN TP2 / TP1+BE).
+        if (sig.pinned_message_id) {
+          try {
+            await botInstance.telegram.unpinChatMessage(channelId, sig.pinned_message_id);
+            console.log(`[AUTO-CLOSE] 📌 Sinyal #${id} di-unpin (${status})`);
+          } catch (unpinErr) {
+            console.warn('[AUTO-CLOSE] Gagal unpin sinyal:', unpinErr.message);
+          }
+        }
+
         const wib         = toWIB();
         const pipSign     = pips >= 0 ? '+' : '';
         const isWin       = status === 'WIN';
