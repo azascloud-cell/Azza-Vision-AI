@@ -28,6 +28,14 @@ const { toWIB } = require('../utils/wib_time');
 
 const SCANNER_DB_PATH = path.resolve(process.cwd(), 'data/scanner_signals.json');
 const SCANNER_HISTORY_PATH = path.resolve(process.cwd(), 'data/scanner_history.json');
+const SCANNER_DEBUG_PATH = path.resolve(process.cwd(), 'data/scanner_debug.log');
+
+function debugLog(...args) {
+  try {
+    const line = `[${new Date().toISOString()}] ${args.join(' ')}\n`;
+    fs.appendFileSync(SCANNER_DEBUG_PATH, line);
+  } catch {}
+}
 
 // ─── DURATIONS ────────────────────────────────────────────────────────────────
 const DURATIONS = {
@@ -533,20 +541,21 @@ async function autoGenerateScans(botInstance) {
 
   try {
     const { isMarketOpen } = require('../utils/market_hours');
-    if (!isMarketOpen()) return;
+    if (!isMarketOpen()) { debugLog('SKIP market tutup'); return; }
 
     const channelId = process.env.CHANNEL_ID;
-    if (!botInstance || !channelId) return;
+    if (!botInstance || !channelId) { debugLog('SKIP botInstance/channel kosong'); return; }
 
     // Cek harga valid sebelum generate (hindari scan saat data belum siap)
     const { getCachedPrice } = require('../market/cache');
     const price = getCachedPrice();
     if (!price || !isFinite(price) || price <= 0) {
-      console.log('[TRADE-SCANNER] Auto-scan skip: harga belum tersedia');
+      debugLog('SKIP harga belum tersedia, cached price =', price, '| AUTO_SCAN_ENABLED=', process.env.AUTO_SCAN_ENABLED);
       return;
     }
 
     const db = loadDB();
+    debugLog('RUN auto-scan, price =', price, '| existing keys:', Object.keys(db).join(',') || '(none)');
     for (const key of ['short', 'medium', 'long']) {
       const existing = db[key] ? checkExpired(db[key]) : null;
       // Lewati jika masih WAITING/ACTIVE (belum selesai)
@@ -565,12 +574,14 @@ async function autoGenerateScans(botInstance) {
         result = await generateScan(key);
       } catch (genErr) {
         console.warn(`[TRADE-SCANNER] Auto-generate ${key} gagal:`, genErr.message);
+        debugLog('GENERATE FAIL', key, genErr.message);
         continue;
       }
-      if (result.locked || !result.signal) continue;
+      if (result.locked || !result.signal) { debugLog('LOCKED/no signal', key); continue; }
 
       const signal = result.signal;
       console.log(`[TRADE-SCANNER] ⚡ Auto-scan ${key.toUpperCase()} dibuat — ${signal.direction} @ ${signal.entry_low}-${signal.entry_high} (conf ${signal.confidence}%)`);
+      debugLog('GENERATED', key, signal.direction, signal.entry_low, '-', signal.entry_high, 'conf', signal.confidence);
 
       // Broadcast ke channel (banner + teks)
       try {
@@ -647,6 +658,7 @@ function startTradeScannerScheduler(bot) {
   }, autoIntervalMs);
 
   console.log(`[TRADE-SCANNER] ✅ Scanner Monitor aktif (30s interval) | Auto-scan tiap ${Math.round(autoIntervalMs / 60000)}m (+bootstrap retry)`);
+  debugLog('SCHEDULER START, AUTO_SCAN_ENABLED =', process.env.AUTO_SCAN_ENABLED, '| interval(min) =', process.env.AUTO_SCAN_INTERVAL_MIN);
 }
 
 // ─── ESCAPE HTML ──────────────────────────────────────────────────────────────
