@@ -23,3 +23,10 @@
 [2026-08-18T04:05:22.532Z] RUN auto-scan, price = 4391.35781 | existing keys: short,medium,long
 [2026-08-18T04:56:22.530Z] RUN auto-scan, price = 4395.02483 | existing keys: short,medium,long
 [2026-08-18T05:56:22.529Z] RUN auto-scan, price = 4395.99086 | existing keys: short,medium,long
+[2026-08-18T06:37:12.311Z] SCHEDULER START, AUTO_SCAN_ENABLED = true | interval(min) = 60
+[2026-08-18T06:38:42.312Z] RUN auto-scan, price = 4397.15065 | existing keys: short,medium,long
+[2026-08-18T06:40:12.312Z] RUN auto-scan, price = 4397.15065 | existing keys: short,medium,long
+[2026-08-18T06:41:42.312Z] RUN auto-scan, price = 4397.15065 | existing keys: short,medium,long
+[2026-08-18T06:43:12.313Z] RUN auto-scan, price = 4397.53738 | existing keys: short,medium,long
+[2026-08-18T06:44:42.315Z] RUN auto-scan, price = 4397.73077 | existing keys: short,medium,long
+[2026-08-18T06:46:12.315Z] RUN auto-scan, price = 4397.92418 | existing keys: short,medium,long
