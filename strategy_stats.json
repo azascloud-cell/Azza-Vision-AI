@@ -3,7 +3,7 @@
     "Sniper High Confluence Entry": {
       "wins": 18,
       "losses": 14,
-      "breakevens": 19
+      "breakevens": 20
     },
     "Engulfing Candle Pattern": {
       "wins": 2,
@@ -36,7 +36,7 @@
       "breakevens": 0
     },
     "MACD Momentum Scalp": {
-      "wins": 2,
+      "wins": 3,
       "losses": 1,
       "breakevens": 0
     },
@@ -51,5 +51,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-19T11:06:06.232Z"
+  "lastUpdated": "2026-08-19T17:13:14.648Z"
 }
