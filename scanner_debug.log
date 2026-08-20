@@ -150,3 +150,16 @@
 [2026-08-20T03:04:38.982Z] RUN auto-scan, price = 4494.78605 | existing keys: medium,long,short
 [2026-08-20T04:04:38.982Z] RUN auto-scan, price = 4497.81856 | existing keys: medium,long,short
 [2026-08-20T05:04:38.983Z] RUN auto-scan, price = 4491.15243 | existing keys: medium,long,short
+[2026-08-20T05:52:19.381Z] SCHEDULER START, AUTO_SCAN_ENABLED = true | interval(min) = 60
+[2026-08-20T05:53:49.381Z] RUN auto-scan, price = 4479.88531 | existing keys: medium,long
+[2026-08-20T05:53:49.466Z] GENERATED short BUY 4470.39 - 4476.72 conf 71
+[2026-08-20T05:55:19.382Z] RUN auto-scan, price = 4479.28331 | existing keys: medium,long,short
+[2026-08-20T05:56:49.381Z] RUN auto-scan, price = 4478.68148 | existing keys: medium,long,short
+[2026-08-20T05:58:19.382Z] RUN auto-scan, price = 4479.88531 | existing keys: medium,long,short
+[2026-08-20T05:59:49.384Z] RUN auto-scan, price = 4481.0898 | existing keys: medium,long,short
+[2026-08-20T06:01:19.384Z] RUN auto-scan, price = 4481.89315 | existing keys: medium,long,short
+[2026-08-20T06:52:19.382Z] RUN auto-scan, price = 4492.56481 | existing keys: medium,long,short
+[2026-08-20T07:52:19.383Z] RUN auto-scan, price = 4489.13629 | existing keys: medium,long,short
+[2026-08-20T08:52:19.382Z] RUN auto-scan, price = 4489.94253 | existing keys: medium,long,short
+[2026-08-20T09:52:19.382Z] RUN auto-scan, price = 4484.90828 | existing keys: medium,long,short
+[2026-08-20T10:52:19.382Z] RUN auto-scan, price = 4489.74094 | existing keys: medium,long,short
