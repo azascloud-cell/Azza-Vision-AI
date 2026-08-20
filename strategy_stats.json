@@ -17,7 +17,7 @@
     },
     "Round Number Rejection": {
       "wins": 5,
-      "losses": 1,
+      "losses": 2,
       "breakevens": 4
     },
     "HHLL Trend Following": {
@@ -47,9 +47,9 @@
     },
     "Trendline Bounce": {
       "wins": 3,
-      "losses": 1,
+      "losses": 2,
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-20T16:13:07.717Z"
+  "lastUpdated": "2026-08-20T22:44:04.805Z"
 }
