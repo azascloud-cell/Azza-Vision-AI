@@ -26,7 +26,7 @@
       "breakevens": 14
     },
     "Supply & Demand Zone": {
-      "wins": 8,
+      "wins": 9,
       "losses": 12,
       "breakevens": 4
     },
@@ -46,10 +46,10 @@
       "breakevens": 0
     },
     "Trendline Bounce": {
-      "wins": 2,
+      "wins": 3,
       "losses": 1,
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-19T18:27:07.564Z"
+  "lastUpdated": "2026-08-20T05:33:05.521Z"
 }
