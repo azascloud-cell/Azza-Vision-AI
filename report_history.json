@@ -83,7 +83,256 @@
       "aiInsight": null,
       "reportText": "━━━━━━━━━━━━━━━━━━━━\n📅 <b>AZZAVISION AI v5.0 — DAILY REPORT</b>\n📆 <b>Jumat, 21 Agustus 2026</b>\n━━━━━━━━━━━━━━━━━━━━\n\n📋 <b>RINGKASAN HARI INI</b>\n\n📌 Total Trades      : <code>0</code>\n✅ Win               : <code>0</code>\n❌ Loss              : <code>0</code>\n🔒 Breakeven         : <code>0</code>\n\n🎯 Win Rate          : <code>0.0%</code>  😓\n📈 Net Pips       : <code>+0.0 pts</code>\n💹 Profit Factor     : <code>0.00</code>\n\n━━━━━━━━━━━━━━━━━━━━\n\n📊 <b>DETAIL SINYAL</b>\n\n🟢 BUY Signal        : <code>0</code>\n🔴 SELL Signal       : <code>0</code>\n📡 Avg Confidence    : <code>0.0%</code>\n⏱ Avg Duration      : <code>N/A</code>\n\n🔥 Longest Win Streak : <code>0</code>\n📉 Longest Loss Streak: <code>0</code>\n\n\n━━━━━━━━━━━━━━━━━━━━\n\n🤖 <b>AI DAILY INSIGHT</b>\n\n<i>AI Insight unavailable.</i>\n\n━━━━━━━━━━━━━━━━━━━━\n🕐 Jumat, 21 Agustus 2026\n🕒 00:00 WIB (UTC+7)\n\n⚡ <i>AZZAVISION AI v5.0 | Auto Performance Report</i>",
       "savedAt": "2026-08-20T17:00:01.558Z"
+    },
+    "2026-08-22": {
+      "date": "2026-08-22",
+      "stats": {
+        "date": "2026-08-22",
+        "total": 0,
+        "wins": 0,
+        "losses": 0,
+        "breakevens": 0,
+        "netPips": "0.0",
+        "winRate": "0.0",
+        "profitFactor": "0.00",
+        "buyCount": 0,
+        "sellCount": 0,
+        "avgConf": "0.0",
+        "avgDurationMin": null,
+        "longestWinStreak": 0,
+        "longestLossStreak": 0,
+        "bestTrade": null,
+        "worstTrade": null,
+        "highestConf": null,
+        "lowestConf": null,
+        "bestStrategy": null,
+        "worstStrategy": null
+      },
+      "aiInsight": null,
+      "reportText": "━━━━━━━━━━━━━━━━━━━━\n📅 <b>AZZAVISION AI v5.0 — DAILY REPORT</b>\n📆 <b>Sabtu, 22 Agustus 2026</b>\n━━━━━━━━━━━━━━━━━━━━\n\n📋 <b>RINGKASAN HARI INI</b>\n\n📌 Total Trades      : <code>0</code>\n✅ Win               : <code>0</code>\n❌ Loss              : <code>0</code>\n🔒 Breakeven         : <code>0</code>\n\n🎯 Win Rate          : <code>0.0%</code>  😓\n📈 Net Pips       : <code>+0.0 pts</code>\n💹 Profit Factor     : <code>0.00</code>\n\n━━━━━━━━━━━━━━━━━━━━\n\n📊 <b>DETAIL SINYAL</b>\n\n🟢 BUY Signal        : <code>0</code>\n🔴 SELL Signal       : <code>0</code>\n📡 Avg Confidence    : <code>0.0%</code>\n⏱ Avg Duration      : <code>N/A</code>\n\n🔥 Longest Win Streak : <code>0</code>\n📉 Longest Loss Streak: <code>0</code>\n\n\n━━━━━━━━━━━━━━━━━━━━\n\n🤖 <b>AI DAILY INSIGHT</b>\n\n<i>AI Insight unavailable.</i>\n\n━━━━━━━━━━━━━━━━━━━━\n🕐 Sabtu, 22 Agustus 2026\n🕒 00:00 WIB (UTC+7)\n\n⚡ <i>AZZAVISION AI v5.0 | Auto Performance Report</i>",
+      "savedAt": "2026-08-21T17:00:01.011Z"
     }
   },
-  "weekly": {}
+  "weekly": {
+    "2026-08-22": {
+      "weekKey": "2026-08-22",
+      "stats": {
+        "daysBack": 7,
+        "total": 28,
+        "wins": 5,
+        "losses": 16,
+        "breakevens": 7,
+        "netPips": "-15.0",
+        "winRate": "23.8",
+        "profitFactor": "0.98",
+        "buyCount": 22,
+        "sellCount": 6,
+        "avgConf": "81.1",
+        "avgDurationMin": 36,
+        "longestWinStreak": 2,
+        "longestLossStreak": 9,
+        "bestTrade": {
+          "id": 191,
+          "direction": "BUY",
+          "entry": 4371.78,
+          "tp1": 4377.78,
+          "tp2": 4384.28,
+          "sl": 4367.78,
+          "confidence": 78,
+          "strategy": "EBOOK:MACD Momentum Scalp",
+          "pinned_message_id": 180,
+          "status": "WIN",
+          "breakeven_triggered": true,
+          "tp1_hit": true,
+          "pips": 125,
+          "created_at": "2026-08-19T12:33:27.136Z",
+          "closed_at": "2026-08-19T12:36:06.770Z",
+          "close_price": 4385.38789
+        },
+        "worstTrade": {
+          "id": 203,
+          "direction": "SELL",
+          "entry": 4588.21,
+          "tp1": 4582.21,
+          "tp2": 4575.71,
+          "sl": 4592.21,
+          "confidence": 68,
+          "strategy": "EBOOK:Supply & Demand Zone",
+          "pinned_message_id": 346,
+          "status": "LOSS",
+          "breakeven_triggered": false,
+          "tp1_hit": false,
+          "pips": -40,
+          "created_at": "2026-08-21T09:09:04.659Z",
+          "closed_at": "2026-08-21T09:10:02.118Z",
+          "close_price": 4594.11035
+        },
+        "highestConf": {
+          "id": 192,
+          "direction": "BUY",
+          "entry": 4494.38,
+          "tp1": 4500.38,
+          "tp2": 4506.88,
+          "sl": 4490.38,
+          "confidence": 95,
+          "strategy": "EBOOK:Sniper High Confluence Entry",
+          "pinned_message_id": 195,
+          "status": "BREAKEVEN",
+          "breakeven_triggered": true,
+          "tp1_hit": false,
+          "pips": 0,
+          "created_at": "2026-08-19T16:35:59.365Z",
+          "closed_at": "2026-08-19T17:13:14.646Z",
+          "close_price": 4490.14413
+        },
+        "lowestConf": {
+          "id": 200,
+          "direction": "SELL",
+          "entry": 4519.16,
+          "tp1": 4513.16,
+          "tp2": 4506.66,
+          "sl": 4523.16,
+          "confidence": 65,
+          "strategy": "EBOOK:Trendline Bounce",
+          "pinned_message_id": 309,
+          "status": "LOSS",
+          "breakeven_triggered": false,
+          "tp1_hit": false,
+          "pips": -40,
+          "created_at": "2026-08-20T21:32:54.124Z",
+          "closed_at": "2026-08-20T22:44:04.802Z",
+          "close_price": 4523.2495
+        },
+        "fastestTp2": {
+          "id": 191,
+          "direction": "BUY",
+          "entry": 4371.78,
+          "tp1": 4377.78,
+          "tp2": 4384.28,
+          "sl": 4367.78,
+          "confidence": 78,
+          "strategy": "EBOOK:MACD Momentum Scalp",
+          "pinned_message_id": 180,
+          "status": "WIN",
+          "breakeven_triggered": true,
+          "tp1_hit": true,
+          "pips": 125,
+          "created_at": "2026-08-19T12:33:27.136Z",
+          "closed_at": "2026-08-19T12:36:06.770Z",
+          "close_price": 4385.38789
+        },
+        "bestStrategy": {
+          "name": "EBOOK:MACD Momentum Scalp",
+          "total": 1,
+          "wins": 1,
+          "losses": 0,
+          "bes": 0,
+          "pips": 125
+        },
+        "worstStrategy": {
+          "name": "EBOOK:HHLL Trend Following",
+          "total": 5,
+          "wins": 0,
+          "losses": 3,
+          "bes": 2,
+          "pips": -120
+        },
+        "strategies": [
+          {
+            "name": "EBOOK:Sniper High Confluence Entry",
+            "total": 12,
+            "wins": 1,
+            "losses": 7,
+            "bes": 4,
+            "pips": -155
+          },
+          {
+            "name": "EBOOK:HHLL Trend Following",
+            "total": 5,
+            "wins": 0,
+            "losses": 3,
+            "bes": 2,
+            "pips": -120
+          },
+          {
+            "name": "EBOOK:Supply & Demand Zone",
+            "total": 4,
+            "wins": 1,
+            "losses": 3,
+            "bes": 0,
+            "pips": 5
+          },
+          {
+            "name": "EBOOK:Round Number Rejection",
+            "total": 3,
+            "wins": 1,
+            "losses": 1,
+            "bes": 1,
+            "pips": 85
+          },
+          {
+            "name": "EBOOK:Trendline Bounce",
+            "total": 2,
+            "wins": 1,
+            "losses": 1,
+            "bes": 0,
+            "pips": 85
+          },
+          {
+            "name": "EBOOK:Engulfing Candle Pattern",
+            "total": 1,
+            "wins": 0,
+            "losses": 1,
+            "bes": 0,
+            "pips": -40
+          },
+          {
+            "name": "EBOOK:MACD Momentum Scalp",
+            "total": 1,
+            "wins": 1,
+            "losses": 0,
+            "bes": 0,
+            "pips": 125
+          }
+        ],
+        "dayRows": [
+          {
+            "day": "2026-08-18",
+            "total": 10,
+            "wins": 0,
+            "losses": 6,
+            "breakevens": 4,
+            "net_pips": -240
+          },
+          {
+            "day": "2026-08-19",
+            "total": 7,
+            "wins": 2,
+            "losses": 4,
+            "breakevens": 1,
+            "net_pips": 90
+          },
+          {
+            "day": "2026-08-20",
+            "total": 6,
+            "wins": 1,
+            "losses": 3,
+            "breakevens": 2,
+            "net_pips": 5
+          },
+          {
+            "day": "2026-08-21",
+            "total": 5,
+            "wins": 2,
+            "losses": 3,
+            "breakevens": 0,
+            "net_pips": 130
+          }
+        ]
+      },
+      "aiReview": null,
+      "reportText": "━━━━━━━━━━━━━━━━━━━━\n📊 <b>AZZAVISION AI v5.0 — WEEKLY REPORT</b>\n━━━━━━━━━━━━━━━━━━━━\n\n📋 <b>RINGKASAN 7 HARI</b>\n\n📌 Total Trades      : <code>28</code>\n✅ Win               : <code>5</code>\n❌ Loss              : <code>16</code>\n🔒 Breakeven         : <code>7</code>\n\n🎯 Win Rate          : <code>23.8%</code>  😓\n📉 Net Pips       : <code>-15.0 pts</code>\n💹 Profit Factor     : <code>0.98</code>\n\n━━━━━━━━━━━━━━━━━━━━\n\n📊 <b>DETAIL SINYAL</b>\n\n🟢 BUY Signal        : <code>22</code>\n🔴 SELL Signal       : <code>6</code>\n📡 Avg Confidence    : <code>81.1%</code>\n⏱ Avg Duration      : <code>36m</code>\n\n🔥 Longest Win Streak : <code>2</code>\n📉 Longest Loss Streak: <code>9</code>\n\n━━━━━━━━━━━━━━━━━━━━\n\n📈 <b>STRATEGY REPORT</b>\n\n🥇 Best Strategy  : <b>EBOOK:MACD Momentum Scalp</b>\n   W:1 L:0 WR:100% Pips:+125\n📉 Worst Strategy : <b>EBOOK:HHLL Trend Following</b>\n   W:0 L:3 WR:0% Pips:-120\n\n━━━━━━━━━━━━━━━━━━━━\n\n🏆 <b>HALL OF FAME</b>\n\n🥇 Best Strategy    : <b>EBOOK:MACD Momentum Scalp</b> (100%)\n🏆 Best Trade       : <code>BUY +125 pts</code>\n🔥 Highest Conf     : <code>95%</code> (BUY)\n⚡ Fastest TP2      : <code>3m</code>\n🎯 Best Win Streak  : <code>2 trades</code>\n\n━━━━━━━━━━━━━━━━━━━━\n\n📆 <b>PER DAY</b>\n\n🔴 <code>18 Agu</code>  W:<b>0</b> L:<b>6</b> BE:4  -240pts [0%]\n🔴 <code>19 Agu</code>  W:<b>2</b> L:<b>4</b> BE:1  +90pts [33%]\n🔴 <code>20 Agu</code>  W:<b>1</b> L:<b>3</b> BE:2  +5pts [25%]\n🔴 <code>21 Agu</code>  W:<b>2</b> L:<b>3</b>  +130pts [40%]\n\n━━━━━━━━━━━━━━━━━━━━\n\n🤖 <b>AI WEEKLY REVIEW</b>\n\n<i>AI Weekly Review unavailable.</i>\n\n━━━━━━━━━━━━━━━━━━━━\n🕐 Sabtu, 22 Agustus 2026\n🕒 00:00 WIB (UTC+7)\n\n⚡ <i>AZZAVISION AI v5.0 | Weekly Performance Report</i>",
+      "savedAt": "2026-08-21T17:00:00.906Z"
+    }
+  }
 }
