@@ -1,7 +1,7 @@
 {
   "strategies": {
     "Sniper High Confluence Entry": {
-      "wins": 18,
+      "wins": 19,
       "losses": 18,
       "breakevens": 22
     },
@@ -16,7 +16,7 @@
       "breakevens": 5
     },
     "Round Number Rejection": {
-      "wins": 5,
+      "wins": 6,
       "losses": 2,
       "breakevens": 4
     },
@@ -51,5 +51,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-21T09:10:02.121Z"
+  "lastUpdated": "2026-08-21T15:26:05.130Z"
 }
