@@ -1,14 +1,14 @@
-[2026-08-22T21:39:58.181Z] Launcher started, PORT=2389
-[2026-08-22T21:39:58.184Z] Direct access: http://<IP>:2389  or  http://<domain>:2389
-[2026-08-22T21:39:58.184Z] Starting dashboard server...
-[2026-08-22T21:39:58.198Z] Downloading cloudflared binary...
+[2026-08-23T03:27:50.335Z] Launcher started, PORT=2389
+[2026-08-23T03:27:50.337Z] Direct access: http://<IP>:2389  or  http://<domain>:2389
+[2026-08-23T03:27:50.337Z] Starting dashboard server...
+[2026-08-23T03:27:50.345Z] Downloading cloudflared binary...
 [DASHBOARD] AZZAVISION AI v2.0 listening on port 2389
 [DASHBOARD] Signals : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
 [DASHBOARD] Journal : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/journal.json
 [DASHBOARD] Public  : /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/dashboard
-[2026-08-22T21:39:58.609Z] Tunnel: using /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/cloudflared on port 2389
-[2026-08-22T21:39:58.612Z] cloudflared pid=2299
-[2026-08-22T21:40:00.214Z] Starting AZZAVISION AI bot...
+[2026-08-23T03:27:51.000Z] Tunnel: using /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/cloudflared on port 2389
+[2026-08-23T03:27:51.002Z] cloudflared pid=2851
+[2026-08-23T03:27:52.359Z] Starting AZZAVISION AI bot...
 [BACKUP_CMD] ✅ Backup commands registered: /backup /backupstatus /backuphistory /restorelist /selftest
 [DEBUG_CMD] ✅ Debug commands registered: /debug
 [DOCGEN] ✅ Documentation commands registered: /documentation [overview|source|architecture]
@@ -33,8 +33,8 @@
   🤖 AI Engine        : Gemini → OpenRouter → Groq → Offline AI
 ═══════════════════════════════════════════════════════════════════
 
-[DB] JSON storage siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
 [LEARN] Dataset siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/learning_dataset.json
+[DB] JSON storage siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/signals.json
 [CHANNEL] Channel ID loaded from config: -1004310936137
 [BACKUP] Direktori backup siap: /home/runner/work/Azza-Vision-AI/Azza-Vision-AI/bot/data/backups
 [BACKUP_ENGINE] ✅ Backup Engine v4.0 siap.
@@ -45,6 +45,8 @@
 [RETRAIN] Tidak ada perubahan — 35 entries sudah up-to-date
 [RETRAIN-AUTO] Selesai — tidak ada perubahan (35 entries)
 [STARTUP] Membuat daily backup (JSON snapshots)...
+[BACKUP] Daily snapshot: signals_2026-08-23.json
+[BACKUP] Daily snapshot: learning_dataset_2026-08-23.json
 [BACKUP] Daily backup selesai.
 [DAILY-LEARNING] Scheduler aktif — akan kirim setiap 08:00 WIB
 [SCANNER] ✅ Scanner aktif (interval: 6s)
@@ -59,701 +61,703 @@
 [API-HEALTH] ❌ GEMINI — No API key configured
 [API-HEALTH] ❌ OPENROUTER — No API key configured
 [API-HEALTH] ❌ GROQ — HTTP 401
-[2026-08-22T21:40:01.883Z] 🌐 Tunnel URL: https://surround-quiz-investigations-zinc.trycloudflare.com
+[2026-08-23T03:27:55.850Z] 🌐 Tunnel URL: https://mae-constantly-offerings-cricket.trycloudflare.com
 [SCANNER] Menjalankan init scan pertama...
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 24h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 23h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Saturday). Buka dalam 22h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 21h 0m
-[DAILY-LEARNING] ✅ Terkirim: "Round Number Rejection"
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 20h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 32m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 31m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 30m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 29m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 28m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 27m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 26m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 25m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 24m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 23m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 22m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 21m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 20m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 19m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 18m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 17m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 16m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 15m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 14m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 13m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 12m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 11m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 10m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 9m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 8m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 7m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 6m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 5m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 4m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 3m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 2m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 1m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 19h 0m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 59m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 58m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 57m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 56m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 55m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 54m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 53m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 52m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 51m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 50m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 49m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 48m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 47m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 46m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 45m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 44m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 43m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 42m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 41m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 40m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 39m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 38m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 37m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 36m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 35m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 34m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 33m
-[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 33m
 [SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 18h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 17h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 16h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 15h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 2m
+[BOT] Azaroni (@Azaroni1) → 🔄
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 2m
+[BOT] Azaroni (@Azaroni1) → 📅
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 0m
+[BOT] Azaroni (@Azaroni1) → 📡
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 14h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 44m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 43m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 42m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 41m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 40m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 39m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 38m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 37m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 36m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 35m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 34m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 33m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 32m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 31m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 30m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 29m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 28m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 27m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 26m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 25m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 24m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 23m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 22m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 21m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 20m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 19m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 18m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 17m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 16m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 15m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 14m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 13m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 12m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 11m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 10m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 9m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 8m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 7m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 6m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 5m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 4m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 3m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 2m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 1m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 13h 0m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 59m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 58m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 57m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 56m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 55m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 54m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 53m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 52m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 51m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 50m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 49m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 48m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 47m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 46m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 45m
+[SCANNER] 🟡 Market CLOSED — Weekend Session (Sunday Pre-Open). Buka dalam 12h 45m
