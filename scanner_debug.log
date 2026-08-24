@@ -339,3 +339,19 @@
 [2026-08-23T18:03:56.664Z] SKIP market tutup
 [2026-08-23T19:03:56.666Z] SKIP market tutup
 [2026-08-23T20:03:56.666Z] SKIP market tutup
+[2026-08-23T20:52:04.536Z] SCHEDULER START, AUTO_SCAN_ENABLED = true | interval(min) = 60
+[2026-08-23T20:53:34.536Z] SKIP market tutup
+[2026-08-23T20:55:04.536Z] SKIP market tutup
+[2026-08-23T20:56:34.537Z] SKIP market tutup
+[2026-08-23T20:58:04.537Z] SKIP market tutup
+[2026-08-23T20:59:34.537Z] SKIP market tutup
+[2026-08-23T21:01:04.537Z] SKIP market tutup
+[2026-08-23T21:52:04.535Z] SKIP market tutup
+[2026-08-23T22:52:04.536Z] RUN auto-scan, price = 4608.7197 | existing keys: long,medium
+[2026-08-23T22:52:04.882Z] GENERATED short BUY 4603.8 - 4607.08 conf 91
+[2026-08-23T23:52:04.537Z] RUN auto-scan, price = 4615.95273 | existing keys: long,medium
+[2026-08-23T23:52:04.665Z] GENERATED short BUY 4611.03 - 4614.31 conf 60
+[2026-08-24T00:52:04.537Z] RUN auto-scan, price = 4614.46172 | existing keys: long,short
+[2026-08-24T00:52:04.620Z] GENERATED medium BUY 4609.06 - 4612.66 conf 60
+[2026-08-24T01:52:04.538Z] RUN auto-scan, price = 4622.14005 | existing keys: long,medium
+[2026-08-24T01:52:04.707Z] GENERATED short BUY 4616.48 - 4620.25 conf 90

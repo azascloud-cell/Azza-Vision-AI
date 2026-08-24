@@ -2,7 +2,7 @@
   "strategies": {
     "Sniper High Confluence Entry": {
       "wins": 19,
-      "losses": 18,
+      "losses": 19,
       "breakevens": 22
     },
     "Engulfing Candle Pattern": {
@@ -46,10 +46,10 @@
       "breakevens": 0
     },
     "Trendline Bounce": {
-      "wins": 3,
+      "wins": 4,
       "losses": 3,
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-21T20:52:07.971Z"
+  "lastUpdated": "2026-08-24T02:01:06.795Z"
 }
