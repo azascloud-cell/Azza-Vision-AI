@@ -23,7 +23,7 @@
     "HHLL Trend Following": {
       "wins": 15,
       "losses": 28,
-      "breakevens": 15
+      "breakevens": 16
     },
     "Supply & Demand Zone": {
       "wins": 9,
@@ -49,7 +49,12 @@
       "wins": 4,
       "losses": 3,
       "breakevens": 0
+    },
+    "Simple Follow Trend (EMA Stack)": {
+      "wins": 0,
+      "losses": 1,
+      "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-25T06:57:04.596Z"
+  "lastUpdated": "2026-08-25T12:02:05.657Z"
 }
