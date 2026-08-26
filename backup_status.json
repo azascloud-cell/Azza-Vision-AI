@@ -1,26 +1,26 @@
 {
-  "timestamp": "2026-08-25T17:00:07.059Z",
+  "timestamp": "2026-08-26T17:00:06.309Z",
   "allValid": true,
   "results": [
     {
       "label": "Source Code",
       "success": true,
       "skipped": false,
-      "name": "abangwan-source-2026-08-25.zip",
-      "size": 17989503
+      "name": "abangwan-source-2026-08-26.zip",
+      "size": 17989510
     },
     {
       "label": "Database",
       "success": true,
       "skipped": false,
-      "name": "abangwan-data-2026-08-25.zip",
-      "size": 42506
+      "name": "abangwan-data-2026-08-26.zip",
+      "size": 44204
     },
     {
       "label": "Config",
       "success": true,
       "skipped": false,
-      "name": "abangwan-config-2026-08-25.zip",
+      "name": "abangwan-config-2026-08-26.zip",
       "size": 1143
     }
   ],
@@ -34,7 +34,7 @@
       {
         "step": "Backup Source",
         "status": "✅",
-        "detail": "abangwan-source-2026-08-25.zip (17.16 MB)"
+        "detail": "abangwan-source-2026-08-26.zip (17.16 MB)"
       },
       {
         "step": "Backup Database",
@@ -44,7 +44,7 @@
       {
         "step": "Backup Database",
         "status": "✅",
-        "detail": "abangwan-data-2026-08-25.zip (41.5 KB)"
+        "detail": "abangwan-data-2026-08-26.zip (43.2 KB)"
       },
       {
         "step": "Backup Config",
@@ -54,7 +54,7 @@
       {
         "step": "Backup Config",
         "status": "✅",
-        "detail": "abangwan-config-2026-08-25.zip (1.1 KB)"
+        "detail": "abangwan-config-2026-08-26.zip (1.1 KB)"
       },
       {
         "step": "Send Telegram",
@@ -67,9 +67,9 @@
         "detail": "Terkirim"
       }
     ],
-    "startTime": "2026-08-25T17:00:00.323Z",
+    "startTime": "2026-08-26T17:00:00.253Z",
     "totalDuration": "0.6s",
-    "endTime": "2026-08-25T17:00:00.971Z"
+    "endTime": "2026-08-26T17:00:00.835Z"
   },
-  "nextBackup": "2026-08-26T17:00:00.000Z"
+  "nextBackup": "2026-08-27T17:00:00.000Z"
 }

@@ -4005,360 +4005,55 @@
       "created_at": "2026-08-26T10:52:44.692Z",
       "closed_at": "2026-08-26T11:06:42.157Z",
       "close_price": 4619.57777
+    },
+    {
+      "id": 229,
+      "direction": "SELL",
+      "entry": 4619.58,
+      "tp1": 4613.58,
+      "tp2": 4607.08,
+      "sl": 4623.58,
+      "confidence": 90,
+      "strategy": "EBOOK:Engulfing Candle Pattern",
+      "pinned_message_id": 771,
+      "status": "LOSS",
+      "breakeven_triggered": false,
+      "tp1_hit": false,
+      "pips": -40,
+      "created_at": "2026-08-26T12:44:42.960Z",
+      "closed_at": "2026-08-26T12:45:10.928Z",
+      "close_price": 4624.70518
+    },
+    {
+      "id": 230,
+      "direction": "SELL",
+      "entry": 4591.16,
+      "tp1": 4585.16,
+      "tp2": 4578.66,
+      "sl": 4595.16,
+      "confidence": 68,
+      "strategy": "EBOOK:MACD Momentum Scalp",
+      "pinned_message_id": 777,
+      "status": "BREAKEVEN",
+      "breakeven_triggered": true,
+      "tp1_hit": false,
+      "pips": 0,
+      "created_at": "2026-08-26T16:44:44.741Z",
+      "closed_at": "2026-08-26T16:51:06.585Z",
+      "close_price": 4595.79944
     }
   ],
   "snapshots": [
     {
       "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T10:59:12.166Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T10:59:42.129Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:00:12.206Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:00:42.933Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:01:12.857Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:01:42.256Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:02:12.187Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:02:42.201Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:03:12.529Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:03:42.231Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:04:12.254Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:04:42.161Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:05:14.348Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:05:42.147Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:06:12.276Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:06:43.567Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:07:12.222Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:07:42.205Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:08:12.243Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:08:42.220Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:09:12.233Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:09:42.329Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:10:12.333Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:10:42.271Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:11:12.427Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:11:42.221Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:12:12.287Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:12:42.215Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:13:12.268Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:13:42.228Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
+      "m1_bias": "STRONG_SELL",
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:14:12.347Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "STRONG_SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:14:42.258Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:47:12.750Z"
     },
     {
       "id": 201,
@@ -4366,10 +4061,10 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:15:13.881Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:47:42.634Z"
     },
     {
       "id": 201,
@@ -4377,10 +4072,10 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:15:42.373Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:48:12.607Z"
     },
     {
       "id": 201,
@@ -4388,10 +4083,10 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:16:12.659Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:48:42.276Z"
     },
     {
       "id": 201,
@@ -4399,10 +4094,197 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:16:42.289Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:49:12.343Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:49:42.372Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:50:12.330Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:50:42.313Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:51:12.377Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:51:42.300Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:52:12.302Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:52:42.347Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:53:12.570Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 63,
+      "created_at": "2026-08-26T16:53:42.264Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:54:12.306Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:54:42.278Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:55:12.698Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:55:42.881Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:56:12.368Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:56:42.319Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:57:12.602Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:57:42.316Z"
     },
     {
       "id": 201,
@@ -4410,10 +4292,10 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:17:12.319Z"
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:58:12.326Z"
     },
     {
       "id": 201,
@@ -4421,186 +4303,164 @@
       "m5_bias": "STRONG_SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:58:42.303Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:59:12.265Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T16:59:42.291Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T17:00:12.999Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T17:00:42.668Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T17:01:12.678Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "STRONG_SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "SELL",
+      "overall": "STRONG_SELL",
+      "confidence": 68,
+      "created_at": "2026-08-26T17:01:43.717Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:17:42.266Z"
+      "created_at": "2026-08-26T17:02:12.429Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:18:12.305Z"
+      "created_at": "2026-08-26T17:02:43.016Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:18:42.258Z"
+      "created_at": "2026-08-26T17:03:12.394Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:19:12.263Z"
+      "created_at": "2026-08-26T17:03:42.406Z"
     },
     {
       "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:19:42.372Z"
+      "created_at": "2026-08-26T17:04:12.448Z"
     },
     {
       "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:20:12.641Z"
+      "created_at": "2026-08-26T17:04:42.413Z"
     },
     {
       "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:20:42.268Z"
+      "created_at": "2026-08-26T17:05:12.470Z"
     },
     {
       "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "SELL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:21:12.287Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:21:42.344Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:22:12.280Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:22:42.278Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:23:12.371Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:23:42.395Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:24:12.332Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:24:42.331Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:25:12.435Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:25:42.381Z"
+      "created_at": "2026-08-26T17:05:42.707Z"
     },
     {
       "id": 201,
@@ -4611,7 +4471,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:26:12.469Z"
+      "created_at": "2026-08-26T17:06:13.240Z"
     },
     {
       "id": 201,
@@ -4622,7 +4482,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:26:42.466Z"
+      "created_at": "2026-08-26T17:06:42.407Z"
     },
     {
       "id": 201,
@@ -4633,7 +4493,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:27:12.358Z"
+      "created_at": "2026-08-26T17:07:12.679Z"
     },
     {
       "id": 201,
@@ -4644,95 +4504,62 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:27:42.316Z"
+      "created_at": "2026-08-26T17:07:42.445Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "NEUTRAL",
       "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:28:12.362Z"
+      "created_at": "2026-08-26T17:08:12.739Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "NEUTRAL",
       "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:28:42.358Z"
+      "created_at": "2026-08-26T17:08:42.358Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "NEUTRAL",
       "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:29:12.333Z"
+      "created_at": "2026-08-26T17:09:12.727Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "NEUTRAL",
       "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:29:42.331Z"
+      "created_at": "2026-08-26T17:09:42.398Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
+      "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:30:13.631Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:30:42.434Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:31:12.445Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:31:42.365Z"
+      "created_at": "2026-08-26T17:10:12.533Z"
     },
     {
       "id": 201,
@@ -4743,7 +4570,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:32:12.430Z"
+      "created_at": "2026-08-26T17:10:43.262Z"
     },
     {
       "id": 201,
@@ -4754,7 +4581,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:32:42.357Z"
+      "created_at": "2026-08-26T17:11:12.439Z"
     },
     {
       "id": 201,
@@ -4765,7 +4592,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:33:12.367Z"
+      "created_at": "2026-08-26T17:11:42.423Z"
     },
     {
       "id": 201,
@@ -4776,7 +4603,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:33:42.377Z"
+      "created_at": "2026-08-26T17:12:12.453Z"
     },
     {
       "id": 201,
@@ -4787,7 +4614,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:34:12.372Z"
+      "created_at": "2026-08-26T17:12:42.408Z"
     },
     {
       "id": 201,
@@ -4798,7 +4625,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:34:42.440Z"
+      "created_at": "2026-08-26T17:13:12.422Z"
     },
     {
       "id": 201,
@@ -4809,7 +4636,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:35:12.469Z"
+      "created_at": "2026-08-26T17:13:42.436Z"
     },
     {
       "id": 201,
@@ -4820,7 +4647,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:35:42.388Z"
+      "created_at": "2026-08-26T17:14:12.446Z"
     },
     {
       "id": 201,
@@ -4831,7 +4658,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:36:12.394Z"
+      "created_at": "2026-08-26T17:14:42.420Z"
     },
     {
       "id": 201,
@@ -4842,7 +4669,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:36:42.398Z"
+      "created_at": "2026-08-26T17:15:16.485Z"
     },
     {
       "id": 201,
@@ -4853,7 +4680,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:37:12.407Z"
+      "created_at": "2026-08-26T17:15:42.522Z"
     },
     {
       "id": 201,
@@ -4864,7 +4691,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:37:42.417Z"
+      "created_at": "2026-08-26T17:16:12.744Z"
     },
     {
       "id": 201,
@@ -4875,7 +4702,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:38:12.410Z"
+      "created_at": "2026-08-26T17:16:42.790Z"
     },
     {
       "id": 201,
@@ -4886,7 +4713,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:38:42.403Z"
+      "created_at": "2026-08-26T17:17:12.787Z"
     },
     {
       "id": 201,
@@ -4897,7 +4724,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:39:12.421Z"
+      "created_at": "2026-08-26T17:17:42.402Z"
     },
     {
       "id": 201,
@@ -4908,7 +4735,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:39:42.412Z"
+      "created_at": "2026-08-26T17:18:12.466Z"
     },
     {
       "id": 201,
@@ -4919,95 +4746,1338 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:40:12.495Z"
+      "created_at": "2026-08-26T17:18:42.399Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:40:42.438Z"
+      "created_at": "2026-08-26T17:19:12.477Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:41:12.426Z"
+      "created_at": "2026-08-26T17:19:42.527Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:41:42.426Z"
+      "created_at": "2026-08-26T17:20:12.524Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:42:12.441Z"
+      "created_at": "2026-08-26T17:20:42.558Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:42:42.428Z"
+      "created_at": "2026-08-26T17:21:12.833Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:43:12.530Z"
+      "created_at": "2026-08-26T17:21:42.496Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:43:42.435Z"
+      "created_at": "2026-08-26T17:22:12.542Z"
     },
     {
       "id": 201,
-      "m1_bias": "STRONG_SELL",
+      "m1_bias": "STRONG_BUY",
       "m5_bias": "NEUTRAL",
       "m15_bias": "STRONG_SELL",
       "h1_bias": "STRONG_SELL",
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:44:12.459Z"
+      "created_at": "2026-08-26T17:22:42.447Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:23:12.521Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:23:42.535Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:24:12.489Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:24:42.449Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:25:13.072Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:25:42.502Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:26:12.806Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:26:42.476Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:27:12.502Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:27:42.488Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:28:12.486Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:28:42.482Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:29:12.525Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:29:42.486Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:30:12.617Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:30:42.647Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:31:13.277Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "BUY",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:31:42.589Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:32:13.688Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:32:42.582Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:33:13.156Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:33:42.900Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:34:12.867Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:34:42.638Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:35:12.612Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:35:42.649Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:36:13.971Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:36:42.679Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:37:12.616Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:37:42.580Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:38:12.621Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:38:42.534Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:39:12.584Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:39:42.591Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:40:12.909Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:40:42.685Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:41:13.064Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:41:42.557Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:42:12.657Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:42:42.631Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:43:12.682Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:43:42.623Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:44:12.662Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:44:42.596Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:45:13.189Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:45:42.692Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:46:12.759Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:46:43.252Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:47:12.686Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:47:42.737Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:48:12.969Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:48:42.613Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:49:12.939Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:49:42.628Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:50:13.022Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:50:42.688Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:51:12.754Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:51:42.680Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:52:12.733Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:52:42.645Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:53:12.726Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:53:42.814Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:54:12.754Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:54:42.666Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:55:12.784Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:55:42.699Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:56:12.995Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:56:42.663Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:57:13.031Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:57:42.670Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:58:12.732Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:58:42.667Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:59:12.675Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T17:59:42.679Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:00:13.219Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:00:43.050Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:01:14.567Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "SELL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "SELL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:01:44.083Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:02:16.716Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:02:42.815Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:03:12.820Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:03:42.832Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:04:12.807Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "NEUTRAL",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:04:43.343Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:05:14.045Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:05:45.495Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "STRONG_SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:06:13.895Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:06:43.075Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:07:12.830Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:07:43.121Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:08:12.842Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:08:42.861Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:09:12.845Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:09:43.367Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:10:14.275Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:10:42.869Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:11:13.512Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:11:43.109Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:12:13.534Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:12:42.845Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:13:13.135Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:13:42.873Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:14:14.249Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "SELL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:14:42.913Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "NEUTRAL",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:15:13.618Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:15:43.960Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:16:13.240Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:16:42.902Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:17:14.002Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:17:42.963Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "STRONG_BUY",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:18:12.934Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:18:43.118Z"
+    },
+    {
+      "id": 201,
+      "m1_bias": "SELL",
+      "m5_bias": "BUY",
+      "m15_bias": "NEUTRAL",
+      "h1_bias": "STRONG_SELL",
+      "h4_bias": "NEUTRAL",
+      "overall": "NEUTRAL",
+      "confidence": 0,
+      "created_at": "2026-08-26T18:19:13.464Z"
     },
     {
       "id": 201,
@@ -5018,7 +6088,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:44:42.438Z"
+      "created_at": "2026-08-26T18:19:43.571Z"
     },
     {
       "id": 201,
@@ -5029,7 +6099,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:45:12.530Z"
+      "created_at": "2026-08-26T18:20:13.004Z"
     },
     {
       "id": 201,
@@ -5040,7 +6110,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:45:42.501Z"
+      "created_at": "2026-08-26T18:20:42.913Z"
     },
     {
       "id": 201,
@@ -5051,7 +6121,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:46:12.536Z"
+      "created_at": "2026-08-26T18:21:12.903Z"
     },
     {
       "id": 201,
@@ -5062,7 +6132,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:46:42.454Z"
+      "created_at": "2026-08-26T18:21:43.210Z"
     },
     {
       "id": 201,
@@ -5073,7 +6143,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:47:12.451Z"
+      "created_at": "2026-08-26T18:22:13.372Z"
     },
     {
       "id": 201,
@@ -5084,18 +6154,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:47:42.461Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:48:12.465Z"
+      "created_at": "2026-08-26T18:22:42.932Z"
     },
     {
       "id": 201,
@@ -5106,7 +6165,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:48:42.514Z"
+      "created_at": "2026-08-26T18:23:15.476Z"
     },
     {
       "id": 201,
@@ -5117,51 +6176,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "NEUTRAL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:49:12.482Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:49:42.483Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:50:12.573Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:50:42.508Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:51:12.501Z"
+      "created_at": "2026-08-26T18:23:42.924Z"
     },
     {
       "id": 201,
@@ -5172,7 +6187,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:51:42.521Z"
+      "created_at": "2026-08-26T18:24:13.129Z"
     },
     {
       "id": 201,
@@ -5183,7 +6198,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:52:12.508Z"
+      "created_at": "2026-08-26T18:24:42.871Z"
     },
     {
       "id": 201,
@@ -5194,953 +6209,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T11:52:42.504Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:53:12.527Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:53:42.515Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:54:12.521Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:54:42.528Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:55:12.610Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:55:42.560Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:56:12.885Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:56:42.542Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:57:12.542Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:57:42.545Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:58:12.551Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:58:42.555Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:59:12.570Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T11:59:42.620Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:00:12.967Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:00:44.587Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:01:22.435Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:01:52.440Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:02:16.418Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:02:42.662Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "NEUTRAL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:03:13.507Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:03:42.956Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:04:12.956Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:04:42.674Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:05:13.774Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:05:42.666Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:06:12.669Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:06:42.665Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:07:12.668Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:07:42.619Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:08:12.867Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:08:42.613Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:09:12.621Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:09:42.677Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:10:12.713Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:10:42.636Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:11:12.656Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:11:42.645Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:12:12.721Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:12:42.736Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:13:12.665Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:13:42.713Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:14:12.698Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:14:42.668Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:15:12.769Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:15:42.747Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:16:13.050Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:16:42.693Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:17:12.758Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:17:42.686Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:18:12.747Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:18:42.697Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:19:12.700Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:19:42.705Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:20:12.797Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:20:42.724Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:21:12.713Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:21:42.812Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:22:12.737Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:22:42.807Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:23:12.727Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:23:42.751Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:24:12.751Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:24:42.743Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:25:12.820Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:25:42.737Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:26:13.036Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_BUY",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:26:42.735Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:27:12.911Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:27:42.736Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:28:12.753Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:28:42.750Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:29:12.760Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:29:42.763Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:30:16.303Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:30:42.855Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:31:12.879Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:31:43.095Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:32:12.857Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:32:42.796Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:33:12.800Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:33:42.807Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "STRONG_BUY",
-      "m15_bias": "NEUTRAL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "BUY",
-      "overall": "NEUTRAL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:34:12.808Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:34:42.869Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:35:13.155Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "NEUTRAL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:35:42.820Z"
+      "created_at": "2026-08-26T18:25:13.270Z"
     },
     {
       "id": 201,
@@ -6151,7 +6220,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T12:36:13.341Z"
+      "created_at": "2026-08-26T18:25:43.028Z"
     },
     {
       "id": 201,
@@ -6162,7 +6231,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T12:36:42.826Z"
+      "created_at": "2026-08-26T18:26:13.318Z"
     },
     {
       "id": 201,
@@ -6173,40 +6242,7 @@
       "h4_bias": "NEUTRAL",
       "overall": "SELL",
       "confidence": 0,
-      "created_at": "2026-08-26T12:37:12.850Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:37:42.835Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:38:12.834Z"
-    },
-    {
-      "id": 201,
-      "m1_bias": "STRONG_SELL",
-      "m5_bias": "SELL",
-      "m15_bias": "STRONG_SELL",
-      "h1_bias": "STRONG_SELL",
-      "h4_bias": "NEUTRAL",
-      "overall": "SELL",
-      "confidence": 0,
-      "created_at": "2026-08-26T12:38:42.839Z"
+      "created_at": "2026-08-26T18:26:43.019Z"
     }
   ]
 }
