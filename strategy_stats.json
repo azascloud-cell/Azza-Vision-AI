@@ -22,7 +22,7 @@
     },
     "HHLL Trend Following": {
       "wins": 16,
-      "losses": 28,
+      "losses": 29,
       "breakevens": 18
     },
     "Supply & Demand Zone": {
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-26T05:45:17.904Z"
+  "lastUpdated": "2026-08-26T11:06:42.160Z"
 }
