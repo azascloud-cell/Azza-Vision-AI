@@ -21,7 +21,7 @@
       "breakevens": 4
     },
     "HHLL Trend Following": {
-      "wins": 16,
+      "wins": 17,
       "losses": 29,
       "breakevens": 18
     },
@@ -38,7 +38,7 @@
     "MACD Momentum Scalp": {
       "wins": 3,
       "losses": 1,
-      "breakevens": 1
+      "breakevens": 2
     },
     "Fibonacci 61.8% Retracement": {
       "wins": 0,
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-26T16:51:06.587Z"
+  "lastUpdated": "2026-08-26T23:41:13.124Z"
 }
