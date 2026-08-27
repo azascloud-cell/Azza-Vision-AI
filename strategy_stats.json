@@ -26,7 +26,7 @@
       "breakevens": 18
     },
     "Supply & Demand Zone": {
-      "wins": 10,
+      "wins": 11,
       "losses": 13,
       "breakevens": 5
     },
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-26T23:41:13.124Z"
+  "lastUpdated": "2026-08-27T05:32:07.529Z"
 }

@@ -52,32 +52,5 @@
     "tp1_hit": false,
     "tp2_hit": false,
     "sl_hit": false
-  },
-  "short": {
-    "id": "short_1787776187033",
-    "type": "short",
-    "typeLabel": "SHORT",
-    "direction": "SELL",
-    "status": "WAITING",
-    "entry_low": 4600.89,
-    "entry_high": 4594.68,
-    "tp1": 4591.78,
-    "tp2": 4585.28,
-    "sl": 4601.78,
-    "confidence": 60,
-    "risk": "HIGH",
-    "rr": 3.13,
-    "suggested_lot": 0.5,
-    "strategy_desc": "Setup market teridentifikasi. Tunggu harga memasuki zona entry untuk konfirmasi.",
-    "overall_bias": "SELL",
-    "h4_bias": "NEUTRAL",
-    "h1_bias": "STRONG_SELL",
-    "m15_bias": "STRONG_SELL",
-    "expired_hours": 8,
-    "created_at": "2026-08-26T20:29:47.033Z",
-    "expires_at": "2026-08-27T04:29:47.033Z",
-    "tp1_hit": false,
-    "tp2_hit": false,
-    "sl_hit": false
   }
 }
