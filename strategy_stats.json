@@ -27,7 +27,7 @@
     },
     "Supply & Demand Zone": {
       "wins": 12,
-      "losses": 13,
+      "losses": 14,
       "breakevens": 5
     },
     "Multi-Strategy Analysis": {
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-27T16:16:06.681Z"
+  "lastUpdated": "2026-08-27T22:01:08.733Z"
 }
