@@ -17,12 +17,12 @@
     },
     "Round Number Rejection": {
       "wins": 7,
-      "losses": 2,
+      "losses": 3,
       "breakevens": 5
     },
     "HHLL Trend Following": {
       "wins": 17,
-      "losses": 29,
+      "losses": 30,
       "breakevens": 22
     },
     "Supply & Demand Zone": {
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-28T15:33:12.725Z"
+  "lastUpdated": "2026-08-28T21:07:07.782Z"
 }
