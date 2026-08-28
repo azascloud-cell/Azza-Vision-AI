@@ -18,7 +18,7 @@
     "Round Number Rejection": {
       "wins": 7,
       "losses": 2,
-      "breakevens": 4
+      "breakevens": 5
     },
     "HHLL Trend Following": {
       "wins": 17,
@@ -48,7 +48,7 @@
     "Trendline Bounce": {
       "wins": 4,
       "losses": 4,
-      "breakevens": 0
+      "breakevens": 1
     },
     "Simple Follow Trend (EMA Stack)": {
       "wins": 0,
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-28T10:53:05.397Z"
+  "lastUpdated": "2026-08-28T15:33:12.725Z"
 }
