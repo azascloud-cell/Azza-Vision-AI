@@ -16,7 +16,7 @@
       "breakevens": 5
     },
     "Round Number Rejection": {
-      "wins": 6,
+      "wins": 7,
       "losses": 2,
       "breakevens": 4
     },
@@ -37,7 +37,7 @@
     },
     "MACD Momentum Scalp": {
       "wins": 3,
-      "losses": 1,
+      "losses": 2,
       "breakevens": 2
     },
     "Fibonacci 61.8% Retracement": {
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-08-27T22:01:08.733Z"
+  "lastUpdated": "2026-08-28T04:26:06.809Z"
 }
