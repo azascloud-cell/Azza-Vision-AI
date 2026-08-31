@@ -736,3 +736,16 @@
 [2026-08-30T18:17:55.073Z] SKIP market tutup
 [2026-08-30T19:17:55.073Z] SKIP market tutup
 [2026-08-30T20:17:55.075Z] SKIP market tutup
+[2026-08-30T21:05:43.591Z] SCHEDULER START, AUTO_SCAN_ENABLED = true | interval(min) = 60
+[2026-08-30T21:07:13.591Z] SKIP market tutup
+[2026-08-30T21:08:43.590Z] SKIP market tutup
+[2026-08-30T21:10:13.592Z] SKIP market tutup
+[2026-08-30T21:11:43.592Z] SKIP market tutup
+[2026-08-30T21:13:13.593Z] SKIP market tutup
+[2026-08-30T21:14:43.592Z] SKIP market tutup
+[2026-08-30T22:05:43.590Z] RUN auto-scan, price = 4448.2007 | existing keys: long,medium
+[2026-08-30T22:05:43.776Z] GENERATED short SELL 4453.51 - 4449.97 conf 60
+[2026-08-30T23:05:43.591Z] RUN auto-scan, price = 4462.49275 | existing keys: long,medium,short
+[2026-08-31T00:05:43.591Z] RUN auto-scan, price = 4455.93084 | existing keys: long,medium,short
+[2026-08-31T01:05:43.592Z] RUN auto-scan, price = 4458.116 | existing keys: long,medium,short
+[2026-08-31T02:05:43.592Z] RUN auto-scan, price = 4425.3662 | existing keys: long,medium,short
