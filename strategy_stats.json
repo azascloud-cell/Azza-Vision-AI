@@ -6,7 +6,7 @@
       "breakevens": 26
     },
     "Engulfing Candle Pattern": {
-      "wins": 2,
+      "wins": 3,
       "losses": 6,
       "breakevens": 2
     },
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-09-01T00:20:51.043Z"
+  "lastUpdated": "2026-09-01T07:31:11.252Z"
 }
