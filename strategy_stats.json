@@ -1,7 +1,7 @@
 {
   "strategies": {
     "Sniper High Confluence Entry": {
-      "wins": 20,
+      "wins": 21,
       "losses": 27,
       "breakevens": 26
     },
@@ -47,7 +47,7 @@
     },
     "Trendline Bounce": {
       "wins": 4,
-      "losses": 5,
+      "losses": 6,
       "breakevens": 1
     },
     "Simple Follow Trend (EMA Stack)": {
@@ -56,5 +56,5 @@
       "breakevens": 0
     }
   },
-  "lastUpdated": "2026-09-01T07:31:11.252Z"
+  "lastUpdated": "2026-09-01T12:36:07.508Z"
 }
