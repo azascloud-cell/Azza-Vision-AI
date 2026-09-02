@@ -884,3 +884,11 @@
 [2026-09-02T10:05:32.694Z] RUN auto-scan, price = 4305.70506 | existing keys: medium,long,short
 [2026-09-02T11:05:32.694Z] RUN auto-scan, price = 4312.3895 | existing keys: medium,long,short
 [2026-09-02T12:05:32.694Z] RUN auto-scan, price = 4334.07013 | existing keys: medium,long,short
+[2026-09-02T12:53:38.143Z] SCHEDULER START, AUTO_SCAN_ENABLED = true | interval(min) = 60
+[2026-09-02T12:55:08.143Z] RUN auto-scan, price = 4333.13112 | existing keys: medium,long,short
+[2026-09-02T12:56:38.143Z] RUN auto-scan, price = 4334.25798 | existing keys: medium,long,short
+[2026-09-02T12:58:08.144Z] RUN auto-scan, price = 4333.88229 | existing keys: medium,long,short
+[2026-09-02T12:59:38.144Z] RUN auto-scan, price = 4332.19252 | existing keys: medium,long,short
+[2026-09-02T13:01:08.144Z] RUN auto-scan, price = 4332.19252 | existing keys: medium,long,short
+[2026-09-02T13:02:38.144Z] RUN auto-scan, price = 4335.94936 | existing keys: medium,long,short
+[2026-09-02T13:53:38.143Z] RUN auto-scan, price = 4372.54045 | existing keys: medium,long,short
