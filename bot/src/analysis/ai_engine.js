@@ -19,8 +19,8 @@ const TIMEOUT_MS = 20_000;
 // ─── PROVIDER MODELS ──────────────────────────────────────────────────────────
 const MODELS = {
   groq:       process.env.GROQ_MODEL       || 'llama-3.3-70b-versatile',
-  openrouter: process.env.OPENROUTER_MODEL || 'poolside/laguna-s-2.1:free',
-  gemini:     process.env.GEMINI_MODEL     || 'gemini-3.6-flash',
+  openrouter: process.env.OPENROUTER_MODEL || 'deepseek/deepseek-chat:free',
+  gemini:     process.env.GEMINI_MODEL     || 'gemini-1.5-flash',
 };
 
 const DEFAULT_ORDER = ['groq', 'openrouter', 'gemini'];
