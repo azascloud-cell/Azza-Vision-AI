@@ -15,7 +15,6 @@ on:
         default: "350"
         type: number
   schedule:
-    # Fallback cron: trigger ulang tiap 6h
     - cron: "10 */6 * * *"
 
 concurrency:
@@ -42,11 +41,11 @@ jobs:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           TWELVEDATA_API_KEY: ${{ secrets.TWELVEDATA_API_KEY }}
           MIN_CONFIDENCE: ${{ secrets.MIN_CONFIDENCE || '65' }}
-          ENTRY_MODE: ${{ secrets.ENTRY_MODE || 'aggressive' }}
+          ENTRY_MODE: ${{ secrets.ENTRY_MODE || 'conservative' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-3.6-flash' }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free' }}
+          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL || 'poolside/laguna-s-2.1:free' }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_MODEL: ${{ secrets.GROQ_MODEL || 'llama-3.3-70b-versatile' }}
         run: |
@@ -80,11 +79,11 @@ jobs:
           CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
           TWELVEDATA_API_KEY: ${{ secrets.TWELVEDATA_API_KEY }}
           MIN_CONFIDENCE: ${{ secrets.MIN_CONFIDENCE || '65' }}
-          ENTRY_MODE: ${{ secrets.ENTRY_MODE || 'aggressive' }}
+          ENTRY_MODE: ${{ secrets.ENTRY_MODE || 'conservative' }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-2.5-flash' }}
+          GEMINI_MODEL: ${{ secrets.GEMINI_MODEL || 'gemini-3.6-flash' }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct:free' }}
+          OPENROUTER_MODEL: ${{ secrets.OPENROUTER_MODEL || 'poolside/laguna-s-2.1:free' }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_MODEL: ${{ secrets.GROQ_MODEL || 'llama-3.3-70b-versatile' }}
           GH_PAT: ${{ secrets.GH_PAT }}
