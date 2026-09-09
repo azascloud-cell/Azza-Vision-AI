@@ -9,7 +9,7 @@ RESTART_BUFFER_MIN="${RESTART_BUFFER_MIN:-3}"
 GH_PAT="${GH_PAT:-}"
 GH_REPO="${GH_REPO:-}"
 GH_REF="${GH_REF:-main}"
-BACKUP_EVERY_SEC="${BACKUP_EVERY_SEC:-300}"
+BACKUP_EVERY_SEC="${BACKUP_EVERY_SEC:-60}"
 
 # .env dari secrets ditulis oleh workflow sebelum script ini dipanggil.
 # Pastikan dimuat.
@@ -55,6 +55,9 @@ main() {
   echo "Bot up (pid $BOT_PID). Log tail:"
   tail -n 15 /tmp/azzavision.log 2>/dev/null || true
 
+  # Immediate baseline backup so restore after crash has a recent snapshot
+  "$persist" backup 2>&1 | tail -2 || true
+
   local start_sec restart_at_sec now_sec elapsed last_backup
   start_sec=$(date +%s)
   restart_at_sec=$((start_sec + (RUN_MINUTES - RESTART_BUFFER_MIN) * 60))
@@ -79,7 +82,8 @@ main() {
     fi
 
     if ! kill -0 "$BOT_PID" 2>/dev/null; then
-      echo "Bot died; restarting..."
+      echo "Bot died; backup then restarting..."
+      "$persist" backup 2>&1 | tail -2 || true
       ( cd "$BOT_DIR" && node --disable-warning=ExperimentalWarning launcher.js 2>&1 | tee /tmp/azzavision.log > data/azzavision_runtime.log ) &
       BOT_PID=$!
     fi
