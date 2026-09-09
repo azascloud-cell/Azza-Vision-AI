@@ -93,7 +93,7 @@ jobs:
           RUN_MINUTES: ${{ inputs.minutes || 350 }}
           KEEPALIVE_WORKFLOW: "azzavision.yml"
           DATA_BRANCH: "data"
-          BACKUP_EVERY_SEC: "300"
+          BACKUP_EVERY_SEC: "60"
         run: |
           chmod +x scripts/keepalive_azza.sh scripts/persist_azza.sh
           ./scripts/keepalive_azza.sh
