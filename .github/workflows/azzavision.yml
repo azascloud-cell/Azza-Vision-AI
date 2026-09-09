@@ -88,6 +88,7 @@ jobs:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GROQ_MODEL: ${{ secrets.GROQ_MODEL || 'llama-3.3-70b-versatile' }}
           GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN || secrets.GH_PAT }}
           GH_REPO: ${{ github.repository }}
           GH_REF: ${{ github.ref_name }}
           RUN_MINUTES: ${{ inputs.minutes || 350 }}
